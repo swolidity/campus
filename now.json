@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "name": "better",
+  "alias": "betterlms",
+  "builds": [
+    {
+      "src": "api/src/index.ts",
+      "use": "@now/node@canary",
+      "config": {
+        "maxLambdaSize": "25mb"
+      }
+    },
+    { "src": "www/package.json", "use": "@now/next" }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/src/index.ts"
+    },
+    { "src": "/(.*)", "dest": "/www/$1" }
+  ]
+}
