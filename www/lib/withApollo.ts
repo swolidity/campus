@@ -8,5 +8,8 @@ export default withApollo(
     new ApolloClient({
       uri: API_URL,
       cache: new InMemoryCache().restore(initialState || {})
-    })
+    }),
+  {
+    getDataFromTree: "always"
+  }
 );

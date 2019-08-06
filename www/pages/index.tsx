@@ -16,5 +16,9 @@ export default () => {
   const { loading, data } = useQuery(GET_USERS);
 
   console.log(data);
-  return <div>This is Better!</div>;
+  return (
+    <div>
+      <img height="35" src="/static/better@2x.png" alt="Better" />
+    </div>
+  );
 };
