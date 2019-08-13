@@ -16,6 +16,9 @@ const Query = objectType({
   definition(t) {
     t.crud.findOneUser();
     t.crud.findManyUser();
+
+    t.crud.findOneCourse();
+    t.crud.findManyCourse();
   }
 });
 
@@ -26,6 +29,11 @@ const Mutation = objectType({
     t.crud.updateOneUser();
     t.crud.deleteOneUser();
     t.crud.upsertOneUser();
+
+    t.crud.createOneCourse();
+    t.crud.updateOneCourse();
+    t.crud.deleteOneCourse();
+    t.crud.upsertOneCourse();
   }
 });
 
@@ -40,8 +48,20 @@ const User = objectType({
   }
 });
 
+const Course = objectType({
+  name: "Course",
+  definition(t) {
+    t.model.id();
+    t.model.name();
+    t.model.title();
+    t.model.users();
+    t.model.createdAt();
+    t.model.updatedAt();
+  }
+});
+
 const schema = makeSchema({
-  types: [Query, Mutation, User, nexusPrisma],
+  types: [Query, Mutation, User, Course, nexusPrisma],
   outputs: {
     typegen: join(__dirname, "../generated/nexus-typegen.ts"),
     schema: join(__dirname, "../generated/schema.graphql")

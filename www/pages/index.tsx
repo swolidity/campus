@@ -1,24 +1,30 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
-const GET_USERS = gql`
-  query getUsers {
-    findManyUser {
+const GET_COURSES = gql`
+  query getCourses {
+    findManyCourse {
       id
       name
-      email
+      title
       createdAt
+      updatedAt
     }
   }
 `;
 
 export default () => {
-  const { loading, data } = useQuery(GET_USERS);
+  const { loading, data } = useQuery(GET_COURSES);
 
-  console.log(data);
   return (
     <div>
       <img height="35" src="/static/better@2x.png" alt="Better" />
+
+      {data.findManyCourse.map(course => (
+        <div key-={course.id}>
+          <a href="#">{course.name}</a>
+        </div>
+      ))}
     </div>
   );
 };
