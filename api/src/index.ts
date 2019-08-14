@@ -67,9 +67,18 @@ const Mutation = objectType({
           throw Error("File not valid, must be a .csv file");
         }
         const buf = await readFS(createReadStream());
-        const json = await csv().fromString(buf.toString());
+        const roster = await csv().fromString(buf.toString());
 
-        console.log(json);
+        roster.map(async user => {
+          const newUser = await ctx.photon.users.create({
+            data: {
+              name: `${user["First Name"]} ${user.Last}`,
+              email: user.Email
+            }
+          });
+
+          console.log("newUser", newUser);
+        });
 
         return "woohooo!";
       }
