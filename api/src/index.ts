@@ -1,15 +1,32 @@
-import { ApolloServer } from "apollo-server";
+import { ApolloServer, GraphQLUpload } from "apollo-server";
 import Photon from "@generated/photon";
 import { nexusPrismaPlugin } from "@generated/nexus-prisma";
-import { makeSchema, objectType } from "@prisma/nexus";
+import { makeSchema, objectType, asNexusMethod, arg } from "@prisma/nexus";
 import { join } from "path";
 import { Context } from "./types";
+import csv from "csvtojson";
+
+const Upload = asNexusMethod(GraphQLUpload, "upload");
 
 const photon = new Photon();
 
 const nexusPrisma = nexusPrismaPlugin({
   photon: ctx => ctx.photon
 });
+
+const readFS = (stream: {
+  on: (
+    arg0: string,
+    arg1: (data: any) => number
+  ) => { on: (arg0: string, arg1: () => void) => void };
+}) => {
+  let chunkList: any[] | Uint8Array[] = [];
+  return new Promise((resolve, reject) =>
+    stream
+      .on("data", data => chunkList.push(data))
+      .on("end", () => resolve(Buffer.concat(chunkList)))
+  );
+};
 
 const Query = objectType({
   name: "Query",
@@ -34,6 +51,29 @@ const Mutation = objectType({
     t.crud.updateOneCourse();
     t.crud.deleteOneCourse();
     t.crud.upsertOneCourse();
+
+    t.field("uploadCourseRoster", {
+      type: "String",
+      args: {
+        file: arg({ type: "Upload" })
+      },
+      resolve: async (root, { file }, ctx) => {
+        const { createReadStream, filename, mimetype, encoding } = await file;
+        if (!filename) {
+          throw Error("Invalid file Stream");
+        }
+        const ext = filename.split(".").pop();
+        if (ext !== "csv") {
+          throw Error("File not valid, must be a .csv file");
+        }
+        const buf = await readFS(createReadStream());
+        const json = await csv().fromString(buf.toString());
+
+        console.log(json);
+
+        return "woohooo!";
+      }
+    });
   }
 });
 
@@ -61,7 +101,7 @@ const Course = objectType({
 });
 
 const schema = makeSchema({
-  types: [Query, Mutation, User, Course, nexusPrisma],
+  types: [Query, Mutation, User, Course, Upload, nexusPrisma],
   outputs: {
     typegen: join(__dirname, "../generated/nexus-typegen.ts"),
     schema: join(__dirname, "../generated/schema.graphql")
