@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import Layout from "../../components/Layout";
 
 const GET_COURSE = gql`
   query GET_COURSE($where: CourseWhereUniqueInput!) {
@@ -27,9 +28,9 @@ export default function Course() {
   console.log(data);
 
   return (
-    <div>
+    <Layout>
       <h1>{data.findOneCourse.name}</h1>
       <p>This is the course content.</p>
-    </div>
+    </Layout>
   );
 }

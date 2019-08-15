@@ -3,6 +3,7 @@ import { useQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { useDropzone } from "react-dropzone";
 import UploadCourseRoster from "../components/UploadCourseRoster";
+import Layout from "../components/Layout";
 
 const GET_COURSES = gql`
   query getCourses {
@@ -12,6 +13,11 @@ const GET_COURSES = gql`
       title
       createdAt
       updatedAt
+      students {
+        id
+        name
+        email
+      }
     }
   }
 `;
@@ -22,9 +28,7 @@ export default () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
-      <img height="35" src="/static/better@2x.png" alt="Better" />
-
+    <Layout>
       <UploadCourseRoster />
 
       {data.findManyCourse.map(course => (
@@ -32,6 +36,6 @@ export default () => {
           <a href="#">{course.name}</a>
         </div>
       ))}
-    </div>
+    </Layout>
   );
 };
