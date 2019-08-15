@@ -21,10 +21,15 @@ model User {
 }
 
 model Course {
-  id        String   @id @default(cuid())
-  name      String
-  title     String?
-  users     User[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id             String   @id @default(cuid())
+  name           String
+  title          String?
+  term           Int
+  subject        String
+  catalog_number Int
+  component      String
+  class_number   Int      @unique
+  users          User[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 }

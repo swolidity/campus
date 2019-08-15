@@ -69,16 +69,57 @@ const Mutation = objectType({
         const buf = await readFS(createReadStream());
         const roster = await csv().fromString(buf.toString());
 
-        roster.map(async user => {
-          const newUser = await ctx.photon.users.create({
-            data: {
-              name: `${user["First Name"]} ${user.Last}`,
-              email: user.Email
+        const resultsPromise = roster.map(async user => {
+          const newCourse = await ctx.photon.courses.upsert({
+            where: { class_number: parseInt(user["Class Nbr"]) },
+            update: {
+              name: `${user.Subject} ${user["Catalog Nbr"]} ${user.Component}`,
+              term: parseInt(user.Term),
+              subject: user.Subject,
+              catalog_number: parseInt(user["Catalog Nbr"]),
+              component: user.Component,
+              class_number: parseInt(user["Class Nbr"])
+            },
+            create: {
+              name: `${user.Subject} ${user["Catalog Nbr"]} ${user.Component}`,
+              term: parseInt(user.Term),
+              subject: user.Subject,
+              catalog_number: parseInt(user["Catalog Nbr"]),
+              component: user.Component,
+              class_number: parseInt(user["Class Nbr"])
             }
           });
 
-          console.log("newUser", newUser);
+          const newUser = await ctx.photon.users.upsert({
+            where: { email: user.Email },
+            update: {
+              name: `${user["First Name"]} ${user.Last}`,
+              email: user.Email,
+              courses: {
+                connect: [
+                  {
+                    id: newCourse.id
+                  }
+                ]
+              }
+            },
+            create: {
+              name: `${user["First Name"]} ${user.Last}`,
+              email: user.Email,
+              courses: {
+                connect: [
+                  {
+                    id: newCourse.id
+                  }
+                ]
+              }
+            }
+          });
+
+          console.log("newUser!", newUser);
         });
+
+        const results = await Promise.all(resultsPromise);
 
         return "woohooo!";
       }

@@ -9,6 +9,11 @@ const GET_COURSE = gql`
       id
       name
       title
+      users {
+        id
+        name
+        email
+      }
     }
   }
 `;
@@ -31,6 +36,14 @@ export default function Course() {
     <Layout>
       <h1>{data.findOneCourse.name}</h1>
       <p>This is the course content.</p>
+
+      <h3>{data.findOneCourse.users.length} users</h3>
+
+      <ul>
+        {data.findOneCourse.users.map(user => (
+          <li>{user.name}</li>
+        ))}
+      </ul>
     </Layout>
   );
 }

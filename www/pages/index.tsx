@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import { useDropzone } from "react-dropzone";
 import UploadCourseRoster from "../components/UploadCourseRoster";
 import Layout from "../components/Layout";
+import Link from "next/link";
 
 const GET_COURSES = gql`
   query getCourses {
@@ -13,11 +14,6 @@ const GET_COURSES = gql`
       title
       createdAt
       updatedAt
-      students {
-        id
-        name
-        email
-      }
     }
   }
 `;
@@ -31,9 +27,13 @@ export default () => {
     <Layout>
       <UploadCourseRoster />
 
+      <h2>Courses: {data.findManyCourse.length}</h2>
+
       {data.findManyCourse.map(course => (
         <div key={course.id}>
-          <a href="#">{course.name}</a>
+          <Link href="/courses/[id]" as={`/courses/${course.id}`}>
+            <a>{course.name}</a>
+          </Link>
         </div>
       ))}
     </Layout>
