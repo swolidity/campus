@@ -69,7 +69,7 @@ const Mutation = objectType({
         const buf = await readFS(createReadStream());
         const roster = await csv().fromString(buf.toString());
 
-        const resultsPromise = roster.map(async user => {
+        for (const user of roster) {
           const newCourse = await ctx.photon.courses.upsert({
             where: { class_number: parseInt(user["Class Nbr"]) },
             update: {
@@ -94,32 +94,37 @@ const Mutation = objectType({
             where: { email: user.Email },
             update: {
               name: `${user["First Name"]} ${user.Last}`,
-              email: user.Email,
-              courses: {
-                connect: [
-                  {
-                    id: newCourse.id
-                  }
-                ]
-              }
+              email: user.Email
             },
             create: {
               name: `${user["First Name"]} ${user.Last}`,
-              email: user.Email,
-              courses: {
-                connect: [
-                  {
-                    id: newCourse.id
-                  }
-                ]
-              }
+              email: user.Email
             }
           });
 
-          console.log("newUser!", newUser);
-        });
+          const userInCourse = await ctx.photon.users
+            .findOne({
+              where: { id: newUser.id }
+            })
+            .courses({
+              where: {
+                class_number: {
+                  equals: newCourse.class_number
+                }
+              }
+            });
 
-        const results = await Promise.all(resultsPromise);
+          if (userInCourse.length === 0) {
+            const linkCourse = await ctx.photon.users.update({
+              where: { id: newUser.id },
+              data: {
+                courses: {
+                  connect: { id: newCourse.id }
+                }
+              }
+            });
+          }
+        }
 
         return "woohooo!";
       }
@@ -144,6 +149,7 @@ const Course = objectType({
     t.model.id();
     t.model.name();
     t.model.title();
+    t.model.class_number();
     t.model.users();
     t.model.createdAt();
     t.model.updatedAt();

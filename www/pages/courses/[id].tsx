@@ -9,6 +9,7 @@ const GET_COURSE = gql`
       id
       name
       title
+      class_number
       users {
         id
         name
@@ -34,7 +35,9 @@ export default function Course() {
 
   return (
     <Layout>
-      <h1>{data.findOneCourse.name}</h1>
+      <h1>
+        {data.findOneCourse.name} {data.findOneCourse.class_number}
+      </h1>
       <p>This is the course content.</p>
 
       <h3>{data.findOneCourse.users.length} users</h3>

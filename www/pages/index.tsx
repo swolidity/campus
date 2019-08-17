@@ -12,6 +12,7 @@ const GET_COURSES = gql`
       id
       name
       title
+      class_number
       createdAt
       updatedAt
     }
@@ -32,7 +33,9 @@ export default () => {
       {data.findManyCourse.map(course => (
         <div key={course.id}>
           <Link href="/courses/[id]" as={`/courses/${course.id}`}>
-            <a>{course.name}</a>
+            <a>
+              {course.name} {course.class_number}
+            </a>
           </Link>
         </div>
       ))}

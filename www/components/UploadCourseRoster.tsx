@@ -10,12 +10,17 @@ const UPLOAD_COURSE_ROSTER = gql`
 `;
 
 export default () => {
-  const [uploadCourseRoster, { data }] = useMutation(UPLOAD_COURSE_ROSTER);
+  const [
+    uploadCourseRoster,
+    { data, loading: mutationLoading, error: mutationError }
+  ] = useMutation(UPLOAD_COURSE_ROSTER);
   const onDrop = useCallback(([file]) => {
     console.log(file);
     uploadCourseRoster({ variables: { file } });
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
+
+  if (mutationLoading) return <div>Uploading...</div>;
 
   return (
     <div {...getRootProps()}>
