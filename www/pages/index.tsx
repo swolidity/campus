@@ -26,19 +26,40 @@ export default () => {
 
   return (
     <Layout>
-      <UploadCourseRoster />
-
-      <h2>Courses: {data.findManyCourse.length}</h2>
+      <h1 className="page-title">My Courses</h1>
 
       {data.findManyCourse.map(course => (
-        <div key={course.id}>
+        <div key={course.id} className="course">
           <Link href="/courses/[id]" as={`/courses/${course.id}`}>
-            <a>
+            <a className="course-name">
               {course.name} {course.class_number}
             </a>
           </Link>
         </div>
       ))}
+
+      <style jsx>
+        {`
+          .page-title {
+            margin-bottom: 28px;
+          }
+          .course {
+            margin-bottom: 28px;
+            background: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            cursor: pointer;
+          }
+          .course:hover {
+            border: 1px solid blue;
+          }
+          .course-name {
+            color: #000;
+            font-weight: bold;
+            text-decoration: none;
+          }
+        `}
+      </style>
     </Layout>
   );
 };

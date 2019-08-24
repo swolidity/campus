@@ -14,12 +14,15 @@ const Layout = ({ children }) => {
         </Link>
       </div>
 
-      <main>{children}</main>
+      <div className="wrapper">
+        <main className="main">{children}</main>
+      </div>
 
       <style jsx>
         {`
           .header {
-            padding: 16px;
+            padding: 28px;
+            background: #fff;
           }
           .logo {
             text-decoration: none;
@@ -29,6 +32,18 @@ const Layout = ({ children }) => {
           }
           logo:visited: {
             color: black;
+          }
+          .wrapper {
+            background: #fafafa;
+            padding-top: 28px;
+            height: 100vh;
+            width: 100%;
+          }
+          .main {
+            max-width: 800px;
+            margin: 0 auto;
+            height: 100%;
+            width: 100%;
           }
         `}
       </style>
