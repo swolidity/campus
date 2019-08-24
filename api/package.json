@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "ts-node-dev --no-notify --respawn --transpileOnly ./src"
+    "start": "ts-node-dev --no-notify --respawn --transpileOnly ./src",
+    "postinstall": "prisma2 generate"
   },
   "keywords": [],
   "author": "",
