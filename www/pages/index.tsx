@@ -5,6 +5,7 @@ import { useDropzone } from "react-dropzone";
 import UploadCourseRoster from "../components/UploadCourseRoster";
 import Layout from "../components/Layout";
 import Link from "next/link";
+import withApollo from "../lib/withApollo";
 
 const GET_COURSES = gql`
   query getCourses {
@@ -19,8 +20,10 @@ const GET_COURSES = gql`
   }
 `;
 
-export default () => {
-  const { loading, data } = useQuery(GET_COURSES);
+const Index = () => {
+  const { loading, data, error } = useQuery(GET_COURSES);
+
+  if (error) return <div>Error...</div>;
 
   if (loading) return <div>Loading...</div>;
 
@@ -64,3 +67,5 @@ export default () => {
     </Layout>
   );
 };
+
+export default withApollo(Index);

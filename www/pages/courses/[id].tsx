@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Layout from "../../components/Layout";
+import withApollo from "../../lib/withApollo";
 
 const GET_COURSE = gql`
   query GET_COURSE($where: CourseWhereUniqueInput!) {
@@ -19,7 +20,7 @@ const GET_COURSE = gql`
   }
 `;
 
-export default function Course() {
+const Course = () => {
   const router = useRouter();
   const { loading, data } = useQuery(GET_COURSE, {
     variables: {
@@ -30,8 +31,6 @@ export default function Course() {
   });
 
   if (loading) return <div>Loading...</div>;
-
-  console.log(data);
 
   return (
     <Layout>
@@ -49,4 +48,6 @@ export default function Course() {
       </ul>
     </Layout>
   );
-}
+};
+
+export default withApollo(Course);
