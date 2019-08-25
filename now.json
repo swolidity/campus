@@ -5,6 +5,11 @@
   "env": {
     "MYSQL_URL": "@mysql-url"
   },
+  "build": {
+    "env": {
+      "MYSQL_URL": "@mysql-url"
+    }
+  },
   "builds": [
     {
       "src": "api/src/index.ts",
