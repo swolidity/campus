@@ -56,6 +56,10 @@ typings/
 
 # dotenv environment variables file
 .env
+.env.build
 
 # next.js build output
 .next
+
+# mac files
+.DS_store
