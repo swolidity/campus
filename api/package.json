@@ -18,6 +18,7 @@
     "graphql": "^14.4.2"
   },
   "devDependencies": {
+    "prisma2": "^2.0.0-preview-8",
     "ts-node-dev": "^1.0.0-pre.40",
     "typescript": "^3.5.3"
   }

@@ -2,6 +2,9 @@
   "version": 2,
   "name": "better",
   "alias": "betterlms.com",
+  "env": {
+    "MYSQL_URL": "@mysql-url"
+  },
   "builds": [
     {
       "src": "api/src/index.ts",
