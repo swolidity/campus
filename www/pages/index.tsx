@@ -46,7 +46,6 @@ export default () => {
           .course {
             margin-bottom: 28px;
             background: #fff;
-            padding: 20px;
             border-radius: 5px;
             cursor: pointer;
           }
@@ -54,6 +53,8 @@ export default () => {
             border: 1px solid blue;
           }
           .course-name {
+            padding: 20px;
+            display: block;
             color: #000;
             font-weight: bold;
             text-decoration: none;
