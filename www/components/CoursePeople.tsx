@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import AddPeopleToCourse from "./AddPeopleToCourse";
 
 const GET_COURSE_PEOPLE = gql`
   query GET_COURSE_PEOPLE($course_id: String!) {
@@ -27,11 +28,13 @@ export default function CoursePeople() {
       <div>
         This course is kind of lonely 😞. Hey, I know! Why not add some cool new
         people to it below?
+        <AddPeopleToCourse />
       </div>
     );
 
   return (
     <div>
+      <AddPeopleToCourse />
       {data.getCoursePeople.map(person => {
         return <div>{person.name}</div>;
       })}

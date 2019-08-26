@@ -15,7 +15,6 @@ export default () => {
     { data, loading: mutationLoading, error: mutationError }
   ] = useMutation(UPLOAD_COURSE_ROSTER);
   const onDrop = useCallback(([file]) => {
-    console.log(file);
     uploadCourseRoster({ variables: { file } });
   }, []);
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });

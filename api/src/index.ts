@@ -37,6 +37,20 @@ const Query = objectType({
     t.crud.findOneCourse();
     t.crud.findManyCourse();
 
+    t.list.field("usersNotInCourse", {
+      type: User,
+      args: {
+        name: arg({ type: "String" })
+      },
+      resolve: async (root, { name }, ctx) => {
+        console.log(name);
+
+        const users = await ctx.photon.users.findMany();
+
+        return users;
+      }
+    });
+
     t.list.field("getCoursePeople", {
       type: "User",
       args: {
@@ -50,9 +64,6 @@ const Query = objectType({
             }
           })
           .users();
-
-        console.log("COURSE_ID", course_id);
-        console.log("USERS", users);
 
         return users;
       }
