@@ -36,9 +36,6 @@ export default function CourseList() {
 
       <style jsx>
         {`
-          .page-title {
-            margin-bottom: 28px;
-          }
           .course {
             margin-bottom: 28px;
             background: #fff;

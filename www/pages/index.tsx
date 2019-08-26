@@ -8,6 +8,14 @@ const Index = () => {
       <h1 className="page-title">My Courses</h1>
 
       <CourseList />
+
+      <style jsx>
+        {`
+          .page-title {
+            margin-bottom: 28px;
+          }
+        `}
+      </style>
     </Layout>
   );
 };
