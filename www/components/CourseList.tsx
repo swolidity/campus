@@ -42,9 +42,6 @@ export default function CourseList() {
             border-radius: 5px;
             cursor: pointer;
           }
-          .course:hover {
-            border: 1px solid blue;
-          }
           .course-name {
             padding: 20px;
             display: block;
