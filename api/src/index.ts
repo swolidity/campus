@@ -37,6 +37,7 @@ const Query = objectType({
     t.crud.findOneCourse();
     t.crud.findManyCourse();
 
+    // TODO: return only users that are NOT in specified Course
     t.list.field("usersNotInCourse", {
       type: User,
       args: {
@@ -90,6 +91,28 @@ const Mutation = objectType({
     t.crud.updateOneCourse();
     t.crud.deleteOneCourse();
     t.crud.upsertOneCourse();
+
+    t.field("addUserToCourse", {
+      type: "User",
+      args: {
+        user_id: arg({ type: "ID" }),
+        course_id: arg({ type: "ID" })
+      },
+      resolve: async (root, { user_id, course_id }, ctx) => {
+        const user = await ctx.photon.users.update({
+          where: {
+            id: user_id
+          },
+          data: {
+            courses: {
+              connect: { id: course_id }
+            }
+          }
+        });
+
+        return user;
+      }
+    });
 
     t.field("uploadCourseRoster", {
       type: "String",

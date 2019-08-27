@@ -1,10 +1,13 @@
 import Layout from "../../components/Layout";
 import CreateCourse from "../../components/CreateCourse";
+import withApollo from "../../lib/withApollo";
 
-export default () => {
+const CreateCoursePage = () => {
   return (
     <Layout>
       <CreateCourse />
     </Layout>
   );
 };
+
+export default withApollo(CreateCoursePage);

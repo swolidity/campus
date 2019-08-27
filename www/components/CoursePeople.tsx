@@ -28,13 +28,13 @@ export default function CoursePeople() {
       <div>
         This course is kind of lonely 😞. Hey, I know! Why not add some cool new
         people to it below?
-        <AddPeopleToCourse />
+        <AddPeopleToCourse courseID={router.query.id} />
       </div>
     );
 
   return (
     <div>
-      <AddPeopleToCourse />
+      <AddPeopleToCourse courseID={router.query.id} />
       {data.getCoursePeople.map(person => {
         return <div>{person.name}</div>;
       })}

@@ -13,9 +13,22 @@ const GET_USERS_NOT_IN_COURSE = gql`
   }
 `;
 
-export default function AddPeopleToCourse() {
+const ADD_USER_TO_COURSE = gql`
+  mutation AddUserToCourse($user_id: ID!, $course_id: ID!) {
+    addUserToCourse(user_id: $user_id, course_id: $course_id) {
+      id
+      name
+      email
+    }
+  }
+`;
+
+export default function AddPeopleToCourse({ courseID }) {
   const [searchValue, setSearchValue] = useState("");
   const [getUsers, { loading, data }] = useLazyQuery(GET_USERS_NOT_IN_COURSE);
+  const [addUserToCourse, { data: mutationData }] = useMutation(
+    ADD_USER_TO_COURSE
+  );
 
   const onSearch = value => {
     setSearchValue(value);
@@ -27,14 +40,20 @@ export default function AddPeopleToCourse() {
     });
   };
 
-  console.log(data);
-
   return (
     <div className="add-people">
       <h2>Add People</h2>
 
       <Downshift
-        onChange={selection => console.log(selection)}
+        onChange={selection => {
+          console.log(selection);
+          addUserToCourse({
+            variables: {
+              user_id: selection.id,
+              course_id: courseID
+            }
+          });
+        }}
         onInputValueChange={onSearch}
         inputValue={searchValue}
       >
