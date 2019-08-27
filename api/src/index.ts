@@ -99,18 +99,32 @@ const Mutation = objectType({
         course_id: arg({ type: "ID" })
       },
       resolve: async (root, { user_id, course_id }, ctx) => {
-        const user = await ctx.photon.users.update({
-          where: {
-            id: user_id
-          },
-          data: {
-            courses: {
-              connect: { id: course_id }
+        const userInCourse = await ctx.photon.users
+          .findOne({
+            where: { id: user_id }
+          })
+          .courses({
+            where: {
+              id: course_id
             }
-          }
-        });
+          });
 
-        return user;
+        if (userInCourse.length === 0) {
+          const user = await ctx.photon.users.update({
+            where: {
+              id: user_id
+            },
+            data: {
+              courses: {
+                connect: { id: course_id }
+              }
+            }
+          });
+
+          return user;
+        }
+
+        return new Error("User already in course.");
       }
     });
 

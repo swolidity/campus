@@ -27,27 +27,27 @@ const ADD_USER_TO_COURSE = gql`
 export default function AddPeopleToCourse({ courseID }) {
   const [searchValue, setSearchValue] = useState("");
   const [getUsers, { loading, data }] = useLazyQuery(GET_USERS_NOT_IN_COURSE);
-  const [addUserToCourse, { data: mutationData }] = useMutation(
-    ADD_USER_TO_COURSE,
-    {
-      update(cache, { data: { addUserToCourse } }) {
-        const { getCoursePeople } = cache.readQuery({
-          query: GET_COURSE_PEOPLE,
-          variables: {
-            course_id: courseID
-          }
-        });
+  const [
+    addUserToCourse,
+    { data: mutationData, error: mutationError }
+  ] = useMutation(ADD_USER_TO_COURSE, {
+    update(cache, { data: { addUserToCourse } }) {
+      const { getCoursePeople } = cache.readQuery({
+        query: GET_COURSE_PEOPLE,
+        variables: {
+          course_id: courseID
+        }
+      });
 
-        cache.writeQuery({
-          query: GET_COURSE_PEOPLE,
-          variables: {
-            course_id: courseID
-          },
-          data: { getCoursePeople: getCoursePeople.concat([addUserToCourse]) }
-        });
-      }
+      cache.writeQuery({
+        query: GET_COURSE_PEOPLE,
+        variables: {
+          course_id: courseID
+        },
+        data: { getCoursePeople: getCoursePeople.concat([addUserToCourse]) }
+      });
     }
-  );
+  });
 
   const onSearch = value => {
     setSearchValue(value);
@@ -62,6 +62,8 @@ export default function AddPeopleToCourse({ courseID }) {
   return (
     <div className="add-people">
       <h2>Add People</h2>
+
+      <div>{mutationError ? mutationError.message : null}</div>
 
       <Downshift
         onChange={selection => {
