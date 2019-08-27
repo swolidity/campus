@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Downshift from "downshift";
-import UploadCourseRoster from "./UploadCourseRoster";
 
 const GET_USERS_NOT_IN_COURSE = gql`
   query UsersNotInCourse($name: String!) {
@@ -16,7 +15,6 @@ const GET_USERS_NOT_IN_COURSE = gql`
 
 export default function AddPeopleToCourse() {
   const [searchValue, setSearchValue] = useState("");
-  const [people, setPeople] = useState([]);
   const [getUsers, { loading, data }] = useLazyQuery(GET_USERS_NOT_IN_COURSE);
 
   const onSearch = value => {
@@ -29,25 +27,25 @@ export default function AddPeopleToCourse() {
     });
   };
 
-  return (
-    <div>
-      <h2>Add People</h2>
+  console.log(data);
 
-      <UploadCourseRoster />
+  return (
+    <div className="add-people">
+      <h2>Add People</h2>
 
       <Downshift
         onChange={selection => console.log(selection)}
         onInputValueChange={onSearch}
         inputValue={searchValue}
       >
-        {({ getInputProps, getItemProps, getLabelProps, isOpen }) => (
+        {({ getInputProps, getItemProps, getLabelProps }) => (
           <div>
             <label {...getLabelProps()}>Search for people to add</label>
             <input {...getInputProps()} />
 
-            <ul>
-              {isOpen
-                ? people.map((person, index) => (
+            <ul className="search-results">
+              {data && data.usersNotInCourse
+                ? data.usersNotInCourse.map((person, index) => (
                     <li
                       {...getItemProps({
                         key: person.id,
@@ -63,6 +61,20 @@ export default function AddPeopleToCourse() {
           </div>
         )}
       </Downshift>
+
+      <style jsx>
+        {`
+          .add-people {
+            margin-bottom: 28px;
+          }
+          .search-results {
+            list-style: none;
+          }
+          .search-results li {
+            cursor: pointer;
+          }
+        `}
+      </style>
     </div>
   );
 }

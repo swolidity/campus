@@ -45,7 +45,14 @@ const Query = objectType({
       resolve: async (root, { name }, ctx) => {
         console.log(name);
 
-        const users = await ctx.photon.users.findMany();
+        const users = await ctx.photon.users.findMany({
+          first: 10,
+          where: {
+            name: {
+              contains: name
+            }
+          }
+        });
 
         return users;
       }
