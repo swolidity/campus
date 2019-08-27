@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Downshift from "downshift";
+import { GET_COURSE_PEOPLE } from "./CoursePeople";
 
 const GET_USERS_NOT_IN_COURSE = gql`
   query UsersNotInCourse($name: String!) {
@@ -27,7 +28,25 @@ export default function AddPeopleToCourse({ courseID }) {
   const [searchValue, setSearchValue] = useState("");
   const [getUsers, { loading, data }] = useLazyQuery(GET_USERS_NOT_IN_COURSE);
   const [addUserToCourse, { data: mutationData }] = useMutation(
-    ADD_USER_TO_COURSE
+    ADD_USER_TO_COURSE,
+    {
+      update(cache, { data: { addUserToCourse } }) {
+        const { getCoursePeople } = cache.readQuery({
+          query: GET_COURSE_PEOPLE,
+          variables: {
+            course_id: courseID
+          }
+        });
+
+        cache.writeQuery({
+          query: GET_COURSE_PEOPLE,
+          variables: {
+            course_id: courseID
+          },
+          data: { getCoursePeople: getCoursePeople.concat([addUserToCourse]) }
+        });
+      }
+    }
   );
 
   const onSearch = value => {

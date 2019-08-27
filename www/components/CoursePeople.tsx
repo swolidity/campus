@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import AddPeopleToCourse from "./AddPeopleToCourse";
 
-const GET_COURSE_PEOPLE = gql`
+export const GET_COURSE_PEOPLE = gql`
   query GET_COURSE_PEOPLE($course_id: String!) {
     getCoursePeople(course_id: $course_id) {
       id
