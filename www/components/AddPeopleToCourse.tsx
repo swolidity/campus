@@ -67,7 +67,6 @@ export default function AddPeopleToCourse({ courseID }) {
 
       <Downshift
         onChange={selection => {
-          console.log(selection);
           addUserToCourse({
             variables: {
               user_id: selection.id,
