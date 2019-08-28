@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import CourseHeader from "./CourseHeader";
+import CourseMessage from "./CourseMessage";
 
 const GET_COURSE = gql`
   query GET_COURSE($where: CourseWhereUniqueInput!) {
@@ -35,13 +36,7 @@ export default function Course() {
     <div>
       <CourseHeader course={data.findOneCourse} />
 
-      <h3>{data.findOneCourse.users.length} users</h3>
-
-      <ul>
-        {data.findOneCourse.users.map(user => (
-          <li>{user.name}</li>
-        ))}
-      </ul>
+      <CourseMessage courseID={router.query.id} />
     </div>
   );
 }

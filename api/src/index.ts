@@ -128,6 +128,23 @@ const Mutation = objectType({
       }
     });
 
+    t.field("createCourseMessage", {
+      type: CourseMessage,
+      args: {
+        course_id: arg({ type: "ID" }),
+        message: arg({ type: "String" })
+      },
+      resolve: async (root, { message, course_id }, ctx) => {
+        return await ctx.photon.courseMessages.create({
+          data: {
+            course: { connect: { id: course_id } },
+            user: { connect: { id: "cjzu824n40000pnaxevymrs6l" } },
+            message
+          }
+        });
+      }
+    });
+
     t.field("uploadCourseRoster", {
       type: "String",
       args: {
@@ -232,8 +249,20 @@ const Course = objectType({
   }
 });
 
+const CourseMessage = objectType({
+  name: "CourseMessage",
+  definition(t) {
+    t.model.id();
+    t.model.message();
+    t.model.course();
+    t.model.user();
+    t.model.createdAt();
+    t.model.updatedAt();
+  }
+});
+
 const schema = makeSchema({
-  types: [Query, Mutation, User, Course, Upload, nexusPrisma],
+  types: [Query, Mutation, User, Course, CourseMessage, Upload, nexusPrisma],
   outputs: {
     typegen: join(__dirname, "../generated/nexus-typegen.ts"),
     schema: join(__dirname, "../generated/schema.graphql")
