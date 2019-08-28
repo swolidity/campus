@@ -2,7 +2,16 @@ import { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Downshift from "downshift";
-import { GET_COURSE_PEOPLE } from "./CoursePeople";
+
+export const GET_COURSE_PEOPLE = gql`
+  query GET_COURSE_PEOPLE($course_id: String!) {
+    getCoursePeople(course_id: $course_id) {
+      id
+      name
+      email
+    }
+  }
+`;
 
 const GET_USERS_NOT_IN_COURSE = gql`
   query UsersNotInCourse($name: String!) {
