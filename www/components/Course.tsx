@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import CourseHeader from "./CourseHeader";
 import CourseMessage from "./CourseMessage";
+import CourseMessageList from "./CourseMessageList";
 
 const GET_COURSE = gql`
   query GET_COURSE($where: CourseWhereUniqueInput!) {
@@ -37,6 +38,7 @@ export default function Course() {
       <CourseHeader course={data.findOneCourse} />
 
       <CourseMessage courseID={router.query.id} />
+      <CourseMessageList courseID={router.query.id} />
     </div>
   );
 }

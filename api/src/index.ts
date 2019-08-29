@@ -37,6 +37,9 @@ const Query = objectType({
     t.crud.findOneCourse();
     t.crud.findManyCourse();
 
+    t.crud.findOneCourseMessage();
+    t.crud.findManyCourseMessage();
+
     // TODO: return only users that are NOT in specified Course
     t.list.field("usersNotInCourse", {
       type: User,
@@ -74,6 +77,22 @@ const Query = objectType({
           .users();
 
         return users;
+      }
+    });
+
+    t.list.field("getCourseMessages", {
+      type: "CourseMessage",
+      args: {
+        course_id: arg({ type: "ID" })
+      },
+      resolve: async (root, { course_id }, ctx) => {
+        return await ctx.photon.courseMessages.findMany({
+          where: {
+            course: {
+              id: course_id
+            }
+          }
+        });
       }
     });
   }
