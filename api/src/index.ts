@@ -157,7 +157,7 @@ const Mutation = objectType({
         return await ctx.photon.courseMessages.create({
           data: {
             course: { connect: { id: course_id } },
-            user: { connect: { id: "cjzw8d7lc000373mwlozzrhoc" } },
+            user: { connect: { id: "cjzwcb3k10000bnmwgxz5l65v" } },
             message
           }
         });

@@ -1,5 +1,5 @@
 {
-  "version": "0.2.2",
+  "version": "0.2.7",
   "steps": [
     {
       "stepType": "CreateModel",
@@ -9,6 +9,11 @@
     {
       "stepType": "CreateModel",
       "name": "Course",
+      "embedded": false
+    },
+    {
+      "stepType": "CreateModel",
+      "name": "CourseMessage",
       "embedded": false
     },
     {
@@ -63,6 +68,23 @@
             "id"
           ],
           "name": "CourseToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "course_messages",
+      "type": {
+        "Relation": {
+          "to": "CourseMessage",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CourseMessageToUser",
           "on_delete": "None"
         }
       },
@@ -207,6 +229,21 @@
     {
       "stepType": "CreateField",
       "model": "Course",
+      "name": "messages",
+      "type": {
+        "Relation": {
+          "to": "CourseMessage",
+          "to_fields": [],
+          "name": "CourseToCourseMessage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Course",
       "name": "createdAt",
       "type": {
         "Base": "DateTime"
@@ -224,6 +261,98 @@
     {
       "stepType": "CreateField",
       "model": "Course",
+      "name": "updatedAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CourseMessage",
+      "name": "id",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "id": {
+        "strategy": "Auto",
+        "sequence": null
+      },
+      "default": {
+        "Expression": [
+          "cuid",
+          "String",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CourseMessage",
+      "name": "course",
+      "type": {
+        "Relation": {
+          "to": "Course",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CourseToCourseMessage",
+          "on_delete": "None"
+        }
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CourseMessage",
+      "name": "user",
+      "type": {
+        "Relation": {
+          "to": "User",
+          "to_fields": [
+            "id"
+          ],
+          "name": "CourseMessageToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CourseMessage",
+      "name": "message",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CourseMessage",
+      "name": "createdAt",
+      "type": {
+        "Base": "DateTime"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "Expression": [
+          "now",
+          "DateTime",
+          []
+        ]
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "CourseMessage",
       "name": "updatedAt",
       "type": {
         "Base": "DateTime"
