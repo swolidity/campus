@@ -35,7 +35,8 @@
     "react": "^16.9.0",
     "react-apollo": "^3.0.1",
     "react-dom": "^16.9.0",
-    "react-dropzone": "^10.1.7"
+    "react-dropzone": "^10.1.7",
+    "react-google-login": "^5.0.5"
   },
   "devDependencies": {
     "@types/node": "^12.7.2",

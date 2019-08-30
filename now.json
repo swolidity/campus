@@ -3,7 +3,8 @@
   "name": "Campus",
   "alias": "usecampus.com",
   "env": {
-    "MYSQL_URL": "@mysql-url"
+    "MYSQL_URL": "@mysql-url",
+    "GOOGLE_REDIRECT_URI": "https://usecampus.com/login"
   },
   "build": {
     "env": {
