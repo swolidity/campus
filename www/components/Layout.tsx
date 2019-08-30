@@ -8,9 +8,7 @@ const Layout = ({ children }) => {
 
       <div className="header">
         <Link href="/">
-          <a className="logo">
-            <img height="35" src="/static/better@2x.png" alt="Better" />
-          </a>
+          <a className="logo">Campus</a>
         </Link>
       </div>
 

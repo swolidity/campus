@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "name": "better",
-  "alias": "betterlms.com",
+  "name": "Campus",
+  "alias": "usecampus.com",
   "env": {
     "MYSQL_URL": "@mysql-url"
   },

@@ -3,7 +3,7 @@ import Head from "next/head";
 export default () => (
   <div>
     <Head>
-      <title>Better LMS</title>
+      <title>Campus</title>
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta charSet="utf-8" />
 
