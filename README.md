@@ -1,1 +1,1 @@
-# better
+# 🏫 Campus

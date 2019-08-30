@@ -1,6 +1,8 @@
 import Layout from "../components/Layout";
 import withApollo from "../lib/withApollo";
 import CourseList from "../components/CourseList";
+import checkLoggedIn from "../lib/checkLoggedIn";
+import redirect from "../lib/redirect";
 
 const Index = () => {
   return (
@@ -18,6 +20,16 @@ const Index = () => {
       </style>
     </Layout>
   );
+};
+
+Index.getInitialProps = async context => {
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
+
+  if (!loggedInUser.user) {
+    redirect(context, "login");
+  }
+
+  return { loggedInUser };
 };
 
 export default withApollo(Index);

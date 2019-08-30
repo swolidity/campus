@@ -18,7 +18,7 @@ const GET_COURSES = gql`
 export default function CourseList() {
   const { loading, data, error } = useQuery(GET_COURSES);
 
-  if (error) return <div>Error...</div>;
+  if (error) return <div>{error.message}</div>;
 
   if (loading) return <div>Loading...</div>;
 

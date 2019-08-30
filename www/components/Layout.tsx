@@ -8,7 +8,9 @@ const Layout = ({ children }) => {
 
       <div className="header">
         <Link href="/">
-          <a className="logo">Campus</a>
+          <a className="logo">
+            <img height="45px" src="/static/campus@2x.png" alt="Campus" />
+          </a>
         </Link>
       </div>
 
@@ -19,7 +21,7 @@ const Layout = ({ children }) => {
       <style jsx>
         {`
           .header {
-            padding: 28px;
+            padding: 16px 28px;
             background: #fff;
           }
           .logo {
