@@ -4,7 +4,8 @@ import CourseList from "../components/CourseList";
 import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
 
-const Index = () => {
+const Index = ({ loggedInUser }) => {
+  console.log(loggedInUser);
   return (
     <Layout>
       <h1 className="page-title">My Courses</h1>
@@ -26,7 +27,7 @@ Index.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
   if (!loggedInUser.user) {
-    redirect(context, "login");
+    redirect(context, "/login");
   }
 
   return { loggedInUser };

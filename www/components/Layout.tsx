@@ -23,6 +23,7 @@ const Layout = ({ children }) => {
           .header {
             padding: 16px 28px;
             background: #fff;
+            border-bottom: 2px solid #fafafa;
           }
           .logo {
             text-decoration: none;
@@ -34,7 +35,6 @@ const Layout = ({ children }) => {
             color: black;
           }
           .wrapper {
-            background: #fafafa;
             padding-top: 28px;
             height: 100vh;
             width: 100%;
