@@ -32,7 +32,7 @@ export default function CourseMessageList({ courseID }) {
   return (
     <div>
       {data.getCourseMessages.map(courseMessage => (
-        <div>{courseMessage.message}</div>
+        <div key={courseMessage.id}>{courseMessage.message}</div>
       ))}
     </div>
   );
