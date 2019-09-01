@@ -6,9 +6,14 @@
 import * as ctx from "../src/types"
 import * as photon from "@generated/photon"
 import { core } from "nexus"
-
+declare global {
+  interface NexusGenCustomInputMethods<TypeName extends string> {
+    upload<FieldName extends string>(fieldName: FieldName, opts?: core.ScalarInputFieldConfig<core.GetGen3<"inputTypes", TypeName, FieldName>>): void // "Upload";
+  }
+}
 declare global {
   interface NexusGenCustomOutputMethods<TypeName extends string> {
+    upload<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Upload";
     crud: NexusPrisma<TypeName, 'crud'>
     model: NexusPrisma<TypeName, 'model'>
   }
@@ -19,7 +24,335 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CourseCreateInput: { // input type
+    catalog_number: number; // Int!
+    class_number: number; // Int!
+    component: string; // String!
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    messages?: NexusGenInputs['CourseMessageCreateManyWithoutMessagesInput'] | null; // CourseMessageCreateManyWithoutMessagesInput
+    name: string; // String!
+    subject: string; // String!
+    term: number; // Int!
+    title?: string | null; // String
+    updatedAt?: any | null; // DateTime
+    users?: NexusGenInputs['UserCreateManyWithoutUsersInput'] | null; // UserCreateManyWithoutUsersInput
+  }
+  CourseCreateManyWithoutCoursesInput: { // input type
+    connect?: NexusGenInputs['CourseWhereUniqueInput'][] | null; // [CourseWhereUniqueInput!]
+    create?: NexusGenInputs['CourseCreateWithoutUsersInput'][] | null; // [CourseCreateWithoutUsersInput!]
+  }
+  CourseCreateOneWithoutCourseInput: { // input type
+    connect?: NexusGenInputs['CourseWhereUniqueInput'] | null; // CourseWhereUniqueInput
+    create?: NexusGenInputs['CourseCreateWithoutMessagesInput'] | null; // CourseCreateWithoutMessagesInput
+  }
+  CourseCreateWithoutMessagesInput: { // input type
+    catalog_number: number; // Int!
+    class_number: number; // Int!
+    component: string; // String!
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    name: string; // String!
+    subject: string; // String!
+    term: number; // Int!
+    title?: string | null; // String
+    updatedAt?: any | null; // DateTime
+    users?: NexusGenInputs['UserCreateManyWithoutUsersInput'] | null; // UserCreateManyWithoutUsersInput
+  }
+  CourseCreateWithoutUsersInput: { // input type
+    catalog_number: number; // Int!
+    class_number: number; // Int!
+    component: string; // String!
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    messages?: NexusGenInputs['CourseMessageCreateManyWithoutMessagesInput'] | null; // CourseMessageCreateManyWithoutMessagesInput
+    name: string; // String!
+    subject: string; // String!
+    term: number; // Int!
+    title?: string | null; // String
+    updatedAt?: any | null; // DateTime
+  }
+  CourseMessageCreateManyWithoutCourse_messagesInput: { // input type
+    connect?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    create?: NexusGenInputs['CourseMessageCreateWithoutUserInput'][] | null; // [CourseMessageCreateWithoutUserInput!]
+  }
+  CourseMessageCreateManyWithoutMessagesInput: { // input type
+    connect?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    create?: NexusGenInputs['CourseMessageCreateWithoutCourseInput'][] | null; // [CourseMessageCreateWithoutCourseInput!]
+  }
+  CourseMessageCreateWithoutCourseInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    message: string; // String!
+    updatedAt?: any | null; // DateTime
+    user?: NexusGenInputs['UserCreateManyWithoutUserInput'] | null; // UserCreateManyWithoutUserInput
+  }
+  CourseMessageCreateWithoutUserInput: { // input type
+    course: NexusGenInputs['CourseCreateOneWithoutCourseInput']; // CourseCreateOneWithoutCourseInput!
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    message: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  CourseMessageUpdateManyDataInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    message?: string | null; // String
+    updatedAt?: any | null; // DateTime
+  }
+  CourseMessageUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['CourseMessageUpdateManyDataInput']; // CourseMessageUpdateManyDataInput!
+    where: NexusGenInputs['MutationUpdateOneUserWhereInput']; // MutationUpdateOneUserWhereInput!
+  }
+  CourseMessageUpdateManyWithoutCourseInput: { // input type
+    connect?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    create?: NexusGenInputs['CourseMessageCreateWithoutCourseInput'][] | null; // [CourseMessageCreateWithoutCourseInput!]
+    delete?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['MutationUpdateOneCourseWhereInput'][] | null; // [MutationUpdateOneCourseWhereInput!]
+    disconnect?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    set?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    update?: NexusGenInputs['CourseMessageUpdateWithWhereUniqueWithoutCourseInput'][] | null; // [CourseMessageUpdateWithWhereUniqueWithoutCourseInput!]
+    updateMany?: NexusGenInputs['CourseMessageUpdateManyWithWhereNestedInput'][] | null; // [CourseMessageUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['CourseMessageUpsertWithWhereUniqueWithoutCourseInput'][] | null; // [CourseMessageUpsertWithWhereUniqueWithoutCourseInput!]
+  }
+  CourseMessageUpdateManyWithoutUserInput: { // input type
+    connect?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    create?: NexusGenInputs['CourseMessageCreateWithoutUserInput'][] | null; // [CourseMessageCreateWithoutUserInput!]
+    delete?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['MutationUpdateOneUserWhereInput'][] | null; // [MutationUpdateOneUserWhereInput!]
+    disconnect?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    set?: NexusGenInputs['CourseMessageWhereUniqueInput'][] | null; // [CourseMessageWhereUniqueInput!]
+    update?: NexusGenInputs['CourseMessageUpdateWithWhereUniqueWithoutUserInput'][] | null; // [CourseMessageUpdateWithWhereUniqueWithoutUserInput!]
+    updateMany?: NexusGenInputs['CourseMessageUpdateManyWithWhereNestedInput'][] | null; // [CourseMessageUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['CourseMessageUpsertWithWhereUniqueWithoutUserInput'][] | null; // [CourseMessageUpsertWithWhereUniqueWithoutUserInput!]
+  }
+  CourseMessageUpdateWithWhereUniqueWithoutCourseInput: { // input type
+    data: NexusGenInputs['CourseMessageUpdateWithoutCourseDataInput']; // CourseMessageUpdateWithoutCourseDataInput!
+    where: NexusGenInputs['CourseMessageWhereUniqueInput']; // CourseMessageWhereUniqueInput!
+  }
+  CourseMessageUpdateWithWhereUniqueWithoutUserInput: { // input type
+    data: NexusGenInputs['CourseMessageUpdateWithoutUserDataInput']; // CourseMessageUpdateWithoutUserDataInput!
+    where: NexusGenInputs['CourseMessageWhereUniqueInput']; // CourseMessageWhereUniqueInput!
+  }
+  CourseMessageUpdateWithoutCourseDataInput: { // input type
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    message?: string | null; // String
+    updatedAt?: any | null; // DateTime
+    user?: NexusGenInputs['UserUpdateManyWithoutCourse_messagesInput'] | null; // UserUpdateManyWithoutCourse_messagesInput
+  }
+  CourseMessageUpdateWithoutUserDataInput: { // input type
+    course?: NexusGenInputs['CourseUpdateOneRequiredWithoutMessagesInput'] | null; // CourseUpdateOneRequiredWithoutMessagesInput
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    message?: string | null; // String
+    updatedAt?: any | null; // DateTime
+  }
+  CourseMessageUpsertWithWhereUniqueWithoutCourseInput: { // input type
+    create: NexusGenInputs['CourseMessageCreateWithoutCourseInput']; // CourseMessageCreateWithoutCourseInput!
+    update: NexusGenInputs['CourseMessageUpdateWithoutCourseDataInput']; // CourseMessageUpdateWithoutCourseDataInput!
+    where: NexusGenInputs['CourseMessageWhereUniqueInput']; // CourseMessageWhereUniqueInput!
+  }
+  CourseMessageUpsertWithWhereUniqueWithoutUserInput: { // input type
+    create: NexusGenInputs['CourseMessageCreateWithoutUserInput']; // CourseMessageCreateWithoutUserInput!
+    update: NexusGenInputs['CourseMessageUpdateWithoutUserDataInput']; // CourseMessageUpdateWithoutUserDataInput!
+    where: NexusGenInputs['CourseMessageWhereUniqueInput']; // CourseMessageWhereUniqueInput!
+  }
+  CourseMessageWhereUniqueInput: { // input type
+    id?: string | null; // ID
+  }
+  CourseUpdateInput: { // input type
+    catalog_number?: number | null; // Int
+    class_number?: number | null; // Int
+    component?: string | null; // String
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    messages?: NexusGenInputs['CourseMessageUpdateManyWithoutCourseInput'] | null; // CourseMessageUpdateManyWithoutCourseInput
+    name?: string | null; // String
+    subject?: string | null; // String
+    term?: number | null; // Int
+    title?: string | null; // String
+    updatedAt?: any | null; // DateTime
+    users?: NexusGenInputs['UserUpdateManyWithoutCoursesInput'] | null; // UserUpdateManyWithoutCoursesInput
+  }
+  CourseUpdateManyDataInput: { // input type
+    catalog_number?: number | null; // Int
+    class_number?: number | null; // Int
+    component?: string | null; // String
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    name?: string | null; // String
+    subject?: string | null; // String
+    term?: number | null; // Int
+    title?: string | null; // String
+    updatedAt?: any | null; // DateTime
+  }
+  CourseUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['CourseUpdateManyDataInput']; // CourseUpdateManyDataInput!
+    where: NexusGenInputs['MutationUpdateOneUserWhereInput']; // MutationUpdateOneUserWhereInput!
+  }
+  CourseUpdateManyWithoutUsersInput: { // input type
+    connect?: NexusGenInputs['CourseWhereUniqueInput'][] | null; // [CourseWhereUniqueInput!]
+    create?: NexusGenInputs['CourseCreateWithoutUsersInput'][] | null; // [CourseCreateWithoutUsersInput!]
+    delete?: NexusGenInputs['CourseWhereUniqueInput'][] | null; // [CourseWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['MutationUpdateOneUserWhereInput'][] | null; // [MutationUpdateOneUserWhereInput!]
+    disconnect?: NexusGenInputs['CourseWhereUniqueInput'][] | null; // [CourseWhereUniqueInput!]
+    set?: NexusGenInputs['CourseWhereUniqueInput'][] | null; // [CourseWhereUniqueInput!]
+    update?: NexusGenInputs['CourseUpdateWithWhereUniqueWithoutUsersInput'][] | null; // [CourseUpdateWithWhereUniqueWithoutUsersInput!]
+    updateMany?: NexusGenInputs['CourseUpdateManyWithWhereNestedInput'][] | null; // [CourseUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['CourseUpsertWithWhereUniqueWithoutUsersInput'][] | null; // [CourseUpsertWithWhereUniqueWithoutUsersInput!]
+  }
+  CourseUpdateOneRequiredWithoutMessagesInput: { // input type
+    connect?: NexusGenInputs['CourseWhereUniqueInput'] | null; // CourseWhereUniqueInput
+    create?: NexusGenInputs['CourseCreateWithoutMessagesInput'] | null; // CourseCreateWithoutMessagesInput
+    update?: NexusGenInputs['CourseUpdateWithoutMessagesDataInput'] | null; // CourseUpdateWithoutMessagesDataInput
+    upsert?: NexusGenInputs['CourseUpsertWithoutMessagesInput'] | null; // CourseUpsertWithoutMessagesInput
+  }
+  CourseUpdateWithWhereUniqueWithoutUsersInput: { // input type
+    data: NexusGenInputs['CourseUpdateWithoutUsersDataInput']; // CourseUpdateWithoutUsersDataInput!
+    where: NexusGenInputs['CourseWhereUniqueInput']; // CourseWhereUniqueInput!
+  }
+  CourseUpdateWithoutMessagesDataInput: { // input type
+    catalog_number?: number | null; // Int
+    class_number?: number | null; // Int
+    component?: string | null; // String
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    name?: string | null; // String
+    subject?: string | null; // String
+    term?: number | null; // Int
+    title?: string | null; // String
+    updatedAt?: any | null; // DateTime
+    users?: NexusGenInputs['UserUpdateManyWithoutCoursesInput'] | null; // UserUpdateManyWithoutCoursesInput
+  }
+  CourseUpdateWithoutUsersDataInput: { // input type
+    catalog_number?: number | null; // Int
+    class_number?: number | null; // Int
+    component?: string | null; // String
+    createdAt?: any | null; // DateTime
+    id?: string | null; // ID
+    messages?: NexusGenInputs['CourseMessageUpdateManyWithoutCourseInput'] | null; // CourseMessageUpdateManyWithoutCourseInput
+    name?: string | null; // String
+    subject?: string | null; // String
+    term?: number | null; // Int
+    title?: string | null; // String
+    updatedAt?: any | null; // DateTime
+  }
+  CourseUpsertWithWhereUniqueWithoutUsersInput: { // input type
+    create: NexusGenInputs['CourseCreateWithoutUsersInput']; // CourseCreateWithoutUsersInput!
+    update: NexusGenInputs['CourseUpdateWithoutUsersDataInput']; // CourseUpdateWithoutUsersDataInput!
+    where: NexusGenInputs['CourseWhereUniqueInput']; // CourseWhereUniqueInput!
+  }
+  CourseUpsertWithoutMessagesInput: { // input type
+    create: NexusGenInputs['CourseCreateWithoutMessagesInput']; // CourseCreateWithoutMessagesInput!
+    update: NexusGenInputs['CourseUpdateWithoutMessagesDataInput']; // CourseUpdateWithoutMessagesDataInput!
+  }
+  CourseWhereUniqueInput: { // input type
+    class_number?: number | null; // Int
+    id?: string | null; // ID
+  }
+  IntFilter: { // input type
+    equals?: number | null; // Int
+    gt?: number | null; // Int
+    gte?: number | null; // Int
+    in?: number[] | null; // [Int!]
+    lt?: number | null; // Int
+    lte?: number | null; // Int
+    not?: number | null; // Int
+    notIn?: number[] | null; // [Int!]
+  }
+  MutationUpdateOneCourseFilter: { // input type
+    every?: NexusGenInputs['MutationUpdateOneCourseWhereInput'] | null; // MutationUpdateOneCourseWhereInput
+    none?: NexusGenInputs['MutationUpdateOneCourseWhereInput'] | null; // MutationUpdateOneCourseWhereInput
+    some?: NexusGenInputs['MutationUpdateOneCourseWhereInput'] | null; // MutationUpdateOneCourseWhereInput
+  }
+  MutationUpdateOneCourseWhereInput: { // input type
+    AND?: NexusGenInputs['MutationUpdateOneCourseWhereInput'][] | null; // [MutationUpdateOneCourseWhereInput!]
+    course_messages?: NexusGenInputs['MutationUpdateOneCourseFilter'] | null; // MutationUpdateOneCourseFilter
+    courses?: NexusGenInputs['MutationUpdateOneCourseFilter'] | null; // MutationUpdateOneCourseFilter
+    createdAt?: NexusGenInputs['MutationUpdateOneCourseFilter'] | null; // MutationUpdateOneCourseFilter
+    email?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['MutationUpdateOneCourseWhereInput'][] | null; // [MutationUpdateOneCourseWhereInput!]
+    OR?: NexusGenInputs['MutationUpdateOneCourseWhereInput'][] | null; // [MutationUpdateOneCourseWhereInput!]
+    updatedAt?: NexusGenInputs['MutationUpdateOneCourseFilter'] | null; // MutationUpdateOneCourseFilter
+  }
+  MutationUpdateOneUserFilter: { // input type
+    every?: NexusGenInputs['MutationUpdateOneUserWhereInput'] | null; // MutationUpdateOneUserWhereInput
+    none?: NexusGenInputs['MutationUpdateOneUserWhereInput'] | null; // MutationUpdateOneUserWhereInput
+    some?: NexusGenInputs['MutationUpdateOneUserWhereInput'] | null; // MutationUpdateOneUserWhereInput
+  }
+  MutationUpdateOneUserWhereInput: { // input type
+    AND?: NexusGenInputs['MutationUpdateOneUserWhereInput'][] | null; // [MutationUpdateOneUserWhereInput!]
+    catalog_number?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    class_number?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    component?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    createdAt?: NexusGenInputs['MutationUpdateOneUserFilter'] | null; // MutationUpdateOneUserFilter
+    id?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    messages?: NexusGenInputs['MutationUpdateOneUserFilter'] | null; // MutationUpdateOneUserFilter
+    name?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    NOT?: NexusGenInputs['MutationUpdateOneUserWhereInput'][] | null; // [MutationUpdateOneUserWhereInput!]
+    OR?: NexusGenInputs['MutationUpdateOneUserWhereInput'][] | null; // [MutationUpdateOneUserWhereInput!]
+    subject?: NexusGenInputs['StringFilter'] | null; // StringFilter
+    term?: NexusGenInputs['IntFilter'] | null; // IntFilter
+    title?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
+    updatedAt?: NexusGenInputs['MutationUpdateOneUserFilter'] | null; // MutationUpdateOneUserFilter
+    users?: NexusGenInputs['MutationUpdateOneUserFilter'] | null; // MutationUpdateOneUserFilter
+  }
+  NullableStringFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    not?: string | null; // String
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
+  StringFilter: { // input type
+    contains?: string | null; // String
+    endsWith?: string | null; // String
+    equals?: string | null; // String
+    gt?: string | null; // String
+    gte?: string | null; // String
+    in?: string[] | null; // [String!]
+    lt?: string | null; // String
+    lte?: string | null; // String
+    not?: string | null; // String
+    notIn?: string[] | null; // [String!]
+    startsWith?: string | null; // String
+  }
   UserCreateInput: { // input type
+    course_messages?: NexusGenInputs['CourseMessageCreateManyWithoutCourse_messagesInput'] | null; // CourseMessageCreateManyWithoutCourse_messagesInput
+    courses?: NexusGenInputs['CourseCreateManyWithoutCoursesInput'] | null; // CourseCreateManyWithoutCoursesInput
+    createdAt?: any | null; // DateTime
+    email: string; // String!
+    id?: string | null; // ID
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  UserCreateManyWithoutUserInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    create?: NexusGenInputs['UserCreateWithoutCourse_messagesInput'][] | null; // [UserCreateWithoutCourse_messagesInput!]
+  }
+  UserCreateManyWithoutUsersInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    create?: NexusGenInputs['UserCreateWithoutCoursesInput'][] | null; // [UserCreateWithoutCoursesInput!]
+  }
+  UserCreateWithoutCourse_messagesInput: { // input type
+    courses?: NexusGenInputs['CourseCreateManyWithoutCoursesInput'] | null; // CourseCreateManyWithoutCoursesInput
+    createdAt?: any | null; // DateTime
+    email: string; // String!
+    id?: string | null; // ID
+    name: string; // String!
+    updatedAt?: any | null; // DateTime
+  }
+  UserCreateWithoutCoursesInput: { // input type
+    course_messages?: NexusGenInputs['CourseMessageCreateManyWithoutCourse_messagesInput'] | null; // CourseMessageCreateManyWithoutCourse_messagesInput
     createdAt?: any | null; // DateTime
     email: string; // String!
     id?: string | null; // ID
@@ -27,11 +360,80 @@ export interface NexusGenInputs {
     updatedAt?: any | null; // DateTime
   }
   UserUpdateInput: { // input type
+    course_messages?: NexusGenInputs['CourseMessageUpdateManyWithoutUserInput'] | null; // CourseMessageUpdateManyWithoutUserInput
+    courses?: NexusGenInputs['CourseUpdateManyWithoutUsersInput'] | null; // CourseUpdateManyWithoutUsersInput
     createdAt?: any | null; // DateTime
     email?: string | null; // String
     id?: string | null; // ID
     name?: string | null; // String
     updatedAt?: any | null; // DateTime
+  }
+  UserUpdateManyDataInput: { // input type
+    createdAt?: any | null; // DateTime
+    email?: string | null; // String
+    id?: string | null; // ID
+    name?: string | null; // String
+    updatedAt?: any | null; // DateTime
+  }
+  UserUpdateManyWithWhereNestedInput: { // input type
+    data: NexusGenInputs['UserUpdateManyDataInput']; // UserUpdateManyDataInput!
+    where: NexusGenInputs['MutationUpdateOneCourseWhereInput']; // MutationUpdateOneCourseWhereInput!
+  }
+  UserUpdateManyWithoutCourse_messagesInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    create?: NexusGenInputs['UserCreateWithoutCourse_messagesInput'][] | null; // [UserCreateWithoutCourse_messagesInput!]
+    delete?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['MutationUpdateOneCourseWhereInput'][] | null; // [MutationUpdateOneCourseWhereInput!]
+    disconnect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    set?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    update?: NexusGenInputs['UserUpdateWithWhereUniqueWithoutCourse_messagesInput'][] | null; // [UserUpdateWithWhereUniqueWithoutCourse_messagesInput!]
+    updateMany?: NexusGenInputs['UserUpdateManyWithWhereNestedInput'][] | null; // [UserUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['UserUpsertWithWhereUniqueWithoutCourse_messagesInput'][] | null; // [UserUpsertWithWhereUniqueWithoutCourse_messagesInput!]
+  }
+  UserUpdateManyWithoutCoursesInput: { // input type
+    connect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    create?: NexusGenInputs['UserCreateWithoutCoursesInput'][] | null; // [UserCreateWithoutCoursesInput!]
+    delete?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    deleteMany?: NexusGenInputs['MutationUpdateOneCourseWhereInput'][] | null; // [MutationUpdateOneCourseWhereInput!]
+    disconnect?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    set?: NexusGenInputs['UserWhereUniqueInput'][] | null; // [UserWhereUniqueInput!]
+    update?: NexusGenInputs['UserUpdateWithWhereUniqueWithoutCoursesInput'][] | null; // [UserUpdateWithWhereUniqueWithoutCoursesInput!]
+    updateMany?: NexusGenInputs['UserUpdateManyWithWhereNestedInput'][] | null; // [UserUpdateManyWithWhereNestedInput!]
+    upsert?: NexusGenInputs['UserUpsertWithWhereUniqueWithoutCoursesInput'][] | null; // [UserUpsertWithWhereUniqueWithoutCoursesInput!]
+  }
+  UserUpdateWithWhereUniqueWithoutCourse_messagesInput: { // input type
+    data: NexusGenInputs['UserUpdateWithoutCourse_messagesDataInput']; // UserUpdateWithoutCourse_messagesDataInput!
+    where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+  }
+  UserUpdateWithWhereUniqueWithoutCoursesInput: { // input type
+    data: NexusGenInputs['UserUpdateWithoutCoursesDataInput']; // UserUpdateWithoutCoursesDataInput!
+    where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+  }
+  UserUpdateWithoutCourse_messagesDataInput: { // input type
+    courses?: NexusGenInputs['CourseUpdateManyWithoutUsersInput'] | null; // CourseUpdateManyWithoutUsersInput
+    createdAt?: any | null; // DateTime
+    email?: string | null; // String
+    id?: string | null; // ID
+    name?: string | null; // String
+    updatedAt?: any | null; // DateTime
+  }
+  UserUpdateWithoutCoursesDataInput: { // input type
+    course_messages?: NexusGenInputs['CourseMessageUpdateManyWithoutUserInput'] | null; // CourseMessageUpdateManyWithoutUserInput
+    createdAt?: any | null; // DateTime
+    email?: string | null; // String
+    id?: string | null; // ID
+    name?: string | null; // String
+    updatedAt?: any | null; // DateTime
+  }
+  UserUpsertWithWhereUniqueWithoutCourse_messagesInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutCourse_messagesInput']; // UserCreateWithoutCourse_messagesInput!
+    update: NexusGenInputs['UserUpdateWithoutCourse_messagesDataInput']; // UserUpdateWithoutCourse_messagesDataInput!
+    where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+  }
+  UserUpsertWithWhereUniqueWithoutCoursesInput: { // input type
+    create: NexusGenInputs['UserCreateWithoutCoursesInput']; // UserCreateWithoutCoursesInput!
+    update: NexusGenInputs['UserUpdateWithoutCoursesDataInput']; // UserUpdateWithoutCoursesDataInput!
+    where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
   }
   UserWhereUniqueInput: { // input type
     email?: string | null; // String
@@ -43,6 +445,8 @@ export interface NexusGenEnums {
 }
 
 export interface NexusGenRootTypes {
+  Course: photon.Course;
+  CourseMessage: photon.CourseMessage;
   Mutation: {};
   Query: {};
   User: photon.User;
@@ -52,24 +456,108 @@ export interface NexusGenRootTypes {
   Boolean: boolean;
   ID: string;
   DateTime: any;
+  Upload: any;
 }
 
 export interface NexusGenAllTypes extends NexusGenRootTypes {
+  CourseCreateInput: NexusGenInputs['CourseCreateInput'];
+  CourseCreateManyWithoutCoursesInput: NexusGenInputs['CourseCreateManyWithoutCoursesInput'];
+  CourseCreateOneWithoutCourseInput: NexusGenInputs['CourseCreateOneWithoutCourseInput'];
+  CourseCreateWithoutMessagesInput: NexusGenInputs['CourseCreateWithoutMessagesInput'];
+  CourseCreateWithoutUsersInput: NexusGenInputs['CourseCreateWithoutUsersInput'];
+  CourseMessageCreateManyWithoutCourse_messagesInput: NexusGenInputs['CourseMessageCreateManyWithoutCourse_messagesInput'];
+  CourseMessageCreateManyWithoutMessagesInput: NexusGenInputs['CourseMessageCreateManyWithoutMessagesInput'];
+  CourseMessageCreateWithoutCourseInput: NexusGenInputs['CourseMessageCreateWithoutCourseInput'];
+  CourseMessageCreateWithoutUserInput: NexusGenInputs['CourseMessageCreateWithoutUserInput'];
+  CourseMessageUpdateManyDataInput: NexusGenInputs['CourseMessageUpdateManyDataInput'];
+  CourseMessageUpdateManyWithWhereNestedInput: NexusGenInputs['CourseMessageUpdateManyWithWhereNestedInput'];
+  CourseMessageUpdateManyWithoutCourseInput: NexusGenInputs['CourseMessageUpdateManyWithoutCourseInput'];
+  CourseMessageUpdateManyWithoutUserInput: NexusGenInputs['CourseMessageUpdateManyWithoutUserInput'];
+  CourseMessageUpdateWithWhereUniqueWithoutCourseInput: NexusGenInputs['CourseMessageUpdateWithWhereUniqueWithoutCourseInput'];
+  CourseMessageUpdateWithWhereUniqueWithoutUserInput: NexusGenInputs['CourseMessageUpdateWithWhereUniqueWithoutUserInput'];
+  CourseMessageUpdateWithoutCourseDataInput: NexusGenInputs['CourseMessageUpdateWithoutCourseDataInput'];
+  CourseMessageUpdateWithoutUserDataInput: NexusGenInputs['CourseMessageUpdateWithoutUserDataInput'];
+  CourseMessageUpsertWithWhereUniqueWithoutCourseInput: NexusGenInputs['CourseMessageUpsertWithWhereUniqueWithoutCourseInput'];
+  CourseMessageUpsertWithWhereUniqueWithoutUserInput: NexusGenInputs['CourseMessageUpsertWithWhereUniqueWithoutUserInput'];
+  CourseMessageWhereUniqueInput: NexusGenInputs['CourseMessageWhereUniqueInput'];
+  CourseUpdateInput: NexusGenInputs['CourseUpdateInput'];
+  CourseUpdateManyDataInput: NexusGenInputs['CourseUpdateManyDataInput'];
+  CourseUpdateManyWithWhereNestedInput: NexusGenInputs['CourseUpdateManyWithWhereNestedInput'];
+  CourseUpdateManyWithoutUsersInput: NexusGenInputs['CourseUpdateManyWithoutUsersInput'];
+  CourseUpdateOneRequiredWithoutMessagesInput: NexusGenInputs['CourseUpdateOneRequiredWithoutMessagesInput'];
+  CourseUpdateWithWhereUniqueWithoutUsersInput: NexusGenInputs['CourseUpdateWithWhereUniqueWithoutUsersInput'];
+  CourseUpdateWithoutMessagesDataInput: NexusGenInputs['CourseUpdateWithoutMessagesDataInput'];
+  CourseUpdateWithoutUsersDataInput: NexusGenInputs['CourseUpdateWithoutUsersDataInput'];
+  CourseUpsertWithWhereUniqueWithoutUsersInput: NexusGenInputs['CourseUpsertWithWhereUniqueWithoutUsersInput'];
+  CourseUpsertWithoutMessagesInput: NexusGenInputs['CourseUpsertWithoutMessagesInput'];
+  CourseWhereUniqueInput: NexusGenInputs['CourseWhereUniqueInput'];
+  IntFilter: NexusGenInputs['IntFilter'];
+  MutationUpdateOneCourseFilter: NexusGenInputs['MutationUpdateOneCourseFilter'];
+  MutationUpdateOneCourseWhereInput: NexusGenInputs['MutationUpdateOneCourseWhereInput'];
+  MutationUpdateOneUserFilter: NexusGenInputs['MutationUpdateOneUserFilter'];
+  MutationUpdateOneUserWhereInput: NexusGenInputs['MutationUpdateOneUserWhereInput'];
+  NullableStringFilter: NexusGenInputs['NullableStringFilter'];
+  StringFilter: NexusGenInputs['StringFilter'];
   UserCreateInput: NexusGenInputs['UserCreateInput'];
+  UserCreateManyWithoutUserInput: NexusGenInputs['UserCreateManyWithoutUserInput'];
+  UserCreateManyWithoutUsersInput: NexusGenInputs['UserCreateManyWithoutUsersInput'];
+  UserCreateWithoutCourse_messagesInput: NexusGenInputs['UserCreateWithoutCourse_messagesInput'];
+  UserCreateWithoutCoursesInput: NexusGenInputs['UserCreateWithoutCoursesInput'];
   UserUpdateInput: NexusGenInputs['UserUpdateInput'];
+  UserUpdateManyDataInput: NexusGenInputs['UserUpdateManyDataInput'];
+  UserUpdateManyWithWhereNestedInput: NexusGenInputs['UserUpdateManyWithWhereNestedInput'];
+  UserUpdateManyWithoutCourse_messagesInput: NexusGenInputs['UserUpdateManyWithoutCourse_messagesInput'];
+  UserUpdateManyWithoutCoursesInput: NexusGenInputs['UserUpdateManyWithoutCoursesInput'];
+  UserUpdateWithWhereUniqueWithoutCourse_messagesInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutCourse_messagesInput'];
+  UserUpdateWithWhereUniqueWithoutCoursesInput: NexusGenInputs['UserUpdateWithWhereUniqueWithoutCoursesInput'];
+  UserUpdateWithoutCourse_messagesDataInput: NexusGenInputs['UserUpdateWithoutCourse_messagesDataInput'];
+  UserUpdateWithoutCoursesDataInput: NexusGenInputs['UserUpdateWithoutCoursesDataInput'];
+  UserUpsertWithWhereUniqueWithoutCourse_messagesInput: NexusGenInputs['UserUpsertWithWhereUniqueWithoutCourse_messagesInput'];
+  UserUpsertWithWhereUniqueWithoutCoursesInput: NexusGenInputs['UserUpsertWithWhereUniqueWithoutCoursesInput'];
   UserWhereUniqueInput: NexusGenInputs['UserWhereUniqueInput'];
 }
 
 export interface NexusGenFieldTypes {
+  Course: { // field return type
+    class_number: number; // Int!
+    createdAt: any; // DateTime!
+    id: string; // ID!
+    name: string; // String!
+    title: string | null; // String
+    updatedAt: any; // DateTime!
+    users: NexusGenRootTypes['User'][] | null; // [User!]
+  }
+  CourseMessage: { // field return type
+    course: NexusGenRootTypes['Course']; // Course!
+    createdAt: any; // DateTime!
+    id: string; // ID!
+    message: string; // String!
+    updatedAt: any; // DateTime!
+    user: NexusGenRootTypes['User'][] | null; // [User!]
+  }
   Mutation: { // field return type
+    addUserToCourse: NexusGenRootTypes['User']; // User!
+    createCourseMessage: NexusGenRootTypes['CourseMessage']; // CourseMessage!
+    createOneCourse: NexusGenRootTypes['Course']; // Course!
     createOneUser: NexusGenRootTypes['User']; // User!
+    deleteOneCourse: NexusGenRootTypes['Course'] | null; // Course
     deleteOneUser: NexusGenRootTypes['User'] | null; // User
+    updateOneCourse: NexusGenRootTypes['Course'] | null; // Course
     updateOneUser: NexusGenRootTypes['User'] | null; // User
+    uploadCourseRoster: string; // String!
+    upsertOneCourse: NexusGenRootTypes['Course']; // Course!
     upsertOneUser: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
+    findManyCourse: NexusGenRootTypes['Course'][] | null; // [Course!]
+    findManyCourseMessage: NexusGenRootTypes['CourseMessage'][] | null; // [CourseMessage!]
     findManyUser: NexusGenRootTypes['User'][] | null; // [User!]
+    findOneCourse: NexusGenRootTypes['Course'] | null; // Course
+    findOneCourseMessage: NexusGenRootTypes['CourseMessage'] | null; // CourseMessage
     findOneUser: NexusGenRootTypes['User'] | null; // User
+    getCourseMessages: NexusGenRootTypes['CourseMessage'][]; // [CourseMessage!]!
+    getCoursePeople: NexusGenRootTypes['User'][]; // [User!]!
+    usersNotInCourse: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
     createdAt: any; // DateTime!
@@ -81,16 +569,60 @@ export interface NexusGenFieldTypes {
 }
 
 export interface NexusGenArgTypes {
+  Course: {
+    users: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+  }
+  CourseMessage: {
+    user: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+  }
   Mutation: {
+    addUserToCourse: { // args
+      course_id?: string | null; // ID
+      user_id?: string | null; // ID
+    }
+    createCourseMessage: { // args
+      course_id?: string | null; // ID
+      message?: string | null; // String
+    }
+    createOneCourse: { // args
+      data: NexusGenInputs['CourseCreateInput']; // CourseCreateInput!
+    }
     createOneUser: { // args
       data: NexusGenInputs['UserCreateInput']; // UserCreateInput!
+    }
+    deleteOneCourse: { // args
+      where: NexusGenInputs['CourseWhereUniqueInput']; // CourseWhereUniqueInput!
     }
     deleteOneUser: { // args
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
     }
+    updateOneCourse: { // args
+      data: NexusGenInputs['CourseUpdateInput']; // CourseUpdateInput!
+      where: NexusGenInputs['CourseWhereUniqueInput']; // CourseWhereUniqueInput!
+    }
     updateOneUser: { // args
       data: NexusGenInputs['UserUpdateInput']; // UserUpdateInput!
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+    }
+    uploadCourseRoster: { // args
+      file?: any | null; // Upload
+    }
+    upsertOneCourse: { // args
+      create: NexusGenInputs['CourseCreateInput']; // CourseCreateInput!
+      update: NexusGenInputs['CourseUpdateInput']; // CourseUpdateInput!
+      where: NexusGenInputs['CourseWhereUniqueInput']; // CourseWhereUniqueInput!
     }
     upsertOneUser: { // args
       create: NexusGenInputs['UserCreateInput']; // UserCreateInput!
@@ -99,6 +631,20 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
+    findManyCourse: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    findManyCourseMessage: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
     findManyUser: { // args
       after?: string | null; // String
       before?: string | null; // String
@@ -106,8 +652,23 @@ export interface NexusGenArgTypes {
       last?: number | null; // Int
       skip?: number | null; // Int
     }
+    findOneCourse: { // args
+      where: NexusGenInputs['CourseWhereUniqueInput']; // CourseWhereUniqueInput!
+    }
+    findOneCourseMessage: { // args
+      where: NexusGenInputs['CourseMessageWhereUniqueInput']; // CourseMessageWhereUniqueInput!
+    }
     findOneUser: { // args
       where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+    }
+    getCourseMessages: { // args
+      course_id?: string | null; // ID
+    }
+    getCoursePeople: { // args
+      course_id?: string | null; // String
+    }
+    usersNotInCourse: { // args
+      name?: string | null; // String
     }
   }
 }
@@ -117,15 +678,15 @@ export interface NexusGenAbstractResolveReturnTypes {
 
 export interface NexusGenInheritedFields {}
 
-export type NexusGenObjectNames = "Mutation" | "Query" | "User";
+export type NexusGenObjectNames = "Course" | "CourseMessage" | "Mutation" | "Query" | "User";
 
-export type NexusGenInputNames = "UserCreateInput" | "UserUpdateInput" | "UserWhereUniqueInput";
+export type NexusGenInputNames = "CourseCreateInput" | "CourseCreateManyWithoutCoursesInput" | "CourseCreateOneWithoutCourseInput" | "CourseCreateWithoutMessagesInput" | "CourseCreateWithoutUsersInput" | "CourseMessageCreateManyWithoutCourse_messagesInput" | "CourseMessageCreateManyWithoutMessagesInput" | "CourseMessageCreateWithoutCourseInput" | "CourseMessageCreateWithoutUserInput" | "CourseMessageUpdateManyDataInput" | "CourseMessageUpdateManyWithWhereNestedInput" | "CourseMessageUpdateManyWithoutCourseInput" | "CourseMessageUpdateManyWithoutUserInput" | "CourseMessageUpdateWithWhereUniqueWithoutCourseInput" | "CourseMessageUpdateWithWhereUniqueWithoutUserInput" | "CourseMessageUpdateWithoutCourseDataInput" | "CourseMessageUpdateWithoutUserDataInput" | "CourseMessageUpsertWithWhereUniqueWithoutCourseInput" | "CourseMessageUpsertWithWhereUniqueWithoutUserInput" | "CourseMessageWhereUniqueInput" | "CourseUpdateInput" | "CourseUpdateManyDataInput" | "CourseUpdateManyWithWhereNestedInput" | "CourseUpdateManyWithoutUsersInput" | "CourseUpdateOneRequiredWithoutMessagesInput" | "CourseUpdateWithWhereUniqueWithoutUsersInput" | "CourseUpdateWithoutMessagesDataInput" | "CourseUpdateWithoutUsersDataInput" | "CourseUpsertWithWhereUniqueWithoutUsersInput" | "CourseUpsertWithoutMessagesInput" | "CourseWhereUniqueInput" | "IntFilter" | "MutationUpdateOneCourseFilter" | "MutationUpdateOneCourseWhereInput" | "MutationUpdateOneUserFilter" | "MutationUpdateOneUserWhereInput" | "NullableStringFilter" | "StringFilter" | "UserCreateInput" | "UserCreateManyWithoutUserInput" | "UserCreateManyWithoutUsersInput" | "UserCreateWithoutCourse_messagesInput" | "UserCreateWithoutCoursesInput" | "UserUpdateInput" | "UserUpdateManyDataInput" | "UserUpdateManyWithWhereNestedInput" | "UserUpdateManyWithoutCourse_messagesInput" | "UserUpdateManyWithoutCoursesInput" | "UserUpdateWithWhereUniqueWithoutCourse_messagesInput" | "UserUpdateWithWhereUniqueWithoutCoursesInput" | "UserUpdateWithoutCourse_messagesDataInput" | "UserUpdateWithoutCoursesDataInput" | "UserUpsertWithWhereUniqueWithoutCourse_messagesInput" | "UserUpsertWithWhereUniqueWithoutCoursesInput" | "UserWhereUniqueInput";
 
 export type NexusGenEnumNames = never;
 
 export type NexusGenInterfaceNames = never;
 
-export type NexusGenScalarNames = "Boolean" | "DateTime" | "Float" | "ID" | "Int" | "String";
+export type NexusGenScalarNames = "Boolean" | "DateTime" | "Float" | "ID" | "Int" | "String" | "Upload";
 
 export type NexusGenUnionNames = never;
 

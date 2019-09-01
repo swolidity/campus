@@ -2,20 +2,396 @@
 ### Do not make changes to this file directly
 
 
+type Course {
+  class_number: Int!
+  createdAt: DateTime!
+  id: ID!
+  name: String!
+  title: String
+  updatedAt: DateTime!
+  users(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+}
+
+input CourseCreateInput {
+  catalog_number: Int!
+  class_number: Int!
+  component: String!
+  createdAt: DateTime
+  id: ID
+  messages: CourseMessageCreateManyWithoutMessagesInput
+  name: String!
+  subject: String!
+  term: Int!
+  title: String
+  updatedAt: DateTime
+  users: UserCreateManyWithoutUsersInput
+}
+
+input CourseCreateManyWithoutCoursesInput {
+  connect: [CourseWhereUniqueInput!]
+  create: [CourseCreateWithoutUsersInput!]
+}
+
+input CourseCreateOneWithoutCourseInput {
+  connect: CourseWhereUniqueInput
+  create: CourseCreateWithoutMessagesInput
+}
+
+input CourseCreateWithoutMessagesInput {
+  catalog_number: Int!
+  class_number: Int!
+  component: String!
+  createdAt: DateTime
+  id: ID
+  name: String!
+  subject: String!
+  term: Int!
+  title: String
+  updatedAt: DateTime
+  users: UserCreateManyWithoutUsersInput
+}
+
+input CourseCreateWithoutUsersInput {
+  catalog_number: Int!
+  class_number: Int!
+  component: String!
+  createdAt: DateTime
+  id: ID
+  messages: CourseMessageCreateManyWithoutMessagesInput
+  name: String!
+  subject: String!
+  term: Int!
+  title: String
+  updatedAt: DateTime
+}
+
+type CourseMessage {
+  course: Course!
+  createdAt: DateTime!
+  id: ID!
+  message: String!
+  updatedAt: DateTime!
+  user(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+}
+
+input CourseMessageCreateManyWithoutCourse_messagesInput {
+  connect: [CourseMessageWhereUniqueInput!]
+  create: [CourseMessageCreateWithoutUserInput!]
+}
+
+input CourseMessageCreateManyWithoutMessagesInput {
+  connect: [CourseMessageWhereUniqueInput!]
+  create: [CourseMessageCreateWithoutCourseInput!]
+}
+
+input CourseMessageCreateWithoutCourseInput {
+  createdAt: DateTime
+  id: ID
+  message: String!
+  updatedAt: DateTime
+  user: UserCreateManyWithoutUserInput
+}
+
+input CourseMessageCreateWithoutUserInput {
+  course: CourseCreateOneWithoutCourseInput!
+  createdAt: DateTime
+  id: ID
+  message: String!
+  updatedAt: DateTime
+}
+
+input CourseMessageUpdateManyDataInput {
+  createdAt: DateTime
+  id: ID
+  message: String
+  updatedAt: DateTime
+}
+
+input CourseMessageUpdateManyWithoutCourseInput {
+  connect: [CourseMessageWhereUniqueInput!]
+  create: [CourseMessageCreateWithoutCourseInput!]
+  delete: [CourseMessageWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneCourseWhereInput!]
+  disconnect: [CourseMessageWhereUniqueInput!]
+  set: [CourseMessageWhereUniqueInput!]
+  update: [CourseMessageUpdateWithWhereUniqueWithoutCourseInput!]
+  updateMany: [CourseMessageUpdateManyWithWhereNestedInput!]
+  upsert: [CourseMessageUpsertWithWhereUniqueWithoutCourseInput!]
+}
+
+input CourseMessageUpdateManyWithoutUserInput {
+  connect: [CourseMessageWhereUniqueInput!]
+  create: [CourseMessageCreateWithoutUserInput!]
+  delete: [CourseMessageWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneUserWhereInput!]
+  disconnect: [CourseMessageWhereUniqueInput!]
+  set: [CourseMessageWhereUniqueInput!]
+  update: [CourseMessageUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [CourseMessageUpdateManyWithWhereNestedInput!]
+  upsert: [CourseMessageUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input CourseMessageUpdateManyWithWhereNestedInput {
+  data: CourseMessageUpdateManyDataInput!
+  where: MutationUpdateOneUserWhereInput!
+}
+
+input CourseMessageUpdateWithoutCourseDataInput {
+  createdAt: DateTime
+  id: ID
+  message: String
+  updatedAt: DateTime
+  user: UserUpdateManyWithoutCourse_messagesInput
+}
+
+input CourseMessageUpdateWithoutUserDataInput {
+  course: CourseUpdateOneRequiredWithoutMessagesInput
+  createdAt: DateTime
+  id: ID
+  message: String
+  updatedAt: DateTime
+}
+
+input CourseMessageUpdateWithWhereUniqueWithoutCourseInput {
+  data: CourseMessageUpdateWithoutCourseDataInput!
+  where: CourseMessageWhereUniqueInput!
+}
+
+input CourseMessageUpdateWithWhereUniqueWithoutUserInput {
+  data: CourseMessageUpdateWithoutUserDataInput!
+  where: CourseMessageWhereUniqueInput!
+}
+
+input CourseMessageUpsertWithWhereUniqueWithoutCourseInput {
+  create: CourseMessageCreateWithoutCourseInput!
+  update: CourseMessageUpdateWithoutCourseDataInput!
+  where: CourseMessageWhereUniqueInput!
+}
+
+input CourseMessageUpsertWithWhereUniqueWithoutUserInput {
+  create: CourseMessageCreateWithoutUserInput!
+  update: CourseMessageUpdateWithoutUserDataInput!
+  where: CourseMessageWhereUniqueInput!
+}
+
+input CourseMessageWhereUniqueInput {
+  id: ID
+}
+
+input CourseUpdateInput {
+  catalog_number: Int
+  class_number: Int
+  component: String
+  createdAt: DateTime
+  id: ID
+  messages: CourseMessageUpdateManyWithoutCourseInput
+  name: String
+  subject: String
+  term: Int
+  title: String
+  updatedAt: DateTime
+  users: UserUpdateManyWithoutCoursesInput
+}
+
+input CourseUpdateManyDataInput {
+  catalog_number: Int
+  class_number: Int
+  component: String
+  createdAt: DateTime
+  id: ID
+  name: String
+  subject: String
+  term: Int
+  title: String
+  updatedAt: DateTime
+}
+
+input CourseUpdateManyWithoutUsersInput {
+  connect: [CourseWhereUniqueInput!]
+  create: [CourseCreateWithoutUsersInput!]
+  delete: [CourseWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneUserWhereInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  set: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutUsersInput!]
+  updateMany: [CourseUpdateManyWithWhereNestedInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutUsersInput!]
+}
+
+input CourseUpdateManyWithWhereNestedInput {
+  data: CourseUpdateManyDataInput!
+  where: MutationUpdateOneUserWhereInput!
+}
+
+input CourseUpdateOneRequiredWithoutMessagesInput {
+  connect: CourseWhereUniqueInput
+  create: CourseCreateWithoutMessagesInput
+  update: CourseUpdateWithoutMessagesDataInput
+  upsert: CourseUpsertWithoutMessagesInput
+}
+
+input CourseUpdateWithoutMessagesDataInput {
+  catalog_number: Int
+  class_number: Int
+  component: String
+  createdAt: DateTime
+  id: ID
+  name: String
+  subject: String
+  term: Int
+  title: String
+  updatedAt: DateTime
+  users: UserUpdateManyWithoutCoursesInput
+}
+
+input CourseUpdateWithoutUsersDataInput {
+  catalog_number: Int
+  class_number: Int
+  component: String
+  createdAt: DateTime
+  id: ID
+  messages: CourseMessageUpdateManyWithoutCourseInput
+  name: String
+  subject: String
+  term: Int
+  title: String
+  updatedAt: DateTime
+}
+
+input CourseUpdateWithWhereUniqueWithoutUsersInput {
+  data: CourseUpdateWithoutUsersDataInput!
+  where: CourseWhereUniqueInput!
+}
+
+input CourseUpsertWithoutMessagesInput {
+  create: CourseCreateWithoutMessagesInput!
+  update: CourseUpdateWithoutMessagesDataInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutUsersInput {
+  create: CourseCreateWithoutUsersInput!
+  update: CourseUpdateWithoutUsersDataInput!
+  where: CourseWhereUniqueInput!
+}
+
+input CourseWhereUniqueInput {
+  class_number: Int
+  id: ID
+}
+
 """DateTime"""
 scalar DateTime
 
+input IntFilter {
+  equals: Int
+  gt: Int
+  gte: Int
+  in: [Int!]
+  lt: Int
+  lte: Int
+  not: Int
+  notIn: [Int!]
+}
+
 type Mutation {
+  addUserToCourse(course_id: ID, user_id: ID): User!
+  createCourseMessage(course_id: ID, message: String): CourseMessage!
+  createOneCourse(data: CourseCreateInput!): Course!
   createOneUser(data: UserCreateInput!): User!
+  deleteOneCourse(where: CourseWhereUniqueInput!): Course
   deleteOneUser(where: UserWhereUniqueInput!): User
+  updateOneCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
   updateOneUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  uploadCourseRoster(file: Upload): String!
+  upsertOneCourse(create: CourseCreateInput!, update: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course!
   upsertOneUser(create: UserCreateInput!, update: UserUpdateInput!, where: UserWhereUniqueInput!): User!
 }
 
-type Query {
-  findManyUser(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
-  findOneUser(where: UserWhereUniqueInput!): User
+input MutationUpdateOneCourseFilter {
+  every: MutationUpdateOneCourseWhereInput
+  none: MutationUpdateOneCourseWhereInput
+  some: MutationUpdateOneCourseWhereInput
 }
+
+input MutationUpdateOneCourseWhereInput {
+  AND: [MutationUpdateOneCourseWhereInput!]
+  course_messages: MutationUpdateOneCourseFilter
+  courses: MutationUpdateOneCourseFilter
+  createdAt: MutationUpdateOneCourseFilter
+  email: StringFilter
+  id: StringFilter
+  name: StringFilter
+  NOT: [MutationUpdateOneCourseWhereInput!]
+  OR: [MutationUpdateOneCourseWhereInput!]
+  updatedAt: MutationUpdateOneCourseFilter
+}
+
+input MutationUpdateOneUserFilter {
+  every: MutationUpdateOneUserWhereInput
+  none: MutationUpdateOneUserWhereInput
+  some: MutationUpdateOneUserWhereInput
+}
+
+input MutationUpdateOneUserWhereInput {
+  AND: [MutationUpdateOneUserWhereInput!]
+  catalog_number: IntFilter
+  class_number: IntFilter
+  component: StringFilter
+  createdAt: MutationUpdateOneUserFilter
+  id: StringFilter
+  messages: MutationUpdateOneUserFilter
+  name: StringFilter
+  NOT: [MutationUpdateOneUserWhereInput!]
+  OR: [MutationUpdateOneUserWhereInput!]
+  subject: StringFilter
+  term: IntFilter
+  title: NullableStringFilter
+  updatedAt: MutationUpdateOneUserFilter
+  users: MutationUpdateOneUserFilter
+}
+
+input NullableStringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+type Query {
+  findManyCourse(after: String, before: String, first: Int, last: Int, skip: Int): [Course!]
+  findManyCourseMessage(after: String, before: String, first: Int, last: Int, skip: Int): [CourseMessage!]
+  findManyUser(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
+  findOneCourse(where: CourseWhereUniqueInput!): Course
+  findOneCourseMessage(where: CourseMessageWhereUniqueInput!): CourseMessage
+  findOneUser(where: UserWhereUniqueInput!): User
+  getCourseMessages(course_id: ID): [CourseMessage!]!
+  getCoursePeople(course_id: String): [User!]!
+  usersNotInCourse(name: String): [User!]!
+}
+
+input StringFilter {
+  contains: String
+  endsWith: String
+  equals: String
+  gt: String
+  gte: String
+  in: [String!]
+  lt: String
+  lte: String
+  not: String
+  notIn: [String!]
+  startsWith: String
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
 
 type User {
   createdAt: DateTime!
@@ -26,6 +402,36 @@ type User {
 }
 
 input UserCreateInput {
+  course_messages: CourseMessageCreateManyWithoutCourse_messagesInput
+  courses: CourseCreateManyWithoutCoursesInput
+  createdAt: DateTime
+  email: String!
+  id: ID
+  name: String!
+  updatedAt: DateTime
+}
+
+input UserCreateManyWithoutUserInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutCourse_messagesInput!]
+}
+
+input UserCreateManyWithoutUsersInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutCoursesInput!]
+}
+
+input UserCreateWithoutCourse_messagesInput {
+  courses: CourseCreateManyWithoutCoursesInput
+  createdAt: DateTime
+  email: String!
+  id: ID
+  name: String!
+  updatedAt: DateTime
+}
+
+input UserCreateWithoutCoursesInput {
+  course_messages: CourseMessageCreateManyWithoutCourse_messagesInput
   createdAt: DateTime
   email: String!
   id: ID
@@ -34,11 +440,90 @@ input UserCreateInput {
 }
 
 input UserUpdateInput {
+  course_messages: CourseMessageUpdateManyWithoutUserInput
+  courses: CourseUpdateManyWithoutUsersInput
   createdAt: DateTime
   email: String
   id: ID
   name: String
   updatedAt: DateTime
+}
+
+input UserUpdateManyDataInput {
+  createdAt: DateTime
+  email: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input UserUpdateManyWithoutCourse_messagesInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutCourse_messagesInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneCourseWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutCourse_messagesInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutCourse_messagesInput!]
+}
+
+input UserUpdateManyWithoutCoursesInput {
+  connect: [UserWhereUniqueInput!]
+  create: [UserCreateWithoutCoursesInput!]
+  delete: [UserWhereUniqueInput!]
+  deleteMany: [MutationUpdateOneCourseWhereInput!]
+  disconnect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutCoursesInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutCoursesInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  data: UserUpdateManyDataInput!
+  where: MutationUpdateOneCourseWhereInput!
+}
+
+input UserUpdateWithoutCourse_messagesDataInput {
+  courses: CourseUpdateManyWithoutUsersInput
+  createdAt: DateTime
+  email: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input UserUpdateWithoutCoursesDataInput {
+  course_messages: CourseMessageUpdateManyWithoutUserInput
+  createdAt: DateTime
+  email: String
+  id: ID
+  name: String
+  updatedAt: DateTime
+}
+
+input UserUpdateWithWhereUniqueWithoutCourse_messagesInput {
+  data: UserUpdateWithoutCourse_messagesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpdateWithWhereUniqueWithoutCoursesInput {
+  data: UserUpdateWithoutCoursesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutCourse_messagesInput {
+  create: UserCreateWithoutCourse_messagesInput!
+  update: UserUpdateWithoutCourse_messagesDataInput!
+  where: UserWhereUniqueInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutCoursesInput {
+  create: UserCreateWithoutCoursesInput!
+  update: UserUpdateWithoutCoursesDataInput!
+  where: UserWhereUniqueInput!
 }
 
 input UserWhereUniqueInput {
