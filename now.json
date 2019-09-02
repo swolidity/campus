@@ -34,6 +34,6 @@
       "src": "/api/(.*)",
       "dest": "/api/src/index.ts"
     },
-    { "src": "/(.*)", "dest": "/www/$1" }
+    { "src": "/(.*)", "dest": "/www/$1", "continue": true }
   ]
 }
