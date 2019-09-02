@@ -6,7 +6,7 @@
     "MYSQL_URL": "@mysql-url",
     "GOOGLE_CLIENT_ID": "@google-client-id",
     "GOOGLE_CLIENT_SECRET": "@google-client-secret",
-    "GOOGLE_REDIRECT_URI": "https://usecampus.com/login",
+    "GOOGLE_REDIRECT_URI": "https://usecampus.com/api/auth",
     "JWT_SECRET": "@campus-jwt-secret",
     "API_LOGIN_URL": "https://usecampus.com/api/login"
   },
