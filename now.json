@@ -11,7 +11,7 @@
   "build": {
     "env": {
       "MYSQL_URL": "@mysql-url",
-      "API_URL": "https://usecampus.com/api"
+      "API_URL": "https://usecampus.com/api/graphql"
     }
   },
   "builds": [

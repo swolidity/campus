@@ -5,6 +5,7 @@ import { makeSchema, objectType, asNexusMethod, arg } from "@prisma/nexus";
 import { join } from "path";
 import { Context } from "./types";
 import csv from "csvtojson";
+import jwt from "jsonwebtoken";
 
 const Upload = asNexusMethod(GraphQLUpload, "upload");
 
@@ -13,6 +14,14 @@ const photon = new Photon();
 const nexusPrisma = nexusPrismaPlugin({
   photon: ctx => ctx.photon
 });
+
+const getUser = async (photon: Photon, token) => {
+  return photon.users.findOne({
+    where: {
+      email: "andrew.kay@maine.edu"
+    }
+  });
+};
 
 const readFS = (stream: {
   on: (
@@ -47,8 +56,6 @@ const Query = objectType({
         name: arg({ type: "String" })
       },
       resolve: async (root, { name }, ctx) => {
-        console.log(name);
-
         const users = await ctx.photon.users.findMany({
           first: 10,
           where: {
@@ -59,6 +66,24 @@ const Query = objectType({
         });
 
         return users;
+      }
+    });
+
+    t.field("loggedInUser", {
+      type: "User",
+      args: {
+        oauthCode: arg({ type: "String" })
+      },
+      resolve: async (root, { oauthCode }, ctx) => {
+        const user = await ctx.photon.users.findOne({
+          where: {
+            email: "andrew.kay@maine.edu"
+          }
+        });
+
+        console.log("uZeR", user);
+
+        return user;
       }
     });
 
@@ -303,7 +328,15 @@ const schema = makeSchema({
 
 const server = new ApolloServer({
   schema,
-  context: { photon }
+  context: ({ req }) => {
+    // get the user token from the headers
+    const token = req.headers.authorization || "";
+
+    // try to retrieve a user with the token
+    const user = getUser(photon, token);
+
+    return { photon };
+  }
 });
 
 server.listen().then(({ url }) => {
