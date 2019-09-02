@@ -1,5 +1,5 @@
 {
-  "version": "0.2.7",
+  "version": "0.2.33",
   "steps": [
     {
       "stepType": "CreateModel",
@@ -56,6 +56,16 @@
       },
       "arity": "required",
       "isUnique": true
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
+      "name": "picture",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
     },
     {
       "stepType": "CreateField",

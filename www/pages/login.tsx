@@ -8,17 +8,13 @@ const LoginPage = ({ loggedInUser }) => {
   console.log(loggedInUser);
   return (
     <Layout>
-      <h1>Name: {loggedInUser.name}</h1>
       <Login />
     </Layout>
   );
 };
 
 LoginPage.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(
-    context.apolloClient,
-    context.query.code
-  );
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
   return { loggedInUser };
 };

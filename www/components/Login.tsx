@@ -6,7 +6,7 @@ export default function Login() {
   return (
     <div>
       <div>
-        <a onClick={() => (location.href = `${process.env.API_URL}/login`)}>
+        <a onClick={() => (location.href = `${process.env.API_LOGIN_URL}`)}>
           <span className="google-icon">
             <GoogleIconSvg />
           </span>

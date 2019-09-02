@@ -5,15 +5,18 @@ import checkLoggedIn from "../lib/checkLoggedIn";
 import redirect from "../lib/redirect";
 
 const Index = ({ loggedInUser }) => {
-  console.log(loggedInUser);
   return (
     <Layout>
+      <img height="100" width="100" src={loggedInUser.picture} />
       <h1 className="page-title">My Courses</h1>
 
       <CourseList />
 
       <style jsx>
         {`
+          img {
+            border-radius: 50%;
+          }
           .page-title {
             margin-bottom: 28px;
           }
@@ -24,12 +27,9 @@ const Index = ({ loggedInUser }) => {
 };
 
 Index.getInitialProps = async context => {
-  const { loggedInUser } = await checkLoggedIn(
-    context.apolloClient,
-    context.query.code
-  );
+  const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
-  if (!loggedInUser.user) {
+  if (!loggedInUser.id) {
     redirect(context, "/login");
   }
 

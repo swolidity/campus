@@ -16,10 +16,22 @@ const nexusPrisma = nexusPrismaPlugin({
 });
 
 const getUser = async (photon: Photon, token) => {
-  return photon.users.findOne({
-    where: {
-      email: "andrew.kay@maine.edu"
+  return jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
+    if (err) return null;
+
+    let user;
+
+    try {
+      user = await photon.users.findOne({
+        where: {
+          id: decoded.id
+        }
+      });
+    } catch (e) {
+      throw new Error("User does not exist.");
     }
+
+    return user;
   });
 };
 
@@ -71,19 +83,9 @@ const Query = objectType({
 
     t.field("loggedInUser", {
       type: "User",
-      args: {
-        oauthCode: arg({ type: "String" })
-      },
-      resolve: async (root, { oauthCode }, ctx) => {
-        const user = await ctx.photon.users.findOne({
-          where: {
-            email: "andrew.kay@maine.edu"
-          }
-        });
-
-        console.log("uZeR", user);
-
-        return user;
+      nullable: true,
+      resolve: async (root, args, ctx) => {
+        return ctx.user;
       }
     });
 
@@ -275,6 +277,7 @@ const User = objectType({
     t.model.id();
     t.model.email();
     t.model.name();
+    t.model.picture();
     t.model.createdAt();
     t.model.updatedAt();
   }
@@ -328,14 +331,23 @@ const schema = makeSchema({
 
 const server = new ApolloServer({
   schema,
-  context: ({ req }) => {
+  context: async ({ req }) => {
     // get the user token from the headers
-    const token = req.headers.authorization || "";
+    let token = req.headers.authorization || "";
 
-    // try to retrieve a user with the token
-    const user = getUser(photon, token);
+    let user = null;
 
-    return { photon };
+    if (token) {
+      if (token.startsWith("Bearer ")) {
+        // Remove Bearer from string
+        token = token.slice(7, token.length);
+      }
+
+      // try to retrieve a user with the token
+      user = await getUser(photon, token);
+    }
+
+    return { photon, user };
   }
 });
 

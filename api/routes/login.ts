@@ -19,7 +19,7 @@ app.get("*", async (req, res) => {
   ];
 
   const url = oauth2Client.generateAuthUrl({
-    access_type: "online",
+    access_type: "offline",
     scope: scopes,
     state: req.get("Referrer")
   });

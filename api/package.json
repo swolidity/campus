@@ -29,6 +29,10 @@
     "nexus-prisma": "0.0.1-beta.6"
   },
   "devDependencies": {
+    "@types/csvtojson": "^1.1.5",
+    "@types/express": "^4.17.1",
+    "@types/helmet": "^0.0.44",
+    "@types/jsonwebtoken": "^8.3.3",
     "prisma2": "^2.0.0-preview-8",
     "ts-node-dev": "^1.0.0-pre.40",
     "typescript": "^3.5.3"

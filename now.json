@@ -6,12 +6,15 @@
     "MYSQL_URL": "@mysql-url",
     "GOOGLE_CLIENT_ID": "@google-client-id",
     "GOOGLE_CLIENT_SECRET": "@google-client-secret",
-    "GOOGLE_REDIRECT_URI": "https://usecampus.com/login"
+    "GOOGLE_REDIRECT_URI": "https://usecampus.com/login",
+    "JWT_SECRET": "@campus-jwt-secret",
+    "API_LOGIN_URL": "https://usecampus.com/api/login"
   },
   "build": {
     "env": {
       "MYSQL_URL": "@mysql-url",
-      "API_URL": "https://usecampus.com/api/graphql"
+      "API_URL": "https://usecampus.com/api/graphql",
+      "API_LOGIN_URL": "https://usecampus.com/api/login"
     }
   },
   "builds": [
@@ -30,6 +33,7 @@
   ],
   "routes": [
     { "src": "/api/login", "dest": "/api/routes/login.ts" },
+    { "src": "/api/auth", "dest": "/api/routes/auth.ts" },
     {
       "src": "/api/(.*)",
       "dest": "/api/src/index.ts"
