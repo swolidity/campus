@@ -37,6 +37,15 @@ export default function AppNavUserMenu() {
       <MenuList>
         <MenuItem onSelect={logout}>Logout</MenuItem>
       </MenuList>
+
+      <style jsx>
+        {`
+          :global([data-reach-menu-button]) {
+            border: none;
+            cursor: pointer;
+          }
+        `}
+      </style>
     </Menu>
   );
 }
