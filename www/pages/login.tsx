@@ -15,6 +15,10 @@ const LoginPage = ({ loggedInUser }) => {
 LoginPage.getInitialProps = async context => {
   const { loggedInUser } = await checkLoggedIn(context.apolloClient);
 
+  if (loggedInUser) {
+    redirect(context, "/");
+  }
+
   return { loggedInUser };
 };
 
