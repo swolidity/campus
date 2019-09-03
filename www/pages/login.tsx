@@ -5,7 +5,6 @@ import withApollo from "../lib/withApollo";
 import redirect from "../lib/redirect";
 
 const LoginPage = ({ loggedInUser }) => {
-  console.log(loggedInUser);
   return (
     <Layout>
       <Login />

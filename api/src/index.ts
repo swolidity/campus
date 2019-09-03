@@ -170,7 +170,7 @@ const Mutation = objectType({
           return user;
         }
 
-        return new Error("User already in course.");
+        throw new Error("User already in course.");
       }
     });
 

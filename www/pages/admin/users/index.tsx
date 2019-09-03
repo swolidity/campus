@@ -1,3 +1,6 @@
 import Layout from "../../../components/Layout";
+import withApollo from "../../../lib/withApollo";
 
-export default () => <Layout>users</Layout>;
+const UsersAdminPage = () => <Layout>users</Layout>;
+
+export default withApollo(UsersAdminPage);

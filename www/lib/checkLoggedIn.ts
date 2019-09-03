@@ -17,8 +17,7 @@ export default (apolloClient: ApolloClient<InMemoryCache>) =>
     .then(({ data }) => {
       return { loggedInUser: data.loggedInUser };
     })
-    .catch(e => {
-      console.log(e);
+    .catch(() => {
       // Fail gracefully
       return { loggedInUser: {} };
     });
