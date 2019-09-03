@@ -1,5 +1,6 @@
 import Meta from "./Meta";
 import Link from "next/link";
+import AppNavUserMenu from "./AppNavUserMenu";
 
 const Layout = ({ children }) => {
   return (
@@ -7,11 +8,17 @@ const Layout = ({ children }) => {
       <Meta />
 
       <div className="header">
-        <Link href="/">
-          <a className="logo">
-            <img height="45px" src="/static/campus@2x.png" alt="Campus" />
-          </a>
-        </Link>
+        <div className="flex-item">
+          <Link href="/">
+            <a className="logo">
+              <img height="45px" src="/static/campus@2x.png" alt="Campus" />
+            </a>
+          </Link>
+        </div>
+
+        <div className="flex-item">
+          <AppNavUserMenu />
+        </div>
       </div>
 
       <div className="wrapper">
@@ -24,6 +31,11 @@ const Layout = ({ children }) => {
             padding: 16px 28px;
             background: #fff;
             border-bottom: 2px solid #fafafa;
+            display: flex;
+            justify-content: space-between;
+          }
+          .flex-item {
+            display: flex;
           }
           .logo {
             text-decoration: none;
