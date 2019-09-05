@@ -14,6 +14,10 @@ declare global {
 declare global {
   interface NexusGenCustomOutputMethods<TypeName extends string> {
     upload<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Upload";
+  }
+}
+declare global {
+  interface NexusGenCustomOutputProperties<TypeName extends string> {
     crud: NexusPrisma<TypeName, 'crud'>
     model: NexusPrisma<TypeName, 'model'>
   }
@@ -276,6 +280,7 @@ export interface NexusGenInputs {
     name?: NexusGenInputs['StringFilter'] | null; // StringFilter
     NOT?: NexusGenInputs['MutationUpdateOneCourseWhereInput'][] | null; // [MutationUpdateOneCourseWhereInput!]
     OR?: NexusGenInputs['MutationUpdateOneCourseWhereInput'][] | null; // [MutationUpdateOneCourseWhereInput!]
+    picture?: NexusGenInputs['NullableStringFilter'] | null; // NullableStringFilter
     updatedAt?: NexusGenInputs['MutationUpdateOneCourseFilter'] | null; // MutationUpdateOneCourseFilter
   }
   MutationUpdateOneUserFilter: { // input type
@@ -333,6 +338,7 @@ export interface NexusGenInputs {
     email: string; // String!
     id?: string | null; // ID
     name: string; // String!
+    picture?: string | null; // String
     updatedAt?: any | null; // DateTime
   }
   UserCreateManyWithoutUserInput: { // input type
@@ -349,6 +355,7 @@ export interface NexusGenInputs {
     email: string; // String!
     id?: string | null; // ID
     name: string; // String!
+    picture?: string | null; // String
     updatedAt?: any | null; // DateTime
   }
   UserCreateWithoutCoursesInput: { // input type
@@ -357,6 +364,7 @@ export interface NexusGenInputs {
     email: string; // String!
     id?: string | null; // ID
     name: string; // String!
+    picture?: string | null; // String
     updatedAt?: any | null; // DateTime
   }
   UserUpdateInput: { // input type
@@ -366,6 +374,7 @@ export interface NexusGenInputs {
     email?: string | null; // String
     id?: string | null; // ID
     name?: string | null; // String
+    picture?: string | null; // String
     updatedAt?: any | null; // DateTime
   }
   UserUpdateManyDataInput: { // input type
@@ -373,6 +382,7 @@ export interface NexusGenInputs {
     email?: string | null; // String
     id?: string | null; // ID
     name?: string | null; // String
+    picture?: string | null; // String
     updatedAt?: any | null; // DateTime
   }
   UserUpdateManyWithWhereNestedInput: { // input type
@@ -415,6 +425,7 @@ export interface NexusGenInputs {
     email?: string | null; // String
     id?: string | null; // ID
     name?: string | null; // String
+    picture?: string | null; // String
     updatedAt?: any | null; // DateTime
   }
   UserUpdateWithoutCoursesDataInput: { // input type
@@ -423,6 +434,7 @@ export interface NexusGenInputs {
     email?: string | null; // String
     id?: string | null; // ID
     name?: string | null; // String
+    picture?: string | null; // String
     updatedAt?: any | null; // DateTime
   }
   UserUpsertWithWhereUniqueWithoutCourse_messagesInput: { // input type
@@ -549,14 +561,15 @@ export interface NexusGenFieldTypes {
     upsertOneUser: NexusGenRootTypes['User']; // User!
   }
   Query: { // field return type
-    findManyCourse: NexusGenRootTypes['Course'][] | null; // [Course!]
-    findManyCourseMessage: NexusGenRootTypes['CourseMessage'][] | null; // [CourseMessage!]
-    findManyUser: NexusGenRootTypes['User'][] | null; // [User!]
-    findOneCourse: NexusGenRootTypes['Course'] | null; // Course
-    findOneCourseMessage: NexusGenRootTypes['CourseMessage'] | null; // CourseMessage
-    findOneUser: NexusGenRootTypes['User'] | null; // User
+    course: NexusGenRootTypes['Course'] | null; // Course
+    coursemessage: NexusGenRootTypes['CourseMessage'] | null; // CourseMessage
+    coursemessages: NexusGenRootTypes['CourseMessage'][] | null; // [CourseMessage!]
+    courses: NexusGenRootTypes['Course'][] | null; // [Course!]
     getCourseMessages: NexusGenRootTypes['CourseMessage'][]; // [CourseMessage!]!
     getCoursePeople: NexusGenRootTypes['User'][]; // [User!]!
+    loggedInUser: NexusGenRootTypes['User'] | null; // User
+    user: NexusGenRootTypes['User'] | null; // User
+    users: NexusGenRootTypes['User'][] | null; // [User!]
     usersNotInCourse: NexusGenRootTypes['User'][]; // [User!]!
   }
   User: { // field return type
@@ -564,6 +577,7 @@ export interface NexusGenFieldTypes {
     email: string; // String!
     id: string; // ID!
     name: string; // String!
+    picture: string | null; // String
     updatedAt: any; // DateTime!
   }
 }
@@ -631,41 +645,41 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    findManyCourse: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyCourseMessage: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findManyUser: { // args
-      after?: string | null; // String
-      before?: string | null; // String
-      first?: number | null; // Int
-      last?: number | null; // Int
-      skip?: number | null; // Int
-    }
-    findOneCourse: { // args
+    course: { // args
       where: NexusGenInputs['CourseWhereUniqueInput']; // CourseWhereUniqueInput!
     }
-    findOneCourseMessage: { // args
+    coursemessage: { // args
       where: NexusGenInputs['CourseMessageWhereUniqueInput']; // CourseMessageWhereUniqueInput!
     }
-    findOneUser: { // args
-      where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+    coursemessages: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
+    }
+    courses: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
     }
     getCourseMessages: { // args
       course_id?: string | null; // ID
     }
     getCoursePeople: { // args
       course_id?: string | null; // String
+    }
+    user: { // args
+      where: NexusGenInputs['UserWhereUniqueInput']; // UserWhereUniqueInput!
+    }
+    users: { // args
+      after?: string | null; // String
+      before?: string | null; // String
+      first?: number | null; // Int
+      last?: number | null; // Int
+      skip?: number | null; // Int
     }
     usersNotInCourse: { // args
       name?: string | null; // String

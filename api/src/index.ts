@@ -7,7 +7,7 @@ import { Context } from "./types";
 import csv from "csvtojson";
 import jwt from "jsonwebtoken";
 
-const Upload = asNexusMethod(GraphQLUpload, "upload");
+const Upload = asNexusMethod<any>(GraphQLUpload, "upload");
 
 const photon = new Photon();
 
@@ -15,24 +15,28 @@ const nexusPrisma = nexusPrismaPlugin({
   photon: ctx => ctx.photon
 });
 
-const getUser = async (photon: Photon, token) => {
-  return jwt.verify(token, process.env.JWT_SECRET, async (err, decoded) => {
-    if (err) return null;
+const getUser = async (photon: Photon, token: string) => {
+  return jwt.verify(
+    token,
+    process.env.JWT_SECRET as string,
+    async (err: any, decoded: any) => {
+      if (err) return null;
 
-    let user;
+      let user;
 
-    try {
-      user = await photon.users.findOne({
-        where: {
-          id: decoded.id
-        }
-      });
-    } catch (e) {
-      throw new Error("User does not exist.");
+      try {
+        user = await photon.users.findOne({
+          where: {
+            id: decoded.id
+          }
+        });
+      } catch (e) {
+        throw new Error("User does not exist.");
+      }
+
+      return user;
     }
-
-    return user;
-  });
+  );
 };
 
 const readFS = (stream: {
@@ -42,7 +46,7 @@ const readFS = (stream: {
   ) => { on: (arg0: string, arg1: () => void) => void };
 }) => {
   let chunkList: any[] | Uint8Array[] = [];
-  return new Promise((resolve, reject) =>
+  return new Promise<any>((resolve, reject) =>
     stream
       .on("data", data => chunkList.push(data))
       .on("end", () => resolve(Buffer.concat(chunkList)))
@@ -63,7 +67,7 @@ const Query = objectType({
 
     // TODO: return only users that are NOT in specified Course
     t.list.field("usersNotInCourse", {
-      type: User,
+      type: "User",
       args: {
         name: arg({ type: "String" })
       },
@@ -175,12 +179,12 @@ const Mutation = objectType({
     });
 
     t.field("createCourseMessage", {
-      type: CourseMessage,
+      type: "CourseMessage",
       args: {
         course_id: arg({ type: "ID" }),
         message: arg({ type: "String" })
       },
-      resolve: async (root, { message, course_id }, ctx) => {
+      resolve: async (root, { message, course_id }: any, ctx) => {
         return await ctx.photon.courseMessages.create({
           data: {
             course: { connect: { id: course_id } },

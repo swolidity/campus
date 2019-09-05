@@ -323,6 +323,7 @@ input MutationUpdateOneCourseWhereInput {
   name: StringFilter
   NOT: [MutationUpdateOneCourseWhereInput!]
   OR: [MutationUpdateOneCourseWhereInput!]
+  picture: NullableStringFilter
   updatedAt: MutationUpdateOneCourseFilter
 }
 
@@ -365,14 +366,15 @@ input NullableStringFilter {
 }
 
 type Query {
-  findManyCourse(after: String, before: String, first: Int, last: Int, skip: Int): [Course!]
-  findManyCourseMessage(after: String, before: String, first: Int, last: Int, skip: Int): [CourseMessage!]
-  findManyUser(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
-  findOneCourse(where: CourseWhereUniqueInput!): Course
-  findOneCourseMessage(where: CourseMessageWhereUniqueInput!): CourseMessage
-  findOneUser(where: UserWhereUniqueInput!): User
+  course(where: CourseWhereUniqueInput!): Course
+  coursemessage(where: CourseMessageWhereUniqueInput!): CourseMessage
+  coursemessages(after: String, before: String, first: Int, last: Int, skip: Int): [CourseMessage!]
+  courses(after: String, before: String, first: Int, last: Int, skip: Int): [Course!]
   getCourseMessages(course_id: ID): [CourseMessage!]!
   getCoursePeople(course_id: String): [User!]!
+  loggedInUser: User
+  user(where: UserWhereUniqueInput!): User
+  users(after: String, before: String, first: Int, last: Int, skip: Int): [User!]
   usersNotInCourse(name: String): [User!]!
 }
 
@@ -398,6 +400,7 @@ type User {
   email: String!
   id: ID!
   name: String!
+  picture: String
   updatedAt: DateTime!
 }
 
@@ -408,6 +411,7 @@ input UserCreateInput {
   email: String!
   id: ID
   name: String!
+  picture: String
   updatedAt: DateTime
 }
 
@@ -427,6 +431,7 @@ input UserCreateWithoutCourse_messagesInput {
   email: String!
   id: ID
   name: String!
+  picture: String
   updatedAt: DateTime
 }
 
@@ -436,6 +441,7 @@ input UserCreateWithoutCoursesInput {
   email: String!
   id: ID
   name: String!
+  picture: String
   updatedAt: DateTime
 }
 
@@ -446,6 +452,7 @@ input UserUpdateInput {
   email: String
   id: ID
   name: String
+  picture: String
   updatedAt: DateTime
 }
 
@@ -454,6 +461,7 @@ input UserUpdateManyDataInput {
   email: String
   id: ID
   name: String
+  picture: String
   updatedAt: DateTime
 }
 
@@ -492,6 +500,7 @@ input UserUpdateWithoutCourse_messagesDataInput {
   email: String
   id: ID
   name: String
+  picture: String
   updatedAt: DateTime
 }
 
@@ -501,6 +510,7 @@ input UserUpdateWithoutCoursesDataInput {
   email: String
   id: ID
   name: String
+  picture: String
   updatedAt: DateTime
 }
 
