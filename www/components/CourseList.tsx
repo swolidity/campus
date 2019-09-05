@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const GET_COURSES = gql`
   query getCourses {
-    findManyCourse {
+    courses {
       id
       name
       title
@@ -24,7 +24,7 @@ export default function CourseList() {
 
   return (
     <div>
-      {data.findManyCourse.map(course => (
+      {data.courses.map(course => (
         <div key={course.id} className="course">
           <Link href="/courses/[id]" as={`/courses/${course.id}`}>
             <a className="course-name">

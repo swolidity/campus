@@ -1,7 +1,7 @@
 import { ApolloServer, GraphQLUpload } from "apollo-server";
 import Photon from "@generated/photon";
 import { nexusPrismaPlugin } from "@generated/nexus-prisma";
-import { makeSchema, objectType, asNexusMethod, arg } from "@prisma/nexus";
+import { makeSchema, objectType, asNexusMethod, arg } from "nexus";
 import { join } from "path";
 import { Context } from "./types";
 import csv from "csvtojson";
@@ -52,14 +52,14 @@ const readFS = (stream: {
 const Query = objectType({
   name: "Query",
   definition(t) {
-    t.crud.findOneUser();
-    t.crud.findManyUser();
+    t.crud.user();
+    t.crud.users();
 
-    t.crud.findOneCourse();
-    t.crud.findManyCourse();
+    t.crud.course();
+    t.crud.courses();
 
-    t.crud.findOneCourseMessage();
-    t.crud.findManyCourseMessage();
+    t.crud.coursemessage();
+    t.crud.coursemessages();
 
     // TODO: return only users that are NOT in specified Course
     t.list.field("usersNotInCourse", {
