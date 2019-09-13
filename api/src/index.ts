@@ -4,6 +4,7 @@ import { nexusPrismaPlugin } from "@generated/nexus-prisma";
 import { makeSchema, objectType, asNexusMethod, arg } from "nexus";
 import { join } from "path";
 import { Context } from "./types";
+import slug from "slug";
 import csv from "csvtojson";
 import jwt from "jsonwebtoken";
 
@@ -64,6 +65,22 @@ const Query = objectType({
 
     t.crud.coursemessage();
     t.crud.coursemessages();
+
+    t.field("findCourse", {
+      type: "Course",
+      args: {
+        id: arg({ type: "String" })
+      },
+      resolve: async (root, { id }, ctx) => {
+        return await ctx.photon.courses
+          .findOne({ where: { id } })
+          .catch(err =>
+            err.message.match(/Record Does Not Exist/i)
+              ? ctx.photon.courses.findOne({ where: { slug: id } })
+              : err
+          );
+      }
+    });
 
     // TODO: return only users that are NOT in specified Course
     t.list.field("usersNotInCourse", {
@@ -141,6 +158,19 @@ const Mutation = objectType({
     t.crud.updateOneCourse();
     t.crud.deleteOneCourse();
     t.crud.upsertOneCourse();
+
+    t.field("createCourse", {
+      type: "Course",
+      args: { data: arg({ type: "CourseCreateInput" }) },
+      resolve: async (root, args, ctx) => {
+        return await ctx.photon.courses.create({
+          data: {
+            slug: slug(args.data.name + " " + args.data.term),
+            ...args.data
+          }
+        });
+      }
+    });
 
     t.field("addUserToCourse", {
       type: "User",
@@ -226,6 +256,9 @@ const Mutation = objectType({
             create: {
               name: `${user.Subject} ${user["Catalog Nbr"]} ${user.Component}`,
               term: parseInt(user.Term),
+              slug:
+                `${user.Subject} ${user["Catalog Nbr"]} ${user.Component}` +
+                parseInt(user.Term),
               subject: user.Subject,
               catalog_number: parseInt(user["Catalog Nbr"]),
               component: user.Component,
@@ -292,6 +325,8 @@ const Course = objectType({
   definition(t) {
     t.model.id();
     t.model.name();
+    t.model.term();
+    t.model.slug();
     t.model.title();
     t.model.class_number();
     t.model.users();

@@ -1,5 +1,5 @@
 {
-  "version": "0.2.33",
+  "version": "0.2.51",
   "steps": [
     {
       "stepType": "CreateModel",
@@ -178,6 +178,16 @@
       },
       "arity": "required",
       "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Course",
+      "name": "slug",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": true
     },
     {
       "stepType": "CreateField",

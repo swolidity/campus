@@ -6,8 +6,8 @@ import CourseMessage from "./CourseMessage";
 import CourseMessageList from "./CourseMessageList";
 
 const GET_COURSE = gql`
-  query GET_COURSE($where: CourseWhereUniqueInput!) {
-    findOneCourse(where: $where) {
+  query GET_COURSE($id: String!) {
+    findCourse(id: $id) {
       id
       name
       title
@@ -25,9 +25,7 @@ export default function Course() {
   const router = useRouter();
   const { loading, data } = useQuery(GET_COURSE, {
     variables: {
-      where: {
-        id: router.query.id
-      }
+      id: router.query.id
     }
   });
 
@@ -35,7 +33,7 @@ export default function Course() {
 
   return (
     <div>
-      <CourseHeader course={data.findOneCourse} />
+      <CourseHeader course={data.findCourse} />
 
       <CourseMessage courseID={router.query.id} />
       <CourseMessageList courseID={router.query.id} />

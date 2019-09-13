@@ -27,6 +27,7 @@ model Course {
   name           String
   title          String?
   term           Int
+  slug           String?         @unique
   subject        String
   catalog_number Int
   component      String

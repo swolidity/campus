@@ -6,7 +6,7 @@ const { google } = require("googleapis");
 // add some security-related headers to the response
 app.use(helmet());
 
-app.get("*", async (req, res) => {
+app.get("*", async (req: any, res: any) => {
   const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,

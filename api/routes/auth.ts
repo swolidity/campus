@@ -10,7 +10,7 @@ let cachePhoton: Photon | null = null;
 // add some security-related headers to the response
 app.use(helmet());
 
-app.get("*", async (req, res) => {
+app.get("*", async (req: any, res: any) => {
   const code = req.query.code;
   const state = req.query.state;
 
@@ -41,7 +41,7 @@ app.get("*", async (req, res) => {
     throw new Error(e.message);
   }
 
-  const { email, name, picture } = data;
+  const { email, name, picture }: any = data;
 
   const user = await photon.users.upsert({
     where: {
@@ -59,7 +59,7 @@ app.get("*", async (req, res) => {
     }
   });
 
-  const token = jwt.sign(user, process.env.JWT_SECRET);
+  const token = jwt.sign<any>(user, process.env.JWT_SECRET);
   res.cookie("token", token);
 
   res.redirect(state);
