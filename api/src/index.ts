@@ -72,13 +72,10 @@ const Query = objectType({
         id: arg({ type: "String" })
       },
       resolve: async (root, { id }, ctx) => {
-        return await ctx.photon.courses
-          .findOne({ where: { id } })
-          .catch(err =>
-            err.message.match(/Record Does Not Exist/i)
-              ? ctx.photon.courses.findOne({ where: { slug: id } })
-              : err
-          );
+        const courses = await ctx.photon.courses.findMany({
+          where: { OR: [{ id }, { slug: id }] }
+        });
+        return courses[0];
       }
     });
 
