@@ -35,6 +35,7 @@ const ADD_USER_TO_COURSE = gql`
 
 export default function AddPeopleToCourse({ courseID }) {
   const [searchValue, setSearchValue] = useState("");
+  const [selectedUserId, setSelectedUserId] = useState("");
   const [getUsers, { loading, data }] = useLazyQuery(GET_USERS_NOT_IN_COURSE);
   const [
     addUserToCourse,
@@ -73,15 +74,15 @@ export default function AddPeopleToCourse({ courseID }) {
       <h2>Add People</h2>
 
       <div>{mutationError ? mutationError.message : null}</div>
+      <div>
+        {mutationData && mutationData.addUserToCourse
+          ? mutationData.addUserToCourse.name + " added to course. "
+          : null}
+      </div>
 
       <Downshift
         onChange={selection => {
-          addUserToCourse({
-            variables: {
-              user_id: selection.id,
-              course_id: courseID
-            }
-          });
+          setSelectedUserId(selection.id);
         }}
         onInputValueChange={onSearch}
         inputValue={searchValue}
@@ -89,8 +90,21 @@ export default function AddPeopleToCourse({ courseID }) {
       >
         {({ getInputProps, getItemProps, getLabelProps }) => (
           <div>
-            <label {...getLabelProps()}>Search for people to add</label>
+            <label {...getLabelProps()}>Search for people to add </label>
             <input {...getInputProps()} />
+            <button
+              className="add-button"
+              onClick={() => {
+                addUserToCourse({
+                  variables: {
+                    user_id: selectedUserId,
+                    course_id: courseID
+                  }
+                });
+              }}
+            >
+              add
+            </button>
 
             <ul className="search-results">
               {data && data.usersNotInCourse
@@ -117,10 +131,16 @@ export default function AddPeopleToCourse({ courseID }) {
             margin-bottom: 28px;
           }
           .search-results {
+            margin-top: 7px;
             list-style: none;
           }
           .search-results li {
+            margin-top: 7px;
             cursor: pointer;
+          }
+          .add-button {
+            margin-left: 7px;
+            width: 28px;
           }
         `}
       </style>
