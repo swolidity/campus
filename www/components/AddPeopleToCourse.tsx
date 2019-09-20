@@ -85,6 +85,7 @@ export default function AddPeopleToCourse({ courseID }) {
         }}
         onInputValueChange={onSearch}
         inputValue={searchValue}
+        itemToString={user => (user && user.name ? user.name : "")}
       >
         {({ getInputProps, getItemProps, getLabelProps }) => (
           <div>

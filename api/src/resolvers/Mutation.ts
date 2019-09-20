@@ -28,6 +28,42 @@ export const Mutation = objectType({
       }
     });
 
+    t.field("removeUserFromCourse", {
+      type: "User",
+      args: {
+        user_id: arg({ type: "ID" }),
+        course_id: arg({ type: "ID" })
+      },
+      resolve: async (root, { user_id, course_id }, ctx) => {
+        const userInCourse = await ctx.photon.users
+          .findOne({
+            where: { id: user_id }
+          })
+          .courses({
+            where: {
+              id: course_id
+            }
+          });
+
+        if (userInCourse.length != 0) {
+          const user = await ctx.photon.users.update({
+            where: {
+              id: user_id
+            },
+            data: {
+              courses: {
+                disconnect: { id: course_id }
+              }
+            }
+          });
+
+          return user;
+        }
+
+        throw new Error("User already not in course.");
+      }
+    });
+
     t.field("addUserToCourse", {
       type: "User",
       args: {
