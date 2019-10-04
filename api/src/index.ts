@@ -2,10 +2,13 @@ import { ApolloServer, GraphQLUpload } from "apollo-server";
 import Photon from "@generated/photon";
 import { nexusPrismaPlugin } from "@generated/nexus-prisma";
 import { makeSchema, objectType, asNexusMethod, arg } from "nexus";
+import { rule, shield, and, or, not } from "graphql-shield";
+import { applyMiddleware } from "graphql-middleware";
 import { join } from "path";
 import { Context } from "./types";
 import { Course, CourseMessage, Mutation, Query, User } from "./resolvers";
 import jwt from "jsonwebtoken";
+import express = require("express");
 
 const Upload = asNexusMethod<any>(GraphQLUpload, "upload");
 
@@ -39,26 +42,49 @@ const getUser = async (photon: Photon, token: string) => {
   );
 };
 
-const schema = makeSchema({
-  types: [Query, Mutation, User, Course, CourseMessage, Upload, nexusPrisma],
-  outputs: {
-    typegen: join(__dirname, "../generated/nexus-typegen.ts"),
-    schema: join(__dirname, "../generated/schema.graphql")
-  },
-  typegenAutoConfig: {
-    sources: [
-      {
-        source: "@generated/photon",
-        alias: "photon"
-      },
-      {
-        source: join(__dirname, "types.ts"),
-        alias: "ctx"
-      }
-    ],
-    contextType: "ctx.Context"
+// Rules
+const isAuthenticated = rule({ cache: "contextual" })(
+  async (parent, args, ctx, info) => {
+    return ctx.user !== null;
+  }
+);
+
+const isAdmin = rule({ cache: "contextual" })(
+  async (parent, args, ctx, info) => {
+    return ctx.user.role === "ADMIN";
+  }
+);
+
+// Permissions
+const permissions = shield({
+  Mutation: {
+    addUserToCourse: and(isAuthenticated, isAdmin)
   }
 });
+
+const schema = applyMiddleware(
+  makeSchema({
+    types: [Query, Mutation, User, Course, CourseMessage, Upload, nexusPrisma],
+    outputs: {
+      typegen: join(__dirname, "../generated/nexus-typegen.ts"),
+      schema: join(__dirname, "../generated/schema.graphql")
+    },
+    typegenAutoConfig: {
+      sources: [
+        {
+          source: "@generated/photon",
+          alias: "photon"
+        },
+        {
+          source: join(__dirname, "types.ts"),
+          alias: "ctx"
+        }
+      ],
+      contextType: "ctx.Context"
+    }
+  }),
+  permissions
+);
 
 const server = new ApolloServer({
   schema,
@@ -82,6 +108,6 @@ const server = new ApolloServer({
   }
 });
 
-server.listen().then(({ url }) => {
+server.listen().then(url => {
   console.log(`🚀 Server ready at ${url}`);
 });

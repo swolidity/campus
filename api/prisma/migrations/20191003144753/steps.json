@@ -104,6 +104,19 @@
     {
       "stepType": "CreateField",
       "model": "User",
+      "name": "role",
+      "type": {
+        "Enum": "Role"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "ConstantLiteral": "STUDENT"
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
       "name": "createdAt",
       "type": {
         "Base": "DateTime"
@@ -379,6 +392,16 @@
       },
       "arity": "required",
       "isUnique": false
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "Role",
+      "values": [
+        "ADMIN",
+        "PROFESSOR",
+        "TEACHING_ASSISSTANT",
+        "STUDENT"
+      ]
     }
   ]
 }
