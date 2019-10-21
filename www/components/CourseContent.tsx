@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 const GET_COURSE_WITH_CONTENT = gql`
   query GetCourseWithContent($where: CourseWhereUniqueInput!) {
-    findOneCourse(where: $where) {
+    course(where: $where) {
       id
       name
       title
@@ -28,7 +28,7 @@ const CourseContent = () => {
 
   return (
     <div>
-      <CourseHeader course={data.findOneCourse} />
+      <CourseHeader course={data.course} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 {
-  "version": "0.2.33",
+  "version": "0.2.51",
   "steps": [
     {
       "stepType": "CreateModel",
@@ -104,6 +104,19 @@
     {
       "stepType": "CreateField",
       "model": "User",
+      "name": "role",
+      "type": {
+        "Enum": "Role"
+      },
+      "arity": "required",
+      "isUnique": false,
+      "default": {
+        "ConstantLiteral": "STUDENT"
+      }
+    },
+    {
+      "stepType": "CreateField",
+      "model": "User",
       "name": "createdAt",
       "type": {
         "Base": "DateTime"
@@ -178,6 +191,16 @@
       },
       "arity": "required",
       "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Course",
+      "name": "slug",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": true
     },
     {
       "stepType": "CreateField",
@@ -369,6 +392,16 @@
       },
       "arity": "required",
       "isUnique": false
+    },
+    {
+      "stepType": "CreateEnum",
+      "name": "Role",
+      "values": [
+        "ADMIN",
+        "PROFESSOR",
+        "TEACHING_ASSISSTANT",
+        "STUDENT"
+      ]
     }
   ]
 }

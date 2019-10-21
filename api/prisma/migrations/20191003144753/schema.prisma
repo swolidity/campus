@@ -18,6 +18,7 @@ model User {
   picture         String?
   courses         Course[]
   course_messages CourseMessage[]
+  role            Role            @default(STUDENT)
   createdAt       DateTime        @default(now())
   updatedAt       DateTime        @updatedAt
 }
@@ -27,6 +28,7 @@ model Course {
   name           String
   title          String?
   term           Int
+  slug           String?         @unique
   subject        String
   catalog_number Int
   component      String
@@ -44,4 +46,11 @@ model CourseMessage {
   message   String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  PROFESSOR
+  TEACHING_ASSISSTANT
+  STUDENT
 }

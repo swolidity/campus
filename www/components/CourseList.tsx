@@ -7,6 +7,7 @@ const GET_COURSES = gql`
     courses {
       id
       name
+      slug
       title
       class_number
       createdAt
@@ -26,7 +27,7 @@ export default function CourseList() {
     <div>
       {data.courses.map(course => (
         <div key={course.id} className="course">
-          <Link href="/courses/[id]" as={`/courses/${course.id}`}>
+          <Link href="/courses/[id]" as={`/courses/${course.slug}`}>
             <a className="course-name">
               {course.name} {course.class_number}
             </a>

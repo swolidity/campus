@@ -3,7 +3,7 @@ import { useLoggedInUser } from "../hooks/useLoggedInUser";
 export default function LoggedInUser() {
   const { loading, error, data } = useLoggedInUser();
 
-  if (loading || !data.loggedInUser) return <div>Login</div>;
+  if (loading || !data || !data.loggedInUser) return <div>Login</div>;
 
   const user = data.loggedInUser;
 

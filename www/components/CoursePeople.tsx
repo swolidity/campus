@@ -6,7 +6,7 @@ import CourseHeader from "./CourseHeader";
 
 const GET_COURSE_WITH_PEOPLE = gql`
   query GetCourseWithPeople($where: CourseWhereUniqueInput!) {
-    findOneCourse(where: $where) {
+    course(where: $where) {
       id
       name
       title
@@ -35,10 +35,10 @@ export default function CoursePeople() {
 
   return (
     <div>
-      <CourseHeader course={data.findOneCourse} />
+      <CourseHeader course={data.course} />
       <AddPeopleToCourse courseID={router.query.id} />
 
-      {data.findOneCourse.users.map(person => {
+      {data.course.users.map(person => {
         return <div>{person.name}</div>;
       })}
     </div>
