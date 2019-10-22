@@ -4,3 +4,5 @@
 # Read more about conflict resolution here: TODO
 
 20191003144753
+20191022111102-make-course-message-user-relation-a-1-to-many
+20191022111358-remove-course_messages-relation-on-user

@@ -35,8 +35,8 @@ export default function Course() {
     <div>
       <CourseHeader course={data.findCourse} />
 
-      <CourseMessage courseID={router.query.id} />
-      <CourseMessageList courseID={router.query.id} />
+      <CourseMessage courseID={data.findCourse.id} mb={8} />
+      <CourseMessageList courseID={data.findCourse.id} />
     </div>
   );
 }

@@ -1,9 +1,8 @@
-import { objectType, arg } from "nexus";
+import { mutationType, arg } from "nexus";
 import csv from "csvtojson";
 import slug from "slug";
 
-export const Mutation = objectType({
-  name: "Mutation",
+export const Mutation = mutationType({
   definition(t) {
     t.crud.createOneUser();
     t.crud.updateOneUser();
@@ -110,7 +109,7 @@ export const Mutation = objectType({
         return await ctx.photon.courseMessages.create({
           data: {
             course: { connect: { id: course_id } },
-            user: { connect: { id: "cjzwcb3k10000bnmwgxz5l65v" } },
+            user: { connect: { id: ctx.user.id } },
             message
           }
         });

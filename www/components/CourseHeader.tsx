@@ -1,10 +1,10 @@
 import CourseNav from "./CourseNav";
-import PageTitle from "./PageTitle";
+import { Heading } from "@chakra-ui/core";
 
 const CourseHeader = ({ course }) => {
   return (
     <div>
-      <PageTitle>{course.name}</PageTitle>
+      <Heading mb={4}>{course.name}</Heading>
       <CourseNav courseID={course.id} />
     </div>
   );

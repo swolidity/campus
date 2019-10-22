@@ -1,44 +1,45 @@
-import Link from "../components/Link";
+import NextLink from "../components/Link";
+import { Link } from "@chakra-ui/core";
 
 export default function CourseNav({ courseID }) {
   return (
     <div className="course-header">
       <ul>
         <li>
-          <Link
+          <NextLink
             activeClassName="active"
             href="/courses/[id]"
             as={`/courses/${courseID}`}
           >
-            <a>Home</a>
-          </Link>
+            <Link>Home</Link>
+          </NextLink>
         </li>
         <li>
-          <Link
+          <NextLink
             activeClassName="active"
             href="/courses/[id]/content"
             as={`/courses/${courseID}/content`}
           >
-            <a>Content</a>
-          </Link>
+            <Link>Content</Link>
+          </NextLink>
         </li>
         <li>
-          <Link
+          <NextLink
             activeClassName="active"
             href="/courses/[id]/gradebook"
             as={`/courses/${courseID}/gradebook`}
           >
-            <a>Gradebook</a>
-          </Link>
+            <Link>Gradebook</Link>
+          </NextLink>
         </li>
         <li>
-          <Link
+          <NextLink
             activeClassName="active"
             href="/courses/[id]/people"
             as={`/courses/${courseID}/people`}
           >
-            <a>People</a>
-          </Link>
+            <Link>People</Link>
+          </NextLink>
         </li>
       </ul>
 

@@ -1,0 +1,62 @@
+{
+  "version": "0.2.50",
+  "steps": [
+    {
+      "stepType": "UpdateField",
+      "model": "User",
+      "name": "course_messages",
+      "type": {
+        "Relation": {
+          "to": "CourseMessage",
+          "to_fields": [],
+          "name": "CourseMessageToUser",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "CourseMessage",
+      "name": "user",
+      "arity": "required"
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "User",
+      "name": "course_messages",
+      "type": {
+        "Relation": {
+          "to": "CourseMessage",
+          "to_fields": [],
+          "name": "CourseMessageToUser",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "CourseMessage",
+      "name": "user",
+      "arity": "required"
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "User",
+      "name": "course_messages",
+      "type": {
+        "Relation": {
+          "to": "CourseMessage",
+          "to_fields": [],
+          "name": "CourseMessageToUser",
+          "on_delete": "None"
+        }
+      }
+    },
+    {
+      "stepType": "UpdateField",
+      "model": "CourseMessage",
+      "name": "user",
+      "arity": "required"
+    }
+  ]
+}
