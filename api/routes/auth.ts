@@ -2,7 +2,7 @@ const express = require("express");
 const helmet = require("helmet");
 const app = express();
 import { google } from "googleapis";
-import Photon from "@generated/photon";
+import { Photon } from "@generated/photon";
 import jwt from "jsonwebtoken";
 
 let cachePhoton: Photon | null = null;

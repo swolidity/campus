@@ -1,6 +1,6 @@
 import { ApolloServer, GraphQLUpload } from "apollo-server";
-import Photon from "@generated/photon";
-import { nexusPrismaPlugin } from "@generated/nexus-prisma";
+import { Photon } from "@generated/photon";
+import { nexusPrismaPlugin } from "nexus-prisma";
 import { makeSchema, objectType, asNexusMethod, arg } from "nexus";
 import { rule, shield, and, or, not } from "graphql-shield";
 import { applyMiddleware } from "graphql-middleware";
@@ -64,7 +64,8 @@ const permissions = shield({
 
 const schema = applyMiddleware(
   makeSchema({
-    types: [Query, Mutation, User, Course, CourseMessage, Upload, nexusPrisma],
+    types: [Query, Mutation, User, Course, CourseMessage, Upload],
+    plugins: [nexusPrisma],
     outputs: {
       typegen: join(__dirname, "../generated/nexus-typegen.ts"),
       schema: join(__dirname, "../generated/schema.graphql")

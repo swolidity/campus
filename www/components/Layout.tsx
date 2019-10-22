@@ -1,29 +1,41 @@
 import Meta from "./Meta";
 import Link from "next/link";
 import AppNavUserMenu from "./AppNavUserMenu";
+import { ThemeProvider, ColorModeProvider, theme } from "@chakra-ui/core";
+
+const customTheme = {
+  ...theme,
+  icons: {
+    ...theme.icons
+  }
+};
 
 const Layout = ({ children }) => {
   return (
     <div>
       <Meta />
 
-      <div className="header">
-        <div className="flex-item">
-          <Link href="/">
-            <a className="logo">
-              <img height="45px" src="/static/campus@2x.png" alt="Campus" />
-            </a>
-          </Link>
-        </div>
+      <ThemeProvider theme={customTheme}>
+        <ColorModeProvider>
+          <div className="header">
+            <div className="flex-item">
+              <Link href="/">
+                <a className="logo">
+                  <img height="45px" src="/static/campus@2x.png" alt="Campus" />
+                </a>
+              </Link>
+            </div>
 
-        <div className="flex-item">
-          <AppNavUserMenu />
-        </div>
-      </div>
+            <div className="flex-item">
+              <AppNavUserMenu />
+            </div>
+          </div>
 
-      <div className="wrapper">
-        <main className="main">{children}</main>
-      </div>
+          <div className="wrapper">
+            <main className="main">{children}</main>
+          </div>
+        </ColorModeProvider>
+      </ThemeProvider>
 
       <style jsx>
         {`

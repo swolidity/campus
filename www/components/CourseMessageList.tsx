@@ -1,7 +1,9 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import { Stack, Box, Heading, Text, Image, Flex } from "@chakra-ui/core";
+import { formatDistanceToNow } from "date-fns";
 
-const GET_COURSE_MESSAGES = gql`
+export const GET_COURSE_MESSAGES = gql`
   query GetCourseMessages($course_id: ID) {
     getCourseMessages(course_id: $course_id) {
       id
@@ -10,6 +12,7 @@ const GET_COURSE_MESSAGES = gql`
       user {
         id
         name
+        picture
       }
     }
   }
@@ -29,11 +32,33 @@ export default function CourseMessageList({ courseID }) {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
+  console.log(data);
   return (
-    <div>
+    <Stack spacing={4}>
       {data.getCourseMessages.map(courseMessage => (
-        <div key={courseMessage.id}>{courseMessage.message}</div>
+        <Box p={4} shadow="sm" key={courseMessage.id}>
+          <Flex align="center">
+            <Image
+              rounded="full"
+              size="40px"
+              src={courseMessage.user.picture}
+              alt={courseMessage.user.name}
+              mr={4}
+            />
+
+            <div>
+              <Heading as="h6" size="xs">
+                {courseMessage.user.name}
+              </Heading>
+              <Text>
+                {formatDistanceToNow(new Date(courseMessage.createdAt))} ago
+              </Text>
+            </div>
+          </Flex>
+
+          <Text>{courseMessage.message}</Text>
+        </Box>
       ))}
-    </div>
+    </Stack>
   );
 }

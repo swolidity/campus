@@ -1,7 +1,6 @@
-import { objectType, arg } from "nexus";
+import { queryType, arg } from "nexus";
 
-export const Query = objectType({
-  name: "Query",
+export const Query = queryType({
   definition(t) {
     t.crud.user();
     t.crud.users();
@@ -9,8 +8,8 @@ export const Query = objectType({
     t.crud.course();
     t.crud.courses();
 
-    t.crud.coursemessage();
-    t.crud.coursemessages();
+    t.crud.courseMessage();
+    t.crud.courseMessages();
 
     t.field("findCourse", {
       type: "Course",
