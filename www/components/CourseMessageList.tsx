@@ -37,7 +37,7 @@ export default function CourseMessageList({ courseID }) {
     <Stack spacing={4}>
       {data.getCourseMessages.map(courseMessage => (
         <Box p={4} shadow="sm" key={courseMessage.id}>
-          <Flex align="center">
+          <Flex align="center" mb={2}>
             <Image
               rounded="full"
               size="40px"
