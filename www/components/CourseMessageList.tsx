@@ -1,7 +1,8 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Stack, Box, Heading, Text, Image, Flex } from "@chakra-ui/core";
+import { Stack, Box, Heading, Text, Image, Flex, Link } from "@chakra-ui/core";
 import { formatDistanceToNow } from "date-fns";
+import NextLink from "next/link";
 
 export const GET_COURSE_MESSAGES = gql`
   query GetCourseMessages($course_id: ID) {
@@ -38,17 +39,26 @@ export default function CourseMessageList({ courseID }) {
       {data.getCourseMessages.map(courseMessage => (
         <Box p={4} shadow="sm" key={courseMessage.id}>
           <Flex align="center" mb={2}>
-            <Image
-              rounded="full"
-              size="40px"
-              src={courseMessage.user.picture}
-              alt={courseMessage.user.name}
-              mr={4}
-            />
+            <NextLink href="/users/[id]" as={`/users/${courseMessage.user.id}`}>
+              <Link>
+                <Image
+                  rounded="full"
+                  size="40px"
+                  src={courseMessage.user.picture}
+                  alt={courseMessage.user.name}
+                  mr={4}
+                />
+              </Link>
+            </NextLink>
 
             <div>
               <Heading as="h6" size="xs">
-                {courseMessage.user.name}
+                <NextLink
+                  href="/users/[id]"
+                  as={`/users/${courseMessage.user.id}`}
+                >
+                  <Link>{courseMessage.user.name}</Link>
+                </NextLink>
               </Heading>
               <Text>
                 {formatDistanceToNow(new Date(courseMessage.createdAt))} ago

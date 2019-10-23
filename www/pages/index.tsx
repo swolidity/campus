@@ -7,6 +7,7 @@ import { Heading } from "@chakra-ui/core";
 const Index = () => {
   return (
     <Layout>
+      <Heading>👋 Hi! Welcome to Campus.</Heading>
       <Heading mb={4}>My Courses</Heading>
 
       <CourseList />
