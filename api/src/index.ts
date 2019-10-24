@@ -103,6 +103,8 @@ const server = new ApolloServer({
 
       // try to retrieve a user with the token
       user = await getUser(photon, token);
+
+      console.log("USER", user);
     }
 
     return { photon, user };

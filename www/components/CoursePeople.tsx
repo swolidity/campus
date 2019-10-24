@@ -3,11 +3,26 @@ import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import AddPeopleToCourse from "./AddPeopleToCourse";
 import CourseHeader from "./CourseHeader";
+import {
+  Stack,
+  Heading,
+  Text,
+  Flex,
+  Box,
+  Image,
+  Stat,
+  StatLabel,
+  StatNumber,
+  StatHelpText,
+  StatArrow,
+  StatGroup
+} from "@chakra-ui/core";
 
 const GET_COURSE_WITH_PEOPLE = gql`
   query GetCourseWithPeople($where: CourseWhereUniqueInput!) {
     course(where: $where) {
       id
+      slug
       name
       title
       class_number
@@ -15,6 +30,7 @@ const GET_COURSE_WITH_PEOPLE = gql`
         id
         name
         email
+        picture
       }
     }
   }
@@ -25,7 +41,7 @@ export default function CoursePeople() {
   const { loading, error, data } = useQuery(GET_COURSE_WITH_PEOPLE, {
     variables: {
       where: {
-        id: router.query.id
+        slug: router.query.id
       }
     }
   });
@@ -33,14 +49,46 @@ export default function CoursePeople() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error...</div>;
 
+  console.log(data.course);
+
   return (
     <div>
       <CourseHeader course={data.course} />
-      <AddPeopleToCourse courseID={router.query.id} />
 
-      {data.course.users.map(person => {
-        return <div>{person.name}</div>;
-      })}
+      <Flex justify="space-between" align="center" mb={8}>
+        <Box>
+          <Stat>
+            <StatLabel>People</StatLabel>
+            <StatNumber>{data.course.users.length}</StatNumber>
+          </Stat>
+        </Box>
+        <Box>
+          <AddPeopleToCourse courseID={data.course.id} />
+        </Box>
+      </Flex>
+
+      <Stack spacing={3}>
+        {data.course.users.map(person => {
+          return (
+            <Box>
+              <Flex align="center">
+                <Image
+                  size="50px"
+                  rounded="full"
+                  src={person.picture}
+                  alt={person.name}
+                  mr={8}
+                />
+
+                <Box>
+                  <Heading size="sm">{person.name}</Heading>
+                  <Text>{person.email}</Text>
+                </Box>
+              </Flex>
+            </Box>
+          );
+        })}
+      </Stack>
     </div>
   );
 }

@@ -2,6 +2,19 @@ import { useState } from "react";
 import { useLazyQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import Downshift from "downshift";
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Heading,
+  Input,
+  Button
+} from "@chakra-ui/core";
 
 export const GET_COURSE_PEOPLE = gql`
   query GET_COURSE_PEOPLE($course_id: String!) {
@@ -58,6 +71,7 @@ export default function AddPeopleToCourse({ courseID }) {
       });
     }
   });
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const onSearch = value => {
     setSearchValue(value);
@@ -71,7 +85,9 @@ export default function AddPeopleToCourse({ courseID }) {
 
   return (
     <div className="add-people">
-      <h2>Add People</h2>
+      <Button leftIcon="add" onClick={onOpen}>
+        Add
+      </Button>
 
       <div>{mutationError ? mutationError.message : null}</div>
       <div>
@@ -80,56 +96,72 @@ export default function AddPeopleToCourse({ courseID }) {
           : null}
       </div>
 
-      <Downshift
-        onChange={selection => {
-          setSelectedUserId(selection.id);
-        }}
-        onInputValueChange={onSearch}
-        inputValue={searchValue}
-        itemToString={user => (user && user.name ? user.name : "")}
-      >
-        {({ getInputProps, getItemProps, getLabelProps }) => (
-          <div>
-            <label {...getLabelProps()}>Search for people to add </label>
-            <input {...getInputProps()} />
-            <button
-              className="add-button"
-              onClick={() => {
-                addUserToCourse({
-                  variables: {
-                    user_id: selectedUserId,
-                    course_id: courseID
-                  }
-                });
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Modal Title</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Downshift
+              onChange={selection => {
+                setSelectedUserId(selection.id);
               }}
+              onInputValueChange={onSearch}
+              inputValue={searchValue}
+              itemToString={user => (user && user.name ? user.name : "")}
             >
-              add
-            </button>
+              {({ getInputProps, getItemProps, getLabelProps }) => (
+                <div>
+                  <Input
+                    {...getInputProps()}
+                    placeholder="Add to course"
+                    mb={4}
+                  />
+                  <Button
+                    className="add-button"
+                    onClick={() => {
+                      addUserToCourse({
+                        variables: {
+                          user_id: selectedUserId,
+                          course_id: courseID
+                        }
+                      });
+                    }}
+                  >
+                    add
+                  </Button>
 
-            <ul className="search-results">
-              {data && data.usersNotInCourse
-                ? data.usersNotInCourse.map((person, index) => (
-                    <li
-                      {...getItemProps({
-                        key: person.id,
-                        index,
-                        item: person
-                      })}
-                    >
-                      {person.name}
-                    </li>
-                  ))
-                : null}
-            </ul>
-          </div>
-        )}
-      </Downshift>
+                  <ul className="search-results">
+                    {data && data.usersNotInCourse
+                      ? data.usersNotInCourse.map((person, index) => (
+                          <li
+                            {...getItemProps({
+                              key: person.id,
+                              index,
+                              item: person
+                            })}
+                          >
+                            {person.name}
+                          </li>
+                        ))
+                      : null}
+                  </ul>
+                </div>
+              )}
+            </Downshift>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button variantColor="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            <Button variant="ghost">Secondary Action</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
 
       <style jsx>
         {`
-          .add-people {
-            margin-bottom: 28px;
-          }
           .search-results {
             margin-top: 7px;
             list-style: none;
@@ -137,10 +169,6 @@ export default function AddPeopleToCourse({ courseID }) {
           .search-results li {
             margin-top: 7px;
             cursor: pointer;
-          }
-          .add-button {
-            margin-left: 7px;
-            width: 28px;
           }
         `}
       </style>
