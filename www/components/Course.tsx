@@ -9,6 +9,7 @@ const GET_COURSE = gql`
   query GET_COURSE($id: String!) {
     findCourse(id: $id) {
       id
+      slug
       name
       title
       class_number

@@ -1,6 +1,13 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import {
+  Stack,
+  InputGroup,
+  Input,
+  InputLeftAddon,
+  Button
+} from "@chakra-ui/core";
 
 const CREATE_USER = gql`
   mutation CreateOneUser($data: UserCreateInput!) {
@@ -8,6 +15,7 @@ const CREATE_USER = gql`
       id
       name
       email
+      picture
     }
   }
 `;
@@ -35,31 +43,35 @@ const CreateUser = () => {
 
   return (
     <form onSubmit={onSubmit}>
-      <div>
-        <div>
-          <label>Name</label>
-        </div>
-        <input
+      <Stack spacing={3}>
+        <Input
           type="text"
           name="name"
           onChange={onInputChange}
           value={values.name}
+          placeholder="name"
+          size="lg"
         />
-      </div>
 
-      <div>
-        <div>
-          <label>Email</label>
-        </div>
-        <input
+        <Input
           type="text"
           name="email"
           onChange={onInputChange}
           value={values.email}
+          placeholder="email"
+          size="lg"
         />
-      </div>
+        <Input
+          type="url"
+          name="picture"
+          onChange={onInputChange}
+          value={values.picture}
+          placeholder="picture url"
+          size="lg"
+        />
 
-      <button type="submit">Create user</button>
+        <Button type="submit">Create user</Button>
+      </Stack>
     </form>
   );
 };

@@ -1,12 +1,12 @@
 import Layout from "../../../components/Layout";
-import PageTitle from "../../../components/PageTitle";
 import { useMutation } from "@apollo/react-hooks";
 import CreateUser from "../../../components/CreateUser";
 import withApollo from "../../../lib/withApollo";
+import { Heading } from "@chakra-ui/core";
 
 const NewUserPage = () => (
   <Layout>
-    <PageTitle>Create New User</PageTitle>
+    <Heading mb={4}>Create New User</Heading>
 
     <CreateUser />
   </Layout>

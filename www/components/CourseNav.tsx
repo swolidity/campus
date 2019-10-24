@@ -1,7 +1,7 @@
 import NextLink from "../components/Link";
 import { Link } from "@chakra-ui/core";
 
-export default function CourseNav({ courseID }) {
+export default function CourseNav({ slug }) {
   return (
     <div className="course-header">
       <ul>
@@ -9,7 +9,7 @@ export default function CourseNav({ courseID }) {
           <NextLink
             activeClassName="active"
             href="/courses/[id]"
-            as={`/courses/${courseID}`}
+            as={`/courses/${slug}`}
           >
             <Link>Home</Link>
           </NextLink>
@@ -18,7 +18,7 @@ export default function CourseNav({ courseID }) {
           <NextLink
             activeClassName="active"
             href="/courses/[id]/content"
-            as={`/courses/${courseID}/content`}
+            as={`/courses/${slug}/content`}
           >
             <Link>Content</Link>
           </NextLink>
@@ -27,7 +27,7 @@ export default function CourseNav({ courseID }) {
           <NextLink
             activeClassName="active"
             href="/courses/[id]/gradebook"
-            as={`/courses/${courseID}/gradebook`}
+            as={`/courses/${slug}/gradebook`}
           >
             <Link>Gradebook</Link>
           </NextLink>
@@ -36,7 +36,7 @@ export default function CourseNav({ courseID }) {
           <NextLink
             activeClassName="active"
             href="/courses/[id]/people"
-            as={`/courses/${courseID}/people`}
+            as={`/courses/${slug}/people`}
           >
             <Link>People</Link>
           </NextLink>
