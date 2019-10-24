@@ -1,4 +1,5 @@
 import { useLoggedInUser } from "../hooks/useLoggedInUser";
+import { Image } from "@chakra-ui/core";
 
 export default function LoggedInUser() {
   const { loading, error, data } = useLoggedInUser();
@@ -8,16 +9,6 @@ export default function LoggedInUser() {
   const user = data.loggedInUser;
 
   return (
-    <div>
-      <img width="45" height="45" src={user.picture} alt={user.name} />
-
-      <style jsx>
-        {`
-          img {
-            border-radius: 50%;
-          }
-        `}
-      </style>
-    </div>
+    <Image size="45px" rounded="full" src={user.picture} alt={user.name} />
   );
 }

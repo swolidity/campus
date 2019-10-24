@@ -15,8 +15,10 @@ import {
   StatNumber,
   StatHelpText,
   StatArrow,
-  StatGroup
+  StatGroup,
+  Link
 } from "@chakra-ui/core";
+import NextLink from "next/link";
 
 const GET_COURSE_WITH_PEOPLE = gql`
   query GetCourseWithPeople($where: CourseWhereUniqueInput!) {
@@ -70,19 +72,27 @@ export default function CoursePeople() {
       <Stack spacing={3}>
         {data.course.users.map(person => {
           return (
-            <Box>
+            <Box shadow="sm" p="3">
               <Flex align="center">
-                <Image
-                  size="50px"
-                  rounded="full"
-                  src={person.picture}
-                  alt={person.name}
-                  mr={8}
-                />
+                <NextLink href="/users/[id]" as={`/users/${person.id}`}>
+                  <Link>
+                    <Image
+                      size="50px"
+                      rounded="full"
+                      src={person.picture}
+                      alt={person.name}
+                      mr={8}
+                    />
+                  </Link>
+                </NextLink>
 
                 <Box>
-                  <Heading size="sm">{person.name}</Heading>
-                  <Text>{person.email}</Text>
+                  <NextLink href="/users/[id]" as={`/users/${person.id}`}>
+                    <Link>
+                      <Heading size="sm">{person.name}</Heading>
+                      <Text>{person.email}</Text>
+                    </Link>
+                  </NextLink>
                 </Box>
               </Flex>
             </Box>

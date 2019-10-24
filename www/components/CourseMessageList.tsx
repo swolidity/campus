@@ -37,7 +37,7 @@ export default function CourseMessageList({ courseID }) {
   return (
     <Stack spacing={4}>
       {data.getCourseMessages.map(courseMessage => (
-        <Box p={4} shadow="sm" key={courseMessage.id}>
+        <Box p={3} shadow="sm" key={courseMessage.id}>
           <Flex align="center" mb={2}>
             <NextLink href="/users/[id]" as={`/users/${courseMessage.user.id}`}>
               <Link>

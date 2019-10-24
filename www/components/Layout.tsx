@@ -1,7 +1,15 @@
 import Meta from "./Meta";
 import Link from "next/link";
 import AppNavUserMenu from "./AppNavUserMenu";
-import { ThemeProvider, ColorModeProvider, theme } from "@chakra-ui/core";
+import {
+  ThemeProvider,
+  ColorModeProvider,
+  theme,
+  useColorMode,
+  Button,
+  Flex,
+  Box
+} from "@chakra-ui/core";
 
 const customTheme = {
   ...theme,
@@ -11,25 +19,39 @@ const customTheme = {
 };
 
 const Layout = ({ children }) => {
+  const { colorMode, toggleColorMode } = useColorMode();
+
   return (
     <div>
       <Meta />
 
       <ThemeProvider theme={customTheme}>
         <ColorModeProvider>
-          <div className="header">
-            <div className="flex-item">
+          <Flex
+            px={8}
+            py={3}
+            borderBottom="2px"
+            borderColor="#fafafa"
+            justify="space-between"
+            align="center"
+          >
+            <Box className="flex-item">
               <Link href="/">
                 <a className="logo">
                   <img height="45px" src="/static/campus@2x.png" alt="Campus" />
                 </a>
               </Link>
-            </div>
+            </Box>
 
-            <div className="flex-item">
-              <AppNavUserMenu />
-            </div>
-          </div>
+            <Box>
+              <Flex align="center">
+                <Button onClick={toggleColorMode} mr={4}>
+                  Toggle {colorMode === "light" ? "Dark" : "Light"}
+                </Button>
+                <AppNavUserMenu />
+              </Flex>
+            </Box>
+          </Flex>
 
           <div className="wrapper">
             <main className="main">{children}</main>
@@ -39,16 +61,6 @@ const Layout = ({ children }) => {
 
       <style jsx>
         {`
-          .header {
-            padding: 16px 28px;
-            background: #fff;
-            border-bottom: 2px solid #fafafa;
-            display: flex;
-            justify-content: space-between;
-          }
-          .flex-item {
-            display: flex;
-          }
           .logo {
             text-decoration: none;
             color: black;

@@ -9,8 +9,8 @@ import "@reach/menu-button/styles.css";
 import { useApolloClient } from "@apollo/react-hooks";
 import cookie from "cookie";
 import redirect from "../lib/redirect";
-
 import LoggedInUser from "./LoggedInUser";
+import { Box } from "@chakra-ui/core";
 
 export default function AppNavUserMenu() {
   const apolloClient = useApolloClient();
@@ -29,23 +29,25 @@ export default function AppNavUserMenu() {
   };
 
   return (
-    <Menu>
-      <MenuButton>
-        <LoggedInUser />
-      </MenuButton>
+    <Box>
+      <Menu>
+        <MenuButton>
+          <LoggedInUser />
+        </MenuButton>
 
-      <MenuList>
-        <MenuItem onSelect={logout}>Logout</MenuItem>
-      </MenuList>
+        <MenuList>
+          <MenuItem onSelect={logout}>Logout</MenuItem>
+        </MenuList>
 
-      <style jsx>
-        {`
-          :global([data-reach-menu-button]) {
-            border: none;
-            cursor: pointer;
-          }
-        `}
-      </style>
-    </Menu>
+        <style jsx>
+          {`
+            :global([data-reach-menu-button]) {
+              border: none;
+              cursor: pointer;
+            }
+          `}
+        </style>
+      </Menu>
+    </Box>
   );
 }
