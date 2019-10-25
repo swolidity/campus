@@ -1,5 +1,5 @@
 {
-  "version": "0.2.51",
+  "version": "0.3.14-fixed",
   "steps": [
     {
       "stepType": "CreateModel",
@@ -87,23 +87,6 @@
     {
       "stepType": "CreateField",
       "model": "User",
-      "name": "course_messages",
-      "type": {
-        "Relation": {
-          "to": "CourseMessage",
-          "to_fields": [
-            "id"
-          ],
-          "name": "CourseMessageToUser",
-          "on_delete": "None"
-        }
-      },
-      "arity": "list",
-      "isUnique": false
-    },
-    {
-      "stepType": "CreateField",
-      "model": "User",
       "name": "role",
       "type": {
         "Enum": "Role"
@@ -143,6 +126,21 @@
     },
     {
       "stepType": "CreateField",
+      "model": "User",
+      "name": "courseMessages",
+      "type": {
+        "Relation": {
+          "to": "CourseMessage",
+          "to_fields": [],
+          "name": "CourseMessageToUser",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
       "model": "Course",
       "name": "id",
       "type": {
@@ -165,6 +163,16 @@
     {
       "stepType": "CreateField",
       "model": "Course",
+      "name": "parent",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Course",
       "name": "name",
       "type": {
         "Base": "String"
@@ -176,6 +184,16 @@
       "stepType": "CreateField",
       "model": "Course",
       "name": "title",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "optional",
+      "isUnique": false
+    },
+    {
+      "stepType": "CreateField",
+      "model": "Course",
+      "name": "description",
       "type": {
         "Base": "String"
       },
@@ -353,7 +371,7 @@
           "on_delete": "None"
         }
       },
-      "arity": "list",
+      "arity": "required",
       "isUnique": false
     },
     {

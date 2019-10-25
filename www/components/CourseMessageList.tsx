@@ -33,7 +33,6 @@ export default function CourseMessageList({ courseID }) {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error.message}</div>;
 
-  console.log(data);
   return (
     <Stack spacing={4}>
       {data.getCourseMessages.map(courseMessage => (

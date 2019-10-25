@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import NextLink from "next/link";
-import { Stack, Box, Heading, Link } from "@chakra-ui/core";
+import { Stack, Box, Heading, Link, Text } from "@chakra-ui/core";
 
 const GET_COURSES = gql`
   query getCourses {
@@ -30,7 +30,10 @@ export default function CourseList() {
         <Box p={5} shadow="sm" key={course.id} className="course">
           <NextLink href="/courses/[id]" as={`/courses/${course.slug}`}>
             <Link>
-              {course.name} {course.class_number}
+              <Heading size="sm">
+                {course.name} {course.class_number}
+              </Heading>
+              <Text>{course.title}</Text>
             </Link>
           </NextLink>
         </Box>

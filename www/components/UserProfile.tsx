@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { useQuery } from "@apollo/react-hooks";
 import gql from "graphql-tag";
-import { Flex, Box, Heading, Text, Image } from "@chakra-ui/core";
+import { Flex, Box, Heading, Text, Avatar } from "@chakra-ui/core";
 
 const GET_USER = gql`
   query GET_USER($where: UserWhereUniqueInput!) {
@@ -29,11 +29,10 @@ export default function Course() {
   return (
     <Flex align="center">
       <Box>
-        <Image
-          rounded="full"
-          size="100px"
+        <Avatar
+          size="2xl"
           src={data.user.picture}
-          alt={data.user.name}
+          name={data.user.name}
           mr={8}
         />
       </Box>

@@ -16,7 +16,8 @@ import {
   StatHelpText,
   StatArrow,
   StatGroup,
-  Link
+  Link,
+  Avatar
 } from "@chakra-ui/core";
 import NextLink from "next/link";
 
@@ -51,8 +52,6 @@ export default function CoursePeople() {
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error...</div>;
 
-  console.log(data.course);
-
   return (
     <div>
       <CourseHeader course={data.course} />
@@ -76,13 +75,7 @@ export default function CoursePeople() {
               <Flex align="center">
                 <NextLink href="/users/[id]" as={`/users/${person.id}`}>
                   <Link>
-                    <Image
-                      size="50px"
-                      rounded="full"
-                      src={person.picture}
-                      alt={person.name}
-                      mr={8}
-                    />
+                    <Avatar src={person.picture} name={person.name} mr={8} />
                   </Link>
                 </NextLink>
 

@@ -1,6 +1,6 @@
 datasource db {
   provider = "mysql"
-  url      = env("MYSQL_URL")
+  url = "***"
 }
 
 generator photonjs {
@@ -8,21 +8,22 @@ generator photonjs {
 }
 
 model User {
-  id              String          @id @default(cuid())
-  name            String
-  email           String          @unique
-  picture         String?
-  courses         Course[]
-  course_messages CourseMessage[]
-  role            Role            @default(STUDENT)
-  createdAt       DateTime        @default(now())
-  updatedAt       DateTime        @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  picture   String?
+  courses   Course[]
+  role      Role     @default(STUDENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Course {
   id             String          @id @default(cuid())
+  parent         String?
   name           String
   title          String?
+  description    String?
   term           Int
   slug           String?         @unique
   subject        String

@@ -1,5 +1,6 @@
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+import { Input, Button, Textarea, Stack, Heading } from "@chakra-ui/core";
 
 const CREATE_COURSE = gql`
   mutation CreateCourse($data: CourseCreateInput!) {
@@ -15,7 +16,7 @@ export default function CreateCourse() {
 
   return (
     <div>
-      <h1 className="page-title">Create A New Course</h1>
+      <Heading className="page-title">Create Course</Heading>
 
       <form
         onSubmit={e => {
@@ -23,53 +24,31 @@ export default function CreateCourse() {
           createCourse({
             variables: {
               data: {
-                name: "Seinfeld 101",
-                title: "yada yada yada",
+                name: "BIO 100",
+                title: "Basic Biology",
                 term: 2010,
                 subject: "SEINFELD",
-                catalog_number: 1234,
+                catalog_number: 100,
                 component: "LEC",
-                class_number: 1234
+                class_number: 87617
               }
             }
           });
         }}
       >
-        <div>
-          <label>Name</label>
-          <input name="name" type="text" />
-        </div>
+        <Stack spacing={4}>
+          <Input placeholder="Name" name="name" type="text" />
 
-        <div>
-          <label>Title</label>
-          <input name="title" type="text" />
-        </div>
+          <Input placeholder="Title" name="title" type="text" />
 
-        <div>
-          <label>Description</label>
-          <textarea name="description" />
-        </div>
+          <Textarea
+            name="description"
+            placeholder="Write a short description of your course..."
+          />
 
-        <button type="submit">Create Course</button>
+          <Button type="submit">Create Course</Button>
+        </Stack>
       </form>
-
-      <style jsx>
-        {`
-          .page-title {
-            margin-bottom: 28px;
-          }
-          input {
-            width: 100%;
-            padding: 8px;
-            border-radius: 5px;
-            border: none;
-            margin-bottom: 28px;
-          }
-          textarea {
-            width: 100%;
-          }
-        `}
-      </style>
     </div>
   );
 }

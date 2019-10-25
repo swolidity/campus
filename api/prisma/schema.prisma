@@ -20,8 +20,10 @@ model User {
 
 model Course {
   id             String          @id @default(cuid())
+  parent         String?
   name           String
   title          String?
+  description    String?
   term           Int
   slug           String?         @unique
   subject        String

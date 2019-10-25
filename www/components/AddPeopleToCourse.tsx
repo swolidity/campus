@@ -13,7 +13,8 @@ import {
   useDisclosure,
   Heading,
   Input,
-  Button
+  Button,
+  useToast
 } from "@chakra-ui/core";
 
 export const GET_COURSE_PEOPLE = gql`
@@ -72,6 +73,7 @@ export default function AddPeopleToCourse({ courseID }) {
     }
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const toast = useToast();
 
   const onSearch = value => {
     setSearchValue(value);
@@ -125,6 +127,13 @@ export default function AddPeopleToCourse({ courseID }) {
                           user_id: selectedUserId,
                           course_id: courseID
                         }
+                      });
+
+                      toast({
+                        title: "User added to course.",
+                        status: "success",
+                        duration: 9000,
+                        isClosable: true
                       });
                     }}
                   >

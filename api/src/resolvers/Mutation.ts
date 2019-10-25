@@ -134,26 +134,36 @@ export const Mutation = mutationType({
         const roster = await csv().fromString(buf.toString());
 
         for (const user of roster) {
+          let class_number = parseInt(user["Class Nbr"]);
+
+          if (user.Component === "LEC")
+            class_number = parseInt(user["Catalog Nbr"]);
+
           const newCourse = await ctx.photon.courses.upsert({
-            where: { class_number: parseInt(user["Class Nbr"]) },
+            where: { class_number },
             update: {
               name: `${user.Subject} ${user["Catalog Nbr"]} ${user.Component}`,
               term: parseInt(user.Term),
+              slug: slug(
+                `${user.Subject} ${user["Catalog Nbr"]} ${user.Component} ${user["Class Nbr"]}` +
+                  parseInt(user.Term)
+              ),
               subject: user.Subject,
               catalog_number: parseInt(user["Catalog Nbr"]),
               component: user.Component,
-              class_number: parseInt(user["Class Nbr"])
+              class_number: class_number
             },
             create: {
               name: `${user.Subject} ${user["Catalog Nbr"]} ${user.Component}`,
               term: parseInt(user.Term),
-              slug:
-                `${user.Subject} ${user["Catalog Nbr"]} ${user.Component}` +
-                parseInt(user.Term),
+              slug: slug(
+                `${user.Subject} ${user["Catalog Nbr"]} ${user.Component} ${user["Class Nbr"]}` +
+                  parseInt(user.Term)
+              ),
               subject: user.Subject,
               catalog_number: parseInt(user["Catalog Nbr"]),
               component: user.Component,
-              class_number: parseInt(user["Class Nbr"])
+              class_number: class_number
             }
           });
 
