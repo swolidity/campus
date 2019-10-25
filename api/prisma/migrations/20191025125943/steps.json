@@ -1,0 +1,25 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "Course",
+      "name": "content",
+      "type": {
+        "Relation": {
+          "to": "Content",
+          "to_fields": [],
+          "name": "ContentToCourse",
+          "on_delete": "None"
+        }
+      },
+      "arity": "list",
+      "isUnique": false
+    },
+    {
+      "stepType": "DeleteField",
+      "model": "Course",
+      "name": "contents"
+    }
+  ]
+}

@@ -11,6 +11,10 @@ export const Query = queryType({
     t.crud.courseMessage();
     t.crud.courseMessages();
 
+    t.crud.content();
+    t.crud.assignments();
+    t.crud.grades();
+
     t.field("findCourse", {
       type: "Course",
       args: {

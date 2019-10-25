@@ -8,8 +8,10 @@ export const Course = objectType({
     t.model.term();
     t.model.slug();
     t.model.title();
+    t.model.description();
     t.model.class_number();
     t.model.users();
+    t.model.content();
     t.model.createdAt();
     t.model.updatedAt();
   }

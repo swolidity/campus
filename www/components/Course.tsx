@@ -4,6 +4,7 @@ import gql from "graphql-tag";
 import CourseHeader from "./CourseHeader";
 import CourseMessage from "./CourseMessage";
 import CourseMessageList from "./CourseMessageList";
+import { Text } from "@chakra-ui/core";
 
 const GET_COURSE = gql`
   query GET_COURSE($id: String!) {
@@ -12,6 +13,7 @@ const GET_COURSE = gql`
       slug
       name
       title
+      description
       class_number
       users {
         id
@@ -35,6 +37,8 @@ export default function Course() {
   return (
     <div>
       <CourseHeader course={data.findCourse} />
+
+      <Text mb={8}>{data.findCourse.description}</Text>
 
       <CourseMessage courseID={data.findCourse.id} mb={8} />
       <CourseMessageList courseID={data.findCourse.id} />

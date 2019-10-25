@@ -1,6 +1,6 @@
 datasource db {
   provider = "mysql"
-  url      = env("MYSQL_URL")
+  url = "***"
 }
 
 generator photonjs {
@@ -31,7 +31,6 @@ model Course {
   component      String
   class_number   Int             @unique
   users          User[]
-  content        Content[]
   messages       CourseMessage[]
   createdAt      DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
@@ -54,14 +53,12 @@ enum Role {
 }
 
 model Content {
-  id        String      @id @default(cuid())
-  course    Course
-  title     String
-  type      ContentType
-  url       String?
-  text      String?
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
+  id     String      @id @default(cuid())
+  course Course
+  title  String
+  type   ContentType
+  url    String?
+  text   String?
 }
 
 enum ContentType {
@@ -88,6 +85,4 @@ model Grade {
   letter_grade String
   points       Float
   percent      Float
-  createdAt    DateTime   @default(now())
-  updatedAt    DateTime   @updatedAt
 }
