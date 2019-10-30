@@ -1,10 +1,11 @@
 import { useLoggedInUser } from "../hooks/useLoggedInUser";
 import { Image } from "@chakra-ui/core";
+import { Button } from "@chakra-ui/core";
 
 export default function LoggedInUser() {
   const { loading, error, data } = useLoggedInUser();
 
-  if (loading || !data || !data.loggedInUser) return <div>Login</div>;
+  if (loading || !data || !data.loggedInUser) return <Button>Login</Button>;
 
   const user = data.loggedInUser;
 
