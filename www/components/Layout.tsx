@@ -3,6 +3,7 @@ import Link from "next/link";
 import AppNavUserMenu from "./AppNavUserMenu";
 import {
   ThemeProvider,
+  CSSReset,
   ColorModeProvider,
   theme,
   useColorMode,
@@ -26,7 +27,8 @@ const Layout = ({ children }) => {
       <Meta />
 
       <ThemeProvider theme={customTheme}>
-        <ColorModeProvider>
+        <CSSReset />
+        <ColorModeProvider value="light">
           <Flex
             px={8}
             py={3}
