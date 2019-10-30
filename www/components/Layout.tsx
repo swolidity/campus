@@ -9,7 +9,8 @@ import {
   useColorMode,
   Button,
   Flex,
-  Box
+  Box,
+  Image
 } from "@chakra-ui/core";
 
 const customTheme = {
@@ -40,7 +41,11 @@ const Layout = ({ children }) => {
             <Box className="flex-item">
               <Link href="/">
                 <a className="logo">
-                  <img height="45px" src="/static/campus@2x.png" alt="Campus" />
+                  <Image
+                    height="45px"
+                    src="/static/campus@2x.png"
+                    alt="Campus"
+                  />
                 </a>
               </Link>
             </Box>
