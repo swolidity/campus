@@ -52,7 +52,7 @@ const CourseGradebook = () => {
         <Box>
           <Stat>
             <StatLabel>Assignments</StatLabel>
-            <StatNumber>0</StatNumber>
+            <StatNumber>{data.course.assignments.length}</StatNumber>
           </Stat>
         </Box>
         <Box>
@@ -66,7 +66,7 @@ const CourseGradebook = () => {
       <Stack spacing={3}>
         {data.course.assignments.map(assignment => (
           <Box shadow="sm" p={3} key={assignment.id}>
-            {assignment.name}
+            {assignment.name} ({assignment.points} pts)
           </Box>
         ))}
       </Stack>

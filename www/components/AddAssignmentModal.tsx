@@ -14,8 +14,14 @@ import {
   Heading,
   Input,
   Button,
-  useToast
+  useToast,
+  NumberInput,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper
 } from "@chakra-ui/core";
+import { useFormik } from "formik";
 
 import { GET_COURSE_WITH_GRADEBOOK } from "../components/CourseGradebook";
 
@@ -46,10 +52,6 @@ export default function AddAssignmentModal({ courseID, courseSlug }) {
         }
       });
 
-      console.log("course", course);
-
-      console.log("createOneAssignment", createOneAssignment);
-
       cache.writeQuery({
         query: GET_COURSE_WITH_GRADEBOOK,
         variables: {
@@ -68,6 +70,32 @@ export default function AddAssignmentModal({ courseID, courseSlug }) {
   });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      points: 0
+    },
+    onSubmit: values => {
+      addAssignment({
+        variables: {
+          data: {
+            course: { connect: { id: courseID } },
+            name: values.name,
+            points: values.points
+          }
+        }
+      });
+
+      toast({
+        title: "Assignment added to course.",
+        status: "success",
+        duration: 9000,
+        isClosable: true
+      });
+    }
+  });
+
+  console.log(formik.values);
 
   return (
     <div>
@@ -88,35 +116,35 @@ export default function AddAssignmentModal({ courseID, courseSlug }) {
           <ModalHeader>Add Assignment</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Button
-              onClick={() => {
-                addAssignment({
-                  variables: {
-                    data: {
-                      course: { connect: { id: courseID } },
-                      name: "Quiz 3",
-                      points: 100
-                    }
-                  }
-                });
-
-                toast({
-                  title: "Assignment added to course.",
-                  status: "success",
-                  duration: 9000,
-                  isClosable: true
-                });
-              }}
-            >
-              Add Assignment
-            </Button>
+            <form onSubmit={formik.handleSubmit}>
+              <Input
+                id="name"
+                name="name"
+                type="text"
+                onChange={formik.handleChange}
+                value={formik.values.name}
+              />
+              <NumberInput
+                onChange={number =>
+                  formik.setFieldValue("points", parseInt(number))
+                }
+                value={formik.values.points}
+                id="points"
+              >
+                <NumberInputField type="number" />
+                <NumberInputStepper>
+                  <NumberIncrementStepper />
+                  <NumberDecrementStepper />
+                </NumberInputStepper>
+              </NumberInput>
+            </form>
           </ModalBody>
 
           <ModalFooter>
             <Button variantColor="blue" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button variant="ghost">Secondary Action</Button>
+            <Button onClick={formik.handleSubmit}>Add</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
