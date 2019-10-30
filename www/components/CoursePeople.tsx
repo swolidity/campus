@@ -71,7 +71,7 @@ export default function CoursePeople() {
       <Stack spacing={3}>
         {data.course.users.map(person => {
           return (
-            <Box shadow="sm" p="3">
+            <Box shadow="sm" p="3" key={person.id}>
               <Flex align="center">
                 <NextLink href="/users/[id]" as={`/users/${person.id}`}>
                   <Link>
