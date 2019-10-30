@@ -6,11 +6,12 @@ import { Heading } from "@chakra-ui/core";
 import { useLoggedInUser } from "../hooks/useLoggedInUser";
 
 const Index = () => {
-  const user = useLoggedInUser();
+  const { data } = useLoggedInUser();
 
   return (
     <Layout>
-      <Heading mb={8}>👋 Hi Andy Kay!</Heading>
+      {data.user ? <Heading mb={8}>👋 Hi {data.user.name}!</Heading> : null}
+
       <Heading mb={4} size="md">
         My Courses
       </Heading>

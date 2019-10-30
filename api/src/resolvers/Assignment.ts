@@ -5,6 +5,7 @@ export const Assignment = objectType({
   definition(t) {
     t.model.id();
     t.model.course();
+    t.model.name();
     t.model.points();
     t.model.createdAt();
     t.model.updatedAt();

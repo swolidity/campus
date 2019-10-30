@@ -8,10 +8,12 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  Button
+  Button,
+  Stack
 } from "@chakra-ui/core";
+import AddAssignmentModal from "./AddAssignmentModal";
 
-const GET_COURSE_WITH_GRADEBOOK = gql`
+export const GET_COURSE_WITH_GRADEBOOK = gql`
   query GetCourseWithGradebook($where: CourseWhereUniqueInput!) {
     course(where: $where) {
       id
@@ -19,6 +21,13 @@ const GET_COURSE_WITH_GRADEBOOK = gql`
       name
       title
       class_number
+      assignments {
+        id
+        name
+        points
+        createdAt
+        updatedAt
+      }
     }
   }
 `;
@@ -47,9 +56,20 @@ const CourseGradebook = () => {
           </Stat>
         </Box>
         <Box>
-          <Button leftIcon="add">Add</Button>
+          <AddAssignmentModal
+            courseID={data.course.id}
+            courseSlug={router.query.id}
+          />
         </Box>
       </Flex>
+
+      <Stack spacing={3}>
+        {data.course.assignments.map(assignment => (
+          <Box shadow="sm" p={3} key={assignment.id}>
+            {assignment.name}
+          </Box>
+        ))}
+      </Stack>
     </div>
   );
 };
