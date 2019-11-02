@@ -4,6 +4,7 @@ export const Assignment = objectType({
   name: "Assignment",
   definition(t) {
     t.model.id();
+    t.model.slug();
     t.model.course();
     t.model.name();
     t.model.points();

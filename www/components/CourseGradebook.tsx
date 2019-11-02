@@ -9,9 +9,11 @@ import {
   StatLabel,
   StatNumber,
   Button,
-  Stack
+  Stack,
+  Link
 } from "@chakra-ui/core";
 import AddAssignmentModal from "./AddAssignmentModal";
+import NextLink from "next/link";
 
 export const GET_COURSE_WITH_GRADEBOOK = gql`
   query GetCourseWithGradebook($where: CourseWhereUniqueInput!) {
@@ -23,6 +25,7 @@ export const GET_COURSE_WITH_GRADEBOOK = gql`
       class_number
       assignments {
         id
+        slug
         name
         points
         createdAt
@@ -66,7 +69,14 @@ const CourseGradebook = () => {
       <Stack spacing={3}>
         {data.course.assignments.map(assignment => (
           <Box shadow="sm" p={3} key={assignment.id}>
-            {assignment.name} ({assignment.points} pts)
+            <NextLink
+              href="/courses/[id]/gradebook/[slug]"
+              as={`/courses/${data.course.slug}/gradebook/${assignment.slug}`}
+            >
+              <Link>
+                {assignment.name} ({assignment.points} pts)
+              </Link>
+            </NextLink>
           </Box>
         ))}
       </Stack>

@@ -10,3 +10,5 @@
 20191025131857
 20191030115012-add-assignments-to-course-and-synapse-instance-id
 20191030123222-change-assignment-title-to-name
+20191031094949-add-assignment-slug
+20191102090833-make-assignment-slug-unique

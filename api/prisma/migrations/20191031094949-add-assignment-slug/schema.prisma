@@ -1,6 +1,6 @@
 datasource db {
   provider = "mysql"
-  url      = env("MYSQL_URL")
+  url = "***"
 }
 
 generator photonjs {
@@ -74,7 +74,7 @@ enum ContentType {
 
 model Assignment {
   id        String   @id @default(cuid())
-  slug      String   @unique
+  slug      String
   course    Course
   name      String
   points    Int

@@ -1,0 +1,15 @@
+{
+  "version": "0.3.14-fixed",
+  "steps": [
+    {
+      "stepType": "CreateField",
+      "model": "Assignment",
+      "name": "slug",
+      "type": {
+        "Base": "String"
+      },
+      "arity": "required",
+      "isUnique": false
+    }
+  ]
+}

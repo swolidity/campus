@@ -12,6 +12,7 @@ export const Query = queryType({
     t.crud.courseMessages();
 
     t.crud.content();
+    t.crud.assignment();
     t.crud.assignments();
     t.crud.grades();
 

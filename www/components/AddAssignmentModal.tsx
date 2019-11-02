@@ -19,9 +19,12 @@ import {
   NumberInputField,
   NumberInputStepper,
   NumberIncrementStepper,
-  NumberDecrementStepper
+  NumberDecrementStepper,
+  FormControl,
+  FormLabel
 } from "@chakra-ui/core";
 import { useFormik } from "formik";
+import sllug from "slug";
 
 import { GET_COURSE_WITH_GRADEBOOK } from "../components/CourseGradebook";
 
@@ -29,6 +32,7 @@ const ADD_ASSIGNMENT = gql`
   mutation AddAssignment($data: AssignmentCreateInput!) {
     createOneAssignment(data: $data) {
       id
+      slug
       name
       points
       createdAt
@@ -81,6 +85,7 @@ export default function AddAssignmentModal({ courseID, courseSlug }) {
           data: {
             course: { connect: { id: courseID } },
             name: values.name,
+            slug: sllug(values.name),
             points: values.points
           }
         }
@@ -94,8 +99,6 @@ export default function AddAssignmentModal({ courseID, courseSlug }) {
       });
     }
   });
-
-  console.log(formik.values);
 
   return (
     <div>
@@ -121,22 +124,28 @@ export default function AddAssignmentModal({ courseID, courseSlug }) {
                 id="name"
                 name="name"
                 type="text"
+                placeholder="Name"
                 onChange={formik.handleChange}
                 value={formik.values.name}
+                mb={2}
               />
-              <NumberInput
-                onChange={number =>
-                  formik.setFieldValue("points", parseInt(number))
-                }
-                value={formik.values.points}
-                id="points"
-              >
-                <NumberInputField type="number" />
-                <NumberInputStepper>
-                  <NumberIncrementStepper />
-                  <NumberDecrementStepper />
-                </NumberInputStepper>
-              </NumberInput>
+
+              <FormControl>
+                <FormLabel htmlFor="points">Points</FormLabel>
+                <NumberInput
+                  onChange={number =>
+                    formik.setFieldValue("points", parseInt(number))
+                  }
+                  value={formik.values.points}
+                  id="points"
+                >
+                  <NumberInputField type="number" />
+                  <NumberInputStepper>
+                    <NumberIncrementStepper />
+                    <NumberDecrementStepper />
+                  </NumberInputStepper>
+                </NumberInput>
+              </FormControl>
             </form>
           </ModalBody>
 
