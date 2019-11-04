@@ -43,8 +43,9 @@ const Layout = ({ children }) => {
                 <a className="logo">
                   <Image
                     height="45px"
-                    src="/static/campus@2x.png"
+                    src="/campus@2x.png"
                     alt="Campus"
+                    ignoreFallback
                   />
                 </a>
               </Link>

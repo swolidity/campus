@@ -10,6 +10,12 @@ export default function LoggedInUser() {
   const user = data.loggedInUser;
 
   return (
-    <Image size="45px" rounded="full" src={user.picture} alt={user.name} />
+    <Image
+      size="45px"
+      rounded="full"
+      src={user.picture}
+      alt={user.name}
+      ignoreFallback
+    />
   );
 }
