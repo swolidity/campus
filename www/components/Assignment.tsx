@@ -58,19 +58,16 @@ export default function Assignment() {
 
   const [grades, setGrades] = useState({});
 
-  const handlePointsChange = useCallback(
-    number => user => {
-      console.log("handlePointsChange");
-      setGrades(grades => ({
-        ...grades,
-        [user.id]: {
-          ...grades[user.id],
-          points: number
-        }
-      }));
-    },
-    []
-  );
+  const handlePointsChange = useCallback((number, user) => {
+    console.log("handlePointsChange");
+    setGrades(grades => ({
+      ...grades,
+      [user.id]: {
+        ...grades[user.id],
+        points: number
+      }
+    }));
+  }, []);
 
   if (loading) return <div>Loading...</div>;
 

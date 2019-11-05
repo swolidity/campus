@@ -35,7 +35,7 @@ const GradeRow = ({ user, points, onPointsChange }) => {
           mr={2}
           value={points}
           id="points"
-          onChange={number => onPointsChange(number)(user)}
+          onChange={number => onPointsChange(number, user)}
         >
           <NumberInputField />
           <NumberInputStepper>
