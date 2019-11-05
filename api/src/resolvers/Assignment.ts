@@ -8,6 +8,7 @@ export const Assignment = objectType({
     t.model.course();
     t.model.name();
     t.model.points();
+    t.model.grades();
     t.model.createdAt();
     t.model.updatedAt();
   }
