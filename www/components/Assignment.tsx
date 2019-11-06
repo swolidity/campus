@@ -21,6 +21,7 @@ import {
 } from "@chakra-ui/core";
 import { useState, useEffect, useCallback } from "react";
 import GradeRow from "../components/GradeRow";
+import { List, WindowScroller, AutoSizer } from "react-virtualized";
 
 const GET_ASSIGNMENT = gql`
   query GET_ASSIGNMENT($where: AssignmentWhereUniqueInput!) {
@@ -90,7 +91,7 @@ export default function Assignment() {
         )
       );
     }
-  }, [data.assignment.course.users]);
+  }, []);
 
   if (Object.keys(grades).length < 1) return null;
 
@@ -106,6 +107,16 @@ export default function Assignment() {
 
   console.log(grades);
 
+  const rowRenderer = ({ key, index, isScrolling, isVisible, style }) => (
+    <GradeRow
+      user={data.assignment.course.users[index]}
+      points={grades[data.assignment.course.users[index].id].points}
+      onPointsChange={handlePointsChange}
+      key={key}
+      style={style}
+    />
+  );
+
   return (
     <Box>
       <Heading mb={4}>{data.assignment.name}</Heading>
@@ -115,14 +126,26 @@ export default function Assignment() {
       </Button>
 
       <Stack spacing={2}>
-        {data.assignment.course.users.map(user => (
-          <GradeRow
-            user={user}
-            points={grades[user.id].points}
-            onPointsChange={handlePointsChange}
-            key={user.id}
-          />
-        ))}
+        <WindowScroller>
+          {({ height, isScrolling, onChildScroll, scrollTop }) => (
+            <AutoSizer disableHeight>
+              {({ width }) => (
+                <List
+                  autoHeight
+                  height={height}
+                  width={width}
+                  scrollTop={scrollTop}
+                  isScrolling={isScrolling}
+                  onScroll={onChildScroll}
+                  rowCount={data.assignment.course.users.length}
+                  rowHeight={100}
+                  rowRenderer={rowRenderer}
+                  overscanRowCount={5}
+                />
+              )}
+            </AutoSizer>
+          )}
+        </WindowScroller>
       </Stack>
     </Box>
   );

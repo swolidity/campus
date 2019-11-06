@@ -13,42 +13,44 @@ import {
   Input
 } from "@chakra-ui/core";
 
-const GradeRow = ({ user, points, onPointsChange }) => {
+const GradeRow = ({ user, points, onPointsChange, ...rest }) => {
   console.log("GradeRow render");
   return (
-    <Box shadow="sm" p={2}>
-      <Flex align="center" mb={2}>
-        <Avatar src={user.picture} name={user.name} mr={2} size="sm" />
-        <Text>{user.name}</Text>
-      </Flex>
+    <div {...rest}>
+      <Box>
+        <Flex align="center" mb={2}>
+          <Avatar src={user.picture} name={user.name} mr={2} size="sm" />
+          <Text>{user.name}</Text>
+        </Flex>
 
-      <Flex align="center">
-        <Select
-          aria-labelledby="Letter Grade"
-          placeholder="Letter Grade"
-        ></Select>
+        <Flex align="center">
+          <Select
+            aria-labelledby="Letter Grade"
+            placeholder="Letter Grade"
+          ></Select>
 
-        <NumberInput
-          defaultValue={0}
-          precision={2}
-          step={1}
-          mr={2}
-          value={points}
-          id="points"
-          onChange={number => onPointsChange(number, user)}
-        >
-          <NumberInputField />
-          <NumberInputStepper>
-            <NumberIncrementStepper />
-            <NumberDecrementStepper />
-          </NumberInputStepper>
-        </NumberInput>
+          <NumberInput
+            defaultValue={0}
+            precision={2}
+            step={1}
+            mr={2}
+            value={points}
+            id="points"
+            onChange={number => onPointsChange(number, user)}
+          >
+            <NumberInputField />
+            <NumberInputStepper>
+              <NumberIncrementStepper />
+              <NumberDecrementStepper />
+            </NumberInputStepper>
+          </NumberInput>
 
-        <Text>Points</Text>
+          <Text>Points</Text>
 
-        <Input placeholder="%" />
-      </Flex>
-    </Box>
+          <Input placeholder="%" />
+        </Flex>
+      </Box>
+    </div>
   );
 };
 
