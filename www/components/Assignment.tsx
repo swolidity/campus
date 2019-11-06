@@ -140,7 +140,6 @@ export default function Assignment() {
                   rowCount={data.assignment.course.users.length}
                   rowHeight={100}
                   rowRenderer={rowRenderer}
-                  overscanRowCount={5}
                 />
               )}
             </AutoSizer>
