@@ -101,7 +101,7 @@ export default function AddPeopleToCourse({ courseID }) {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
+          <ModalHeader>Add To Course</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Downshift

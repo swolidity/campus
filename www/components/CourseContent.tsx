@@ -12,7 +12,7 @@ import {
   Stack
 } from "@chakra-ui/core";
 import AddUnitModal from "../components/AddUnitModal";
-import { unionWith } from "eslint-visitor-keys";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export const GET_COURSE_WITH_UNITS = gql`
   query GetCourseWithUnits($where: CourseWhereUniqueInput!) {
@@ -63,7 +63,7 @@ const CourseContent = () => {
 
       <Stack spacing={3}>
         {data.course.units.map(unit => (
-          <Box p={4} shadow="sm">
+          <Box p={4} shadow="sm" key={unit.id}>
             {unit.name}
           </Box>
         ))}

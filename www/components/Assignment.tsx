@@ -122,11 +122,13 @@ export default function Assignment() {
     <Box>
       <Heading mb={4}>{data.assignment.name}</Heading>
 
-      <Button color="green" mb={4} onClick={setAllPointsTo}>
-        Set All Points To 10
-      </Button>
+      <Flex justify="space-between" mb={4}>
+        <Button color="green" mb={4} onClick={setAllPointsTo}>
+          Set All Points To 10
+        </Button>
 
-      <AssignmentActionsDrawer />
+        <AssignmentActionsDrawer />
+      </Flex>
 
       <Stack spacing={2}>
         <WindowScroller>
