@@ -5,7 +5,7 @@ import { Stack, Box, Heading, Link, Text } from "@chakra-ui/core";
 
 const GET_COURSES = gql`
   query getCourses {
-    courses {
+    coursesByPin {
       id
       name
       slug
@@ -26,7 +26,7 @@ export default function CourseList() {
 
   return (
     <Stack spacing={4}>
-      {data.courses.map(course => (
+      {data.coursesByPin.map(course => (
         <Box p={5} shadow="sm" key={course.id} className="course">
           <NextLink href="/courses/[id]" as={`/courses/${course.slug}`}>
             <Link>

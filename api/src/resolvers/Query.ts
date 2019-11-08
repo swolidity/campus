@@ -16,6 +16,19 @@ export const Query = queryType({
     t.crud.assignments();
     t.crud.grades();
 
+    t.list.field("coursesByPin", {
+      type: "Course",
+      resolve: async (root, _, ctx) => {
+        const courses = await ctx.photon.courses.findMany({
+          orderBy: {
+            pinned: "desc"
+          }
+        });
+
+        return courses;
+      }
+    });
+
     t.field("findCourse", {
       type: "Course",
       args: {

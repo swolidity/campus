@@ -13,6 +13,7 @@ export const Course = objectType({
     t.model.users();
     t.model.content();
     t.model.assignments();
+    t.model.pinned();
     t.model.createdAt();
     t.model.updatedAt();
   }
