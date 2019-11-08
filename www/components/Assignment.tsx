@@ -22,6 +22,7 @@ import {
 import { useState, useEffect, useCallback } from "react";
 import GradeRow from "../components/GradeRow";
 import { List, WindowScroller, AutoSizer } from "react-virtualized";
+import AssignmentActionsDrawer from "../components/AssignmentActionsDrawer";
 
 const GET_ASSIGNMENT = gql`
   query GET_ASSIGNMENT($where: AssignmentWhereUniqueInput!) {
@@ -124,6 +125,8 @@ export default function Assignment() {
       <Button color="green" mb={4} onClick={setAllPointsTo}>
         Set All Points To 10
       </Button>
+
+      <AssignmentActionsDrawer />
 
       <Stack spacing={2}>
         <WindowScroller>

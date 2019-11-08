@@ -28,8 +28,8 @@ const Layout = ({ children }) => {
       <Meta />
 
       <ThemeProvider theme={customTheme}>
-        <CSSReset />
         <ColorModeProvider value="light">
+          <CSSReset />
           <Flex
             px={8}
             py={3}

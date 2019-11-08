@@ -19,6 +19,11 @@ export const Mutation = mutationType({
     t.crud.upsertOneAssignment();
     t.crud.deleteOneAssignment();
 
+    t.crud.createOneUnit();
+    t.crud.updateOneUnit();
+    t.crud.upsertOneUnit();
+    t.crud.deleteOneUnit();
+
     t.field("createCourse", {
       type: "Course",
       args: { data: arg({ type: "CourseCreateInput" }) },

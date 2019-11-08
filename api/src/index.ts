@@ -6,16 +6,7 @@ import { rule, shield, and, or, not } from "graphql-shield";
 import { applyMiddleware } from "graphql-middleware";
 import { join } from "path";
 import { Context } from "./types";
-import {
-  Course,
-  CourseMessage,
-  Mutation,
-  Query,
-  User,
-  Assignment,
-  Content,
-  Grade
-} from "./resolvers";
+import * as types from "./resolvers";
 import jwt from "jsonwebtoken";
 import express = require("express");
 
@@ -73,17 +64,7 @@ const permissions = shield({
 
 const schema = applyMiddleware(
   makeSchema({
-    types: [
-      Query,
-      Mutation,
-      User,
-      Course,
-      CourseMessage,
-      Upload,
-      Content,
-      Assignment,
-      Grade
-    ],
+    types: { ...types, Upload },
     plugins: [nexusPrisma],
     outputs: {
       typegen: join(__dirname, "../generated/nexus-typegen.ts"),

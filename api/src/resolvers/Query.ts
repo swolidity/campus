@@ -11,6 +11,8 @@ export const Query = queryType({
     t.crud.courseMessage();
     t.crud.courseMessages();
 
+    t.crud.unit();
+    t.crud.units();
     t.crud.content();
     t.crud.assignment();
     t.crud.assignments();

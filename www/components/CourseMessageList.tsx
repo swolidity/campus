@@ -46,6 +46,7 @@ export default function CourseMessageList({ courseID }) {
                   src={courseMessage.user.picture}
                   alt={courseMessage.user.name}
                   mr={4}
+                  ignoreFallback
                 />
               </Link>
             </NextLink>

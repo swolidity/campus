@@ -8,19 +8,23 @@ import {
   Stat,
   StatLabel,
   StatNumber,
-  Button
+  Button,
+  Stack
 } from "@chakra-ui/core";
+import AddUnitModal from "../components/AddUnitModal";
+import { unionWith } from "eslint-visitor-keys";
 
-const GET_COURSE_WITH_CONTENT = gql`
-  query GetCourseWithContent($where: CourseWhereUniqueInput!) {
+export const GET_COURSE_WITH_UNITS = gql`
+  query GetCourseWithUnits($where: CourseWhereUniqueInput!) {
     course(where: $where) {
       id
       slug
       name
       title
       class_number
-      content {
+      units {
         id
+        name
       }
     }
   }
@@ -28,7 +32,7 @@ const GET_COURSE_WITH_CONTENT = gql`
 
 const CourseContent = () => {
   const router = useRouter();
-  const { loading, error, data } = useQuery(GET_COURSE_WITH_CONTENT, {
+  const { loading, error, data } = useQuery(GET_COURSE_WITH_UNITS, {
     variables: {
       where: {
         slug: router.query.id
@@ -50,9 +54,20 @@ const CourseContent = () => {
           </Stat>
         </Box>
         <Box>
-          <Button leftIcon="add">Add</Button>
+          <AddUnitModal
+            courseID={data.course.id}
+            courseSlug={data.course.slug}
+          />
         </Box>
       </Flex>
+
+      <Stack spacing={3}>
+        {data.course.units.map(unit => (
+          <Box p={4} shadow="sm">
+            {unit.name}
+          </Box>
+        ))}
+      </Stack>
     </div>
   );
 };
